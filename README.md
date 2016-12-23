@@ -150,7 +150,7 @@ h = {
 ## ..to myself,
 1. Write a good Java implementation,
     * Which could be easily embeddable/intergrate-able and optimizable.
-    * Eg. Object-poolings to reduce-GCs, Parallization, and JIT compilation, etc.
+    * Eg. Object-poolings to reduce-GCs, Parallelization, and JIT compilation, etc.
    
 ## ..to people who wants use this language,
 1. Design and Write mapped-functions to express business-centric rules.
