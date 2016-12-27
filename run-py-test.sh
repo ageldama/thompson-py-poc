@@ -1,1 +1,1 @@
-py.test -v tests 
+py.test -v thompson tests #  --doctest-modules
