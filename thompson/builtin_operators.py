@@ -182,19 +182,19 @@ class NotEqual(ExprNode):
 
 
 class IsNull(ExprNode):
-    def __init__(self, a, b):
-        self.a, self.b = a, b
+    def __init__(self, a):
+        self.a = a
 
     def __str__(self):
-        return "IsNull[{}, {}]".format(str(self.a), str(self.b))
+        return "IsNull[{}]".format(str(self.a))
 
 
 class IsNotNull(ExprNode):
-    def __init__(self, a, b):
-        self.a, self.b = a, b
+    def __init__(self, a):
+        self.a = a
 
     def __str__(self):
-        return "IsNotNull[{}, {}]".format(str(self.a), str(self.b))
+        return "IsNotNull[{}]".format(str(self.a))
 
 
 class Assign(ExprNode):

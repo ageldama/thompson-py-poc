@@ -5,8 +5,11 @@
 * TODO simple evaluators per builtin-ops.
   - <2016-12-28 Wed>
 
+* TODO eq, ne for func-literals?
+  - <2016-12-28 Wed>
 
-* TODO Add some ~__repr__~ to nodes.
+
+* DONE Add some ~__repr__~ to nodes.
   - <2016-12-28 Wed> for debugging.
 
 

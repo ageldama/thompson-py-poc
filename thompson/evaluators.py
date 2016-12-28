@@ -1,12 +1,14 @@
 # -*- coding: utf-8; -*-
 from abc import abstractmethod
 from thompson.literals import LiteralNode, NilConst, NullVal, BoolVal
-from thompson.literals import NumberVal
+from thompson.literals import NumberVal, StringVal
 from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
 from thompson.builtin_operators import ArithPlus, ArithMinus
 from thompson.builtin_operators import ArithDiv, ArithDivDiv, ArithRem
 from thompson.builtin_operators import ArithMult, ArithMultMult
 from thompson.builtin_operators import ComparLt, ComparLe, ComparGt, ComparGe
+from thompson.builtin_operators import Equal, NotEqual
+from thompson.builtin_operators import IsNotNull, IsNull
 
 
 def find_evaluator(context, node):
@@ -147,9 +149,35 @@ class ComparGeEvaluator(Evaluator):
         b_ = eval_and_type_check(context, node.b, NumberVal)
         return BoolVal(a_.get() >= b_.get())
 
-# TODO: Equal, NotEqual
 
-# TODO: IsNull, IsNotNull
+class EqualEvaluator(Evaluator):
+    def eval(self, context, node):
+        allows = (BoolVal, NullVal, StringVal, NumberVal)
+        a_ = eval_and_type_check(context, node.a, allows)
+        b_ = eval_and_type_check(context, node.b, allows)
+        if type(a_) != type(b_):
+            return BoolVal(False)        
+        if isinstance(a_, NullVal) and isinstance(b_, NullVal):
+            return BoolVal(True)
+        else:
+            return BoolVal(a_.get() == b_.get())
+
+
+class NotEqualEvaluator(EqualEvaluator):
+    def eval(self, context, node):
+        return BoolVal(not super().eval(context, node).get())
+
+
+class IsNullEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = evaluate(context, node.a)
+        return BoolVal(isinstance(a_, NullVal))
+
+
+class IsNotNullEvaluator(IsNullEvaluator):
+    def eval(self, context, node):
+        return BoolVal(not super().eval(context, node).get())
+
 
 # TODO: Assign
 # TODO: AssignUpvar
@@ -187,5 +215,9 @@ __evaluators__ = {
     (ComparLe,): ComparLeEvaluator(),
     (ComparGe,): ComparGeEvaluator(),
     (ComparGt,): ComparGtEvaluator(),
+    (Equal,): EqualEvaluator(),
+    (NotEqual,): NotEqualEvaluator(),
+    (IsNull,): IsNullEvaluator(),
+    (IsNotNull,): IsNotNullEvaluator(),
     (Pass,): PassEvaluator(),
 }
