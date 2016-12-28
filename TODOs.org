@@ -1,11 +1,48 @@
+* 
 * TODO JSON Ser/DeSer?
   - <2016-12-27 Tue>
+    - https://github.com/antidot/Pyckson
+      - (I guess) Jackson-clone.
+      - Seems nice fit to PoC's objective. (because, it will rewritten
+        in Java later).
 
 * TODO ~Comments~ on everywhere?
   - <2016-12-27 Tue> Every node should be able to have a comment.
 
-* TODO evaluator.
+* TODO the /evaluator/.
   - <2016-12-27 Tue>
 
 * TODO const?
   - <2016-12-27 Tue>
+    1. should ~Binding~ support this?
+    2. ..or just implement this with its evaluator?
+
+* TODO let-bindings?
+  - <2016-12-28 Wed>
+    1. support upvar, global, const?
+    2. depend each binding, DAC-graph.
+    3. ..is it should be in primitives? or just implement with
+       mapped-func?
+
+* TODO remove doctest.
+  - <2016-12-28 Wed>
+
+* TODO simple evaluators per builtin-ops.
+  - <2016-12-28 Wed>
+
+* TODO a stack needs for ~funcall~?
+  - <2016-12-28 Wed>
+
+* TODO mapped-vars and mapped-funcs.
+  - <2016-12-28 Wed>
+
+
+* TODO Update the README.
+  - <2016-12-28 Wed>
+    1) Separate contents by sections.
+
+
+* DONE pytest for elpy-test-runner.
+  - <2016-12-28 Wed>
+    -
+      http://projectile.readthedocs.io/en/latest/configuration/#customizing-project-root-files
