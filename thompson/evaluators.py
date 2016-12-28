@@ -1,7 +1,11 @@
 # -*- coding: utf-8; -*-
 from abc import abstractmethod
 from thompson.literals import LiteralNode, NilConst, NullVal, BoolVal
+from thompson.literals import NumberVal
 from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
+from thompson.builtin_operators import ArithPlus, ArithMinus
+from thompson.builtin_operators import ArithDiv, ArithDivDiv, ArithRem
+from thompson.builtin_operators import ArithMult, ArithMultMult
 
 
 def find_evaluator(context, node):
@@ -38,40 +42,80 @@ class PassEvaluator(Evaluator):
         return NilConst
 
 
+def eval_and_type_check(context, node, type_pred):
+    node_ = evaluate(context, node)
+    assert isinstance(node_, type_pred)
+    return node_
+
+
 class LogAndEvaluator(Evaluator):
     def eval(self, context, node):
-        a_ = evaluate(context, node.a)
-        assert isinstance(a_, BoolVal)
-        b_ = evaluate(context, node.b)
-        assert isinstance(b_, BoolVal)
+        a_ = eval_and_type_check(context, node.a, BoolVal)
+        b_ = eval_and_type_check(context, node.b, BoolVal)
         return BoolVal(a_.get() and b_.get())
 
 
 class LogOrEvaluator(Evaluator):
     def eval(self, context, node):
-        a_ = evaluate(context, node.a)
-        assert isinstance(a_, BoolVal)
-        b_ = evaluate(context, node.b)
-        assert isinstance(b_, BoolVal)
+        a_ = eval_and_type_check(context, node.a, BoolVal)
+        b_ = eval_and_type_check(context, node.b, BoolVal)
         return BoolVal(a_.get() or b_.get())
 
 
 class LogNotEvaluator(Evaluator):
     def eval(self, context, node):
-        a_ = evaluate(context, node.a)
-        assert isinstance(a_, BoolVal)
+        a_ = eval_and_type_check(context, node.a, BoolVal)
         return BoolVal(not a_.get())
 
 
-"""
-class ArithOpsEvaluator(Evaluator):
+class ArithPlusEvaluator(Evaluator):
     def eval(self, context, node):
-        if 
-"""
-        
-# TODO: ArithPlus, ArithMinus,
-# TODO: ArithDiv, ArithRem, ArithDivDiv
-# TODO: ArithMult, ArithMultMult
+        a_ = eval_and_type_check(context, node.a, NumberVal)
+        b_ = eval_and_type_check(context, node.b, NumberVal)
+        return NumberVal(a_.get() + b_.get())
+
+
+class ArithMinusEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = eval_and_type_check(context, node.a, NumberVal)
+        b_ = eval_and_type_check(context, node.b, NumberVal)
+        return NumberVal(a_.get() - b_.get())
+
+
+class ArithMultEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = eval_and_type_check(context, node.a, NumberVal)
+        b_ = eval_and_type_check(context, node.b, NumberVal)
+        return NumberVal(a_.get() * b_.get())
+
+
+class ArithMultMultEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = eval_and_type_check(context, node.a, NumberVal)
+        nth_ = eval_and_type_check(context, node.nth, NumberVal)
+        return NumberVal(a_.get() ** nth_.get())
+
+
+class ArithDivEvaluator(Evaluator):
+    def eval(self, context, node):
+        num_ = eval_and_type_check(context, node.numerator, NumberVal)
+        denom_ = eval_and_type_check(context, node.denominator, NumberVal)
+        return NumberVal(num_.get() / denom_.get())
+
+
+class ArithRemEvaluator(Evaluator):
+    def eval(self, context, node):
+        num_ = eval_and_type_check(context, node.numerator, NumberVal)
+        denom_ = eval_and_type_check(context, node.denominator, NumberVal)
+        return NumberVal(num_.get() % denom_.get())
+
+
+class ArithDivDivEvaluator(Evaluator):
+    def eval(self, context, node):
+        num_ = eval_and_type_check(context, node.numerator, NumberVal)
+        denom_ = eval_and_type_check(context, node.denominator, NumberVal)
+        return NumberVal(num_.get() // denom_.get())
+
 
 # TODO: ComparLt, Le, Gt, Ge
 
@@ -104,5 +148,12 @@ __evaluators__ = {
     (LogOr,): LogOrEvaluator(),
     (LogAnd,): LogAndEvaluator(),
     (LogNot,): LogNotEvaluator(),
+    (ArithPlus,): ArithPlusEvaluator(),
+    (ArithMinus,): ArithMinusEvaluator(),
+    (ArithMult,): ArithMultEvaluator(),
+    (ArithMultMult,): ArithMultMultEvaluator(),
+    (ArithRem,): ArithRemEvaluator(),
+    (ArithDiv,): ArithDivEvaluator(),
+    (ArithDivDiv,): ArithDivDivEvaluator(),
     (Pass,): PassEvaluator(),
 }

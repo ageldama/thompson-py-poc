@@ -1,6 +1,10 @@
+* TODO exchange ~/~ and ~//~ ops in READMEs.
+  - <2016-12-28 Wed> Just like in Python.
+
 
 * TODO simple evaluators per builtin-ops.
   - <2016-12-28 Wed>
+
 
 * DONE ~__eq__~ methods for some literal-nodes?
   - <2016-12-28 Wed>
@@ -61,3 +65,4 @@
   - <2016-12-28 Wed>
     -
       http://projectile.readthedocs.io/en/latest/configuration/#customizing-project-root-files
+
