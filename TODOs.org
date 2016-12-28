@@ -1,4 +1,25 @@
-* 
+
+* TODO simple evaluators per builtin-ops.
+  - <2016-12-28 Wed>
+
+* DONE ~__eq__~ methods for some literal-nodes?
+  - <2016-12-28 Wed>
+
+* TODO storing function defs?
+  - <2016-12-28 Wed>
+    1) in binding?
+    2) as an object-tree?
+
+* TODO a stack needs for ~funcall~?
+  - <2016-12-28 Wed>
+
+* TODO mapped-vars and mapped-funcs.
+  - <2016-12-28 Wed>
+
+
+* TODO Arrange packages (nodes, builtin-ops, evaluators)
+  - <2016-12-28 Wed>
+
 * TODO JSON Ser/DeSer?
   - <2016-12-27 Tue>
     - https://github.com/antidot/Pyckson
@@ -26,15 +47,6 @@
     2. depend each binding, DAC-graph.
     3. ..is it should be in primitives? or just implement with
        mapped-func?
-
-* TODO simple evaluators per builtin-ops.
-  - <2016-12-28 Wed>
-
-* TODO a stack needs for ~funcall~?
-  - <2016-12-28 Wed>
-
-* TODO mapped-vars and mapped-funcs.
-  - <2016-12-28 Wed>
 
 
 * TODO Update the README.
