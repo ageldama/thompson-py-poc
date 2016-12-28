@@ -11,6 +11,9 @@
 
 * TODO the /evaluator/.
   - <2016-12-27 Tue>
+    - or just use term /interpreter/.
+      - because using same term evaluator for a node and nodes is
+        confusing.
 
 * TODO const?
   - <2016-12-27 Tue>
@@ -23,9 +26,6 @@
     2. depend each binding, DAC-graph.
     3. ..is it should be in primitives? or just implement with
        mapped-func?
-
-* TODO remove doctest.
-  - <2016-12-28 Wed>
 
 * TODO simple evaluators per builtin-ops.
   - <2016-12-28 Wed>
@@ -40,6 +40,9 @@
 * TODO Update the README.
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+
+* DONE remove doctest.
+  - <2016-12-28 Wed> just use doctests as docstrings.
 
 
 * DONE pytest for elpy-test-runner.
