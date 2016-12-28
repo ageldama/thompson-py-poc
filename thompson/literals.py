@@ -18,17 +18,17 @@ class LiteralNode(Node):
 
 class BoolVal(LiteralNode):
     def __init__(self, v):
-        self.__v = v
+        self.set(v)
 
     def set(self, v):
-        # TODO: type-checking
-        self.__v = v
+        assert isinstance(v, bool)
+        self.v = v
 
     def get(self):
-        return self.__v
+        return self.v
 
     def __str__(self):
-        return str(self.__v)
+        return str(self.v)
 
 
 class NullVal(LiteralNode):
@@ -36,19 +36,40 @@ class NullVal(LiteralNode):
         return "null"
 
 
-class FunctionVal(LiteralNode):
-    pass
+NilConst = NullVal()
 
 
 class StringVal(LiteralNode):
     def __init__(self, v):
-        self.__v = v
+        self.set(v)
 
     def get(self):
-        return self.__v
+        return self.v
 
     def set(self, v):
-        self.__v = v
+        assert isinstance(v, str)
+        self.v = v
 
     def __str__(self):
-        return str(self.__v)
+        return str(self.v)
+
+
+class NumberVal(LiteralNode):
+    def __init__(self, v):
+        self.set(v)
+
+    def get(self):
+        return self.v
+
+    def set(self, v):
+        assert not isinstance(v, bool)
+        assert isinstance(v, (int, float,))
+        self.v = v
+
+    def __str__(self):
+        return str(self.v)
+
+
+class FunctionVal(LiteralNode):
+    # TODO:
+    pass

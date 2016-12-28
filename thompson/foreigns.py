@@ -15,5 +15,3 @@ class ForeignFunc(ForeignValueNode):
     pass
 
 
-class NumberVal(ForeignValueNode):
-    pass
