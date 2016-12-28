@@ -5,11 +5,11 @@ from thompson.context import Context
 from thompson.evaluators import evaluate
 
 
-@fixture
+@fixture(scope='function')
 def empty_context():
     return Context(Binding())
 
 
-@fixture
+@fixture(scope='function')
 def empty_context_eval(empty_context):
     return lambda n: evaluate(empty_context, n)

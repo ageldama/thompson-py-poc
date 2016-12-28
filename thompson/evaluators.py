@@ -2,6 +2,7 @@
 from abc import abstractmethod
 from thompson.literals import LiteralNode, NilConst, NullVal, BoolVal
 from thompson.literals import NumberVal, StringVal
+from thompson.builtin_operators import ExprNode
 from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
 from thompson.builtin_operators import ArithPlus, ArithMinus
 from thompson.builtin_operators import ArithDiv, ArithDivDiv, ArithRem
@@ -9,6 +10,8 @@ from thompson.builtin_operators import ArithMult, ArithMultMult
 from thompson.builtin_operators import ComparLt, ComparLe, ComparGt, ComparGe
 from thompson.builtin_operators import Equal, NotEqual
 from thompson.builtin_operators import IsNotNull, IsNull
+from thompson.builtin_operators import BindingRef
+from thompson.builtin_operators import Assign, AssignGlobal, AssignUpvar
 
 
 def find_evaluator(context, node):
@@ -156,7 +159,7 @@ class EqualEvaluator(Evaluator):
         a_ = eval_and_type_check(context, node.a, allows)
         b_ = eval_and_type_check(context, node.b, allows)
         if type(a_) != type(b_):
-            return BoolVal(False)        
+            return BoolVal(False)
         if isinstance(a_, NullVal) and isinstance(b_, NullVal):
             return BoolVal(True)
         else:
@@ -179,10 +182,43 @@ class IsNotNullEvaluator(IsNullEvaluator):
         return BoolVal(not super().eval(context, node).get())
 
 
-# TODO: Assign
-# TODO: AssignUpvar
-# TODO: AssignGlobal
-# TODO: Const
+def gimme_str_anyway(context, node):
+    if isinstance(node, ExprNode):
+        k = evaluate(context, node)
+        return str(k.get())
+    else:
+        return str(node)
+
+
+class BindingRefEvaluator(Evaluator):
+    def eval(self, context, node):
+        k = gimme_str_anyway(context, node.k)
+        return context.binding.get(k)
+
+
+class AssignEvaluator(Evaluator):
+    def eval(self, context, node):
+        k = gimme_str_anyway(context, node.dst)
+        v = evaluate(context, node.src)
+        context.binding.set(k, v)
+        return v
+
+
+class AssignUpvarEvaluator(Evaluator):
+    def eval(self, context, node):
+        k = gimme_str_anyway(context, node.dst)
+        v = evaluate(context, node.src)
+        context.binding.set_uplevel(k, v)
+        return v
+
+
+class AssignGlobalEvaluator(Evaluator):
+    def eval(self, context, node):
+        k = gimme_str_anyway(context, node.dst)
+        v = evaluate(context, node.src)
+        context.binding.set_global(k, v)
+        return v
+
 
 # TODO: Prog1
 # TODO: ProgN
@@ -194,9 +230,8 @@ class IsNotNullEvaluator(IsNullEvaluator):
 # TODO: CaseElse
 # TODO: CondElse
 
+# TODO: Const
 # TODO: funcall
-
-# TODO: binding-ref?
 
 
 __evaluators__ = {
@@ -219,5 +254,9 @@ __evaluators__ = {
     (NotEqual,): NotEqualEvaluator(),
     (IsNull,): IsNullEvaluator(),
     (IsNotNull,): IsNotNullEvaluator(),
+    (Assign,): AssignEvaluator(),
+    (AssignUpvar,): AssignUpvarEvaluator(),
+    (AssignGlobal,): AssignGlobalEvaluator(),
+    (BindingRef,): BindingRefEvaluator(),
     (Pass,): PassEvaluator(),
 }

@@ -308,4 +308,12 @@ class CondElse(ExprNode):
             str(self.cond_items), str(self.else_clause))
 
 
+class BindingRef(Node):
+    def __init__(self, k):
+        self.k = k
+
+    def __str__(self):
+        return "BindingRef[{}]".format(self.k)
+
+
 # TODO: inline-function-def?
