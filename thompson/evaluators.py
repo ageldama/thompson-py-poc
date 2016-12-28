@@ -1,8 +1,7 @@
 # -*- coding: utf-8; -*-
 from abc import abstractmethod
-from thompson.literals import LiteralNode, NilConst, NullVal
-from thompson.builtin_operators import Pass
-
+from thompson.literals import LiteralNode, NilConst, NullVal, BoolVal
+from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
 
 
 def find_evaluator(context, node):
@@ -18,7 +17,7 @@ def evaluate(context, node):
     return evaluator.eval(context, node)
 
 
-class Evaluator(object):    
+class Evaluator(object):
     @abstractmethod
     def eval(self, context, node):
         pass
@@ -32,13 +31,11 @@ class LiteralEvaluator(Evaluator):
         else:
             return node
 
-    
+
 class PassEvaluator(Evaluator):
     def eval(self, context, node):
         assert isinstance(node, Pass)
         return NilConst
-
-    
 
 
 # TODO: Prog1
@@ -48,11 +45,26 @@ class PassEvaluator(Evaluator):
 
 # TODO: funcall
 
-# TODO: LogAnd, LogOr, LogNot
-"""
 class LogOpsEvaluator(Evaluator):
-    pass
-"""
+    def eval(self, context, node):
+        if isinstance(node, LogOr):
+            a_ = evaluate(context, node.a)
+            assert isinstance(a_, BoolVal)
+            b_ = evaluate(context, node.b)
+            assert isinstance(b_, BoolVal)
+            return BoolVal(a_.get() or b_.get())
+        elif isinstance(node, LogAnd):
+            a_ = evaluate(context, node.a)
+            assert isinstance(a_, BoolVal)
+            b_ = evaluate(context, node.b)
+            assert isinstance(b_, BoolVal)
+            return BoolVal(a_.get() and b_.get())
+        elif isinstance(node, LogNot):
+            a_ = evaluate(context, node.a)
+            assert isinstance(a_, BoolVal)
+            return BoolVal(not a_.get())
+        else:
+            raise TypeError("Unknown Logical-Op type = {}".format(str(node)))
 
 # TODO: ArithPlus, ArithMinus,
 # TODO: ArithDiv, ArithRem, ArithDivDiv
@@ -79,6 +91,6 @@ class LogOpsEvaluator(Evaluator):
 
 __evaluators__ = {
     (LiteralNode,): LiteralEvaluator(),
+    (LogOr, LogAnd, LogNot,): LogOpsEvaluator(),
     (Pass,): PassEvaluator(),
 }
-
