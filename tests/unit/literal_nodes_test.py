@@ -13,7 +13,11 @@ def test_literal_nodes_type_oks():
 
 @fixture(params=[(BoolVal, 42,), (BoolVal, '',),
                  (NumberVal, '42',), (NumberVal, True,),
-                 (StringVal, 42,), (StringVal, 3.14,), (StringVal, True,)])
+                 (StringVal, 42,), (StringVal, 3.14,), (StringVal, True,)],
+         ids=['BoolVal-with-int', 'BoolVal-with-str',
+              'NumberVal-with-str', 'NumberVal-with-bool',
+              'StringVal-with-int', 'StringVal-with-float',
+              'StringVal-with-bool'])
 def literal_node_ctr_and_param(request):
     return request.param
 
