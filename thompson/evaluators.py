@@ -14,6 +14,7 @@ from thompson.builtin_operators import BindingRef
 from thompson.builtin_operators import Assign, AssignGlobal, AssignUpvar
 from thompson.builtin_operators import Prog1, ProgN, ParProg
 from thompson.builtin_operators import IfThenElse, When, Unless
+from thompson.builtin_operators import CaseElse, CondElse
 
 
 def find_evaluator(context, node):
@@ -247,7 +248,7 @@ class ParProg_Evaluator(ProgN_Evaluator):
 
 
 def is_kinda_null(v):
-    return v is None or v == NilConst
+    return v is None or NilConst == v
 
 
 class IfThenElseEvaluator(Evaluator):
@@ -274,11 +275,38 @@ class UnlessEvaluator(IfThenElseEvaluator):
         return super().eval(context, node, skip_else=True, negate_cond=True)
 
 
-# TODO: CaseElse
-# TODO: CondElse
+class CaseElseEvaluator(Evaluator):
+    def eval(self, context, node):
+        v_ = evaluate(context, node.v)
+        for case_item in node.case_items:
+            other_ = evaluate(context, case_item.v)
+            if v_ == other_:
+                return evaluate(context, case_item.then_clause)
+        if not is_kinda_null(node.else_clause):
+            return evaluate(context, node.else_clause)
+        else:
+            return NilConst
+
+
+class CondElseEvaluator(Evaluator):
+    def eval(self, context, node):
+        for cond_item in node.cond_items:
+            cond_ = evaluate(context, cond_item.cond)
+            if cond_ == BoolVal(True):
+                return evaluate(context, cond_item.then_clause)
+        if not is_kinda_null(node.else_clause):
+            return evaluate(context, node.else_clause)
+        else:
+            return NilConst
+
+
+# TODO: fundef
+# TODO: funcall
+
+# TODO: mapped-binding-ref (vars)
+# TODO: mapped-binding-ref (funcs)
 
 # TODO: Const
-# TODO: funcall
 
 
 __evaluators__ = {
@@ -311,5 +339,7 @@ __evaluators__ = {
     (IfThenElse,): IfThenElseEvaluator(),
     (When,): WhenEvaluator(),
     (Unless,): UnlessEvaluator(),
+    (CaseElse,): CaseElseEvaluator(),
+    (CondElse,): CondElseEvaluator(),
     (Pass,): PassEvaluator(),
 }
