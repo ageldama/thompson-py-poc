@@ -38,34 +38,37 @@ class PassEvaluator(Evaluator):
         return NilConst
 
 
-# TODO: Prog1
-# TODO: ProgN
-# TODO: ParProg
-
-
-# TODO: funcall
-
-class LogOpsEvaluator(Evaluator):
+class LogAndEvaluator(Evaluator):
     def eval(self, context, node):
-        if isinstance(node, LogOr):
-            a_ = evaluate(context, node.a)
-            assert isinstance(a_, BoolVal)
-            b_ = evaluate(context, node.b)
-            assert isinstance(b_, BoolVal)
-            return BoolVal(a_.get() or b_.get())
-        elif isinstance(node, LogAnd):
-            a_ = evaluate(context, node.a)
-            assert isinstance(a_, BoolVal)
-            b_ = evaluate(context, node.b)
-            assert isinstance(b_, BoolVal)
-            return BoolVal(a_.get() and b_.get())
-        elif isinstance(node, LogNot):
-            a_ = evaluate(context, node.a)
-            assert isinstance(a_, BoolVal)
-            return BoolVal(not a_.get())
-        else:
-            raise TypeError("Unknown Logical-Op type = {}".format(str(node)))
+        a_ = evaluate(context, node.a)
+        assert isinstance(a_, BoolVal)
+        b_ = evaluate(context, node.b)
+        assert isinstance(b_, BoolVal)
+        return BoolVal(a_.get() and b_.get())
 
+
+class LogOrEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = evaluate(context, node.a)
+        assert isinstance(a_, BoolVal)
+        b_ = evaluate(context, node.b)
+        assert isinstance(b_, BoolVal)
+        return BoolVal(a_.get() or b_.get())
+
+
+class LogNotEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = evaluate(context, node.a)
+        assert isinstance(a_, BoolVal)
+        return BoolVal(not a_.get())
+
+
+"""
+class ArithOpsEvaluator(Evaluator):
+    def eval(self, context, node):
+        if 
+"""
+        
 # TODO: ArithPlus, ArithMinus,
 # TODO: ArithDiv, ArithRem, ArithDivDiv
 # TODO: ArithMult, ArithMultMult
@@ -80,17 +83,26 @@ class LogOpsEvaluator(Evaluator):
 # TODO: AssignUpvar
 # TODO: AssignGlobal
 # TODO: Const
+
+# TODO: Prog1
+# TODO: ProgN
+# TODO: ParProg
+
 # TODO: IfThenElse
 # TODO: When
 # TODO: Unless
 # TODO: CaseElse
 # TODO: CondElse
 
+# TODO: funcall
+
 # TODO: binding-ref?
 
 
 __evaluators__ = {
     (LiteralNode,): LiteralEvaluator(),
-    (LogOr, LogAnd, LogNot,): LogOpsEvaluator(),
+    (LogOr,): LogOrEvaluator(),
+    (LogAnd,): LogAndEvaluator(),
+    (LogNot,): LogNotEvaluator(),
     (Pass,): PassEvaluator(),
 }
