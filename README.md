@@ -5,7 +5,7 @@
 
 # Intentions
 
-1. Editing GUI forms.   
+1. Editing in GUI forms.   
     * No textual-syntax.
     * and can be nicely integrated with GUIs. _(Helps, Hints,
      Discoverbility, Completions...)_
@@ -154,5 +154,5 @@ h = {
    
 ## ..to people who wants use this language,
 1. Design and Write mapped-functions to express business-centric rules.
-2. Design and Implement a GUI editing for "rule-writers".
+2. Design and Implement a GUI editor for "rule-writers".
 
