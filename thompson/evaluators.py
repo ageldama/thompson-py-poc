@@ -12,6 +12,7 @@ from thompson.builtin_operators import Equal, NotEqual
 from thompson.builtin_operators import IsNotNull, IsNull
 from thompson.builtin_operators import BindingRef
 from thompson.builtin_operators import Assign, AssignGlobal, AssignUpvar
+from thompson.builtin_operators import Prog1, ProgN, ParProg
 
 
 def find_evaluator(context, node):
@@ -123,8 +124,6 @@ class ArithDivDivEvaluator(Evaluator):
         return NumberVal(num_.get() // denom_.get())
 
 
-# TODO: ComparLt, Le, Gt, Ge
-
 class ComparLtEvaluator(Evaluator):
     def eval(self, context, node):
         a_ = eval_and_type_check(context, node.a, NumberVal)
@@ -220,9 +219,31 @@ class AssignGlobalEvaluator(Evaluator):
         return v
 
 
-# TODO: Prog1
-# TODO: ProgN
-# TODO: ParProg
+class Prog1_Evaluator(Evaluator):
+    def eval(self, context, node):
+        if len(node.exprs) == 0:
+            return NilConst
+        result = evaluate(context, node.exprs[0])
+        for i in node.exprs[1:]:
+            evaluate(context, i)
+        return result
+
+
+class ProgN_Evaluator(Evaluator):
+    def eval(self, context, node):
+        if len(node.exprs) == 0:
+            return NilConst
+        result = None
+        for i in node.exprs:
+            result = evaluate(context, i)
+        return result
+
+
+class ParProg_Evaluator(ProgN_Evaluator):
+    def eval(self, context, node):
+        super().eval(context, node)
+        return NilConst
+
 
 # TODO: IfThenElse
 # TODO: When
@@ -258,5 +279,8 @@ __evaluators__ = {
     (AssignUpvar,): AssignUpvarEvaluator(),
     (AssignGlobal,): AssignGlobalEvaluator(),
     (BindingRef,): BindingRefEvaluator(),
+    (Prog1,): Prog1_Evaluator(),
+    (ProgN,): ProgN_Evaluator(),
+    (ParProg,): ParProg_Evaluator(),
     (Pass,): PassEvaluator(),
 }
