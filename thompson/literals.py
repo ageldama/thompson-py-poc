@@ -15,6 +15,10 @@ class LiteralNode(Node):
     def __str__(self):
         pass
 
+    @abstractmethod
+    def __repr__(self):
+        pass
+
 
 class BoolVal(LiteralNode):
     def __init__(self, v):
@@ -33,16 +37,22 @@ class BoolVal(LiteralNode):
         else:
             return self.get() == other.get()
 
+    def __repr__(self):
+        return "BoolVal({})".format(str(self.get()))
+
     def __str__(self):
-        return str(self.v)
+        return str(self.get())
 
 
 class NullVal(LiteralNode):
     def __eq__(self, other):
         return isinstance(other, NullVal)
 
+    def __repr__(self):
+        return "NullVal()"
+
     def __str__(self):
-        return "nil"
+        return str(self.get())
 
 
 NilConst = NullVal()
@@ -65,8 +75,11 @@ class StringVal(LiteralNode):
         else:
             return self.get() == other.get()
 
+    def __repr__(self):
+        return "StringVal('{}')".format(self.get())
+
     def __str__(self):
-        return str(self.v)
+        return str(self.get())
 
 
 class NumberVal(LiteralNode):
@@ -88,8 +101,11 @@ class NumberVal(LiteralNode):
             # TODO: epsilon comparison for floats?
             return self.get() == other.get()
 
+    def __repr__(self):
+        return "NumberVal('{}')".format(self.get())
+
     def __str__(self):
-        return str(self.v)
+        return str(self.get())
 
 
 class FunctionVal(LiteralNode):
