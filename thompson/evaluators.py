@@ -13,6 +13,7 @@ from thompson.builtin_operators import IsNotNull, IsNull
 from thompson.builtin_operators import BindingRef
 from thompson.builtin_operators import Assign, AssignGlobal, AssignUpvar
 from thompson.builtin_operators import Prog1, ProgN, ParProg
+from thompson.builtin_operators import IfThenElse, When, Unless
 
 
 def find_evaluator(context, node):
@@ -245,9 +246,34 @@ class ParProg_Evaluator(ProgN_Evaluator):
         return NilConst
 
 
-# TODO: IfThenElse
-# TODO: When
-# TODO: Unless
+def is_kinda_null(v):
+    return v is None or v == NilConst
+
+
+class IfThenElseEvaluator(Evaluator):
+    def eval(self, context, node, skip_else=False, negate_cond=False):
+        cond_ = evaluate(context, node.cond).get()
+        if negate_cond:
+            cond_ = not cond_
+        if cond_:
+            return evaluate(context, node.then_clause)
+        else:
+            if not is_kinda_null(node.else_clause) and not skip_else:
+                return evaluate(context, node.else_clause)
+            else:
+                return NilConst
+
+
+class WhenEvaluator(IfThenElseEvaluator):
+    def eval(self, context, node):
+        return super().eval(context, node, skip_else=True)
+
+
+class UnlessEvaluator(IfThenElseEvaluator):
+    def eval(self, context, node):
+        return super().eval(context, node, skip_else=True, negate_cond=True)
+
+
 # TODO: CaseElse
 # TODO: CondElse
 
@@ -282,5 +308,8 @@ __evaluators__ = {
     (Prog1,): Prog1_Evaluator(),
     (ProgN,): ProgN_Evaluator(),
     (ParProg,): ParProg_Evaluator(),
+    (IfThenElse,): IfThenElseEvaluator(),
+    (When,): WhenEvaluator(),
+    (Unless,): UnlessEvaluator(),
     (Pass,): PassEvaluator(),
 }
