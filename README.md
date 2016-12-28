@@ -1,3 +1,10 @@
+# THIS REPO IS NOT MAINTAINED ANYMORE
+# MOVED TO: https://github.com/zalando-incubator/thompson-py-poc
+
+----
+----
+----
+
 # Thompson
 
     the easiest and efficient way to express "the offers that cannot be refused".
