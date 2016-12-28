@@ -6,6 +6,7 @@ from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
 from thompson.builtin_operators import ArithPlus, ArithMinus
 from thompson.builtin_operators import ArithDiv, ArithDivDiv, ArithRem
 from thompson.builtin_operators import ArithMult, ArithMultMult
+from thompson.builtin_operators import ComparLt, ComparLe, ComparGt, ComparGe
 
 
 def find_evaluator(context, node):
@@ -119,6 +120,33 @@ class ArithDivDivEvaluator(Evaluator):
 
 # TODO: ComparLt, Le, Gt, Ge
 
+class ComparLtEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = eval_and_type_check(context, node.a, NumberVal)
+        b_ = eval_and_type_check(context, node.b, NumberVal)
+        return BoolVal(a_.get() < b_.get())
+
+
+class ComparLeEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = eval_and_type_check(context, node.a, NumberVal)
+        b_ = eval_and_type_check(context, node.b, NumberVal)
+        return BoolVal(a_.get() <= b_.get())
+
+
+class ComparGtEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = eval_and_type_check(context, node.a, NumberVal)
+        b_ = eval_and_type_check(context, node.b, NumberVal)
+        return BoolVal(a_.get() > b_.get())
+
+
+class ComparGeEvaluator(Evaluator):
+    def eval(self, context, node):
+        a_ = eval_and_type_check(context, node.a, NumberVal)
+        b_ = eval_and_type_check(context, node.b, NumberVal)
+        return BoolVal(a_.get() >= b_.get())
+
 # TODO: Equal, NotEqual
 
 # TODO: IsNull, IsNotNull
@@ -155,5 +183,9 @@ __evaluators__ = {
     (ArithRem,): ArithRemEvaluator(),
     (ArithDiv,): ArithDivEvaluator(),
     (ArithDivDiv,): ArithDivDivEvaluator(),
+    (ComparLt,): ComparLtEvaluator(),
+    (ComparLe,): ComparLeEvaluator(),
+    (ComparGe,): ComparGeEvaluator(),
+    (ComparGt,): ComparGtEvaluator(),
     (Pass,): PassEvaluator(),
 }

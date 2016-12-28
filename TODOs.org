@@ -6,6 +6,10 @@
   - <2016-12-28 Wed>
 
 
+* TODO Add some ~__repr__~ to nodes.
+  - <2016-12-28 Wed> for debugging.
+
+
 * DONE ~__eq__~ methods for some literal-nodes?
   - <2016-12-28 Wed>
 
