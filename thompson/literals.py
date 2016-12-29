@@ -109,5 +109,26 @@ class NumberVal(LiteralNode):
 
 
 class FunctionVal(LiteralNode):
-    # TODO:
-    pass
+    def __init__(self, params, body, binding=NilConst):
+        self.params = params
+        self.body = body
+        self.binding = binding
+
+    def __repr__(self):
+        return "FunctionVal({}, {}, {})".format(
+            repr(self.binding), repr(self.params),
+            repr(self.body))
+
+    def __str__(self):
+        return repr(self)  # FIXME: not-evalable-str.
+
+
+class FunctionParamVal(LiteralNode):
+    def __init__(self, name, **kwargs):
+        self.name = name
+
+    def __repr__(self):
+        return "FunctionParamVal({})".format(repr(self.name))
+
+    def __str__(self):
+        return repr(self)

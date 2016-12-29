@@ -40,16 +40,6 @@ class Pass(ExprNode):
         return "Pass"
 
 
-class Funcall(ExprNode):
-    def __init__(self, fn_name, params):
-        self.fn_name = fn_name
-        self.params = params
-
-    def __str__(self):
-        return "Funcall[{}, ({})]".format(self.fn_name,
-                                          to_joined_strs(self.params))
-
-
 class LogAnd(ExprNode):
     def __init__(self, a, b):
         self.a, self.b = a, b
@@ -314,4 +304,11 @@ class BindingRef(Node):
         return "BindingRef[{}]".format(self.k)
 
 
-# TODO: inline-function-def?
+class Funcall(ExprNode):
+    def __init__(self, fun, params):
+        self.fun = fun
+        self.params = params
+
+    def __str__(self):
+        return "Funcall[{}, ({})]".format(self.fun,
+                                          to_joined_strs(self.params))

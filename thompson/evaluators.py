@@ -1,7 +1,10 @@
 # -*- coding: utf-8; -*-
 from abc import abstractmethod
 from thompson.literals import LiteralNode, NilConst, NullVal, BoolVal
+from thompson.literals import FunctionVal, FunctionParamVal
 from thompson.literals import NumberVal, StringVal
+from thompson.bindings import Binding
+from thompson.context import Context
 from thompson.builtin_operators import ExprNode
 from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
 from thompson.builtin_operators import ArithPlus, ArithMinus
@@ -15,6 +18,7 @@ from thompson.builtin_operators import Assign, AssignGlobal, AssignUpvar
 from thompson.builtin_operators import Prog1, ProgN, ParProg
 from thompson.builtin_operators import IfThenElse, When, Unless
 from thompson.builtin_operators import CaseElse, CondElse
+from thompson.builtin_operators import Funcall
 
 
 def find_evaluator(context, node):
@@ -300,8 +304,42 @@ class CondElseEvaluator(Evaluator):
             return NilConst
 
 
-# TODO: fundef
-# TODO: funcall
+class FunctionValEvaluator(Evaluator):
+    def eval(self, context, node):
+        assert isinstance(node.params, (list, tuple,))
+        for param in node.params:
+            assert isinstance(param, FunctionParamVal)
+        if node.binding == NilConst:
+            # make closure for func-val.
+            node.binding = Binding(context.binding)
+        return node
+
+
+class FunctionParamValEvaluator(Evaluator):
+    def eval(self, context, node):
+        if isinstance(node.name, str):
+            return node
+        else:
+            return FunctionParamVal(
+                gimme_str_anyway(context, node.name))
+
+
+class FuncallEvaluator(Evaluator):
+    def eval(self, context, node):
+        fun_val = evaluate(context, node.fun)
+        # check arity.
+        fun_arity = len(fun_val.params)
+        params_len = len(node.params)
+        assert fun_arity == params_len
+        # map params -> func-val's binding.
+        b = fun_val.binding
+        for (fun_param, param_val) in zip(fun_val.params, node.params):
+            k = evaluate(context, fun_param).name
+            v = evaluate(context, param_val)
+            b.set(k, v)
+        # eval func-val's body using func-val's binding.
+        result = evaluate(Context(b), node.body)
+        return result
 
 # TODO: mapped-binding-ref (vars)
 # TODO: mapped-binding-ref (funcs)
@@ -310,6 +348,10 @@ class CondElseEvaluator(Evaluator):
 
 
 __evaluators__ = {
+    # NOTE: `FunctionVal` should be before of `LiteralNode`.
+    # NOTE: (Due to it is a subtype of `LiteralNode`.)
+    FunctionVal: FunctionValEvaluator(),
+    FunctionParamVal: FunctionParamValEvaluator(),
     LiteralNode: LiteralEvaluator(),
     LogOr: LogOrEvaluator(),
     LogAnd: LogAndEvaluator(),
@@ -341,5 +383,6 @@ __evaluators__ = {
     Unless: UnlessEvaluator(),
     CaseElse: CaseElseEvaluator(),
     CondElse: CondElseEvaluator(),
+    Funcall: FuncallEvaluator(),
     Pass: PassEvaluator(),
 }

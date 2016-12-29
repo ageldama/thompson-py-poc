@@ -11,9 +11,15 @@
     1) in binding?
     2) as an object-tree?
 
+* TODO docstrings for func-val, func-val-params.
+  - <2016-12-29 Thu>
 
-* TODO a stack needs for ~funcall~?
+* TODO annots for func-val-params?
+  - <2016-12-29 Thu>
+
+* DONE a stack needs for ~funcall~?
   - <2016-12-28 Wed>
+    - <2016-12-29 Thu> no-need. interpreted within py-stack.
 
 * TODO mapped-vars and mapped-funcs.
   - <2016-12-28 Wed>
