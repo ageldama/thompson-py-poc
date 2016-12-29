@@ -5,7 +5,6 @@ from thompson.literals import FunctionVal, FunctionParamVal
 from thompson.literals import NumberVal, StringVal
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.builtin_operators import ExprNode
 from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
 from thompson.builtin_operators import ArithPlus, ArithMinus
 from thompson.builtin_operators import ArithDiv, ArithDivDiv, ArithRem
@@ -22,7 +21,7 @@ from thompson.builtin_operators import Funcall
 
 
 def find_evaluator(context, node):
-    for (types, evaluator) in __evaluators__.items():
+    for (types, evaluator) in __evaluators__:
         if isinstance(node, types):
             return evaluator
     raise ValueError("No matching evaluator for {}".format(str(node)))
@@ -188,7 +187,9 @@ class IsNotNullEvaluator(IsNullEvaluator):
 
 
 def gimme_str_anyway(context, node):
-    if isinstance(node, ExprNode):
+    if isinstance(node, str):
+        return node
+    elif isinstance(node, (StringVal, NumberVal,)):
         k = evaluate(context, node)
         return str(k.get())
     else:
@@ -256,27 +257,33 @@ def is_kinda_null(v):
 
 
 class IfThenElseEvaluator(Evaluator):
-    def eval(self, context, node, skip_else=False, negate_cond=False):
+    def eval(self, context, node):
         cond_ = evaluate(context, node.cond).get()
-        if negate_cond:
-            cond_ = not cond_
         if cond_:
             return evaluate(context, node.then_clause)
         else:
-            if not is_kinda_null(node.else_clause) and not skip_else:
+            if not is_kinda_null(node.else_clause):
                 return evaluate(context, node.else_clause)
             else:
                 return NilConst
 
 
-class WhenEvaluator(IfThenElseEvaluator):
+class WhenEvaluator(Evaluator):
     def eval(self, context, node):
-        return super().eval(context, node, skip_else=True)
+        cond_ = evaluate(context, node.cond).get()
+        if cond_:
+            return evaluate(context, node.then_clause)
+        else:
+            return NilConst
 
 
-class UnlessEvaluator(IfThenElseEvaluator):
+class UnlessEvaluator(Evaluator):
     def eval(self, context, node):
-        return super().eval(context, node, skip_else=True, negate_cond=True)
+        cond_ = evaluate(context, node.cond).get()
+        if not cond_:
+            return evaluate(context, node.then_clause)
+        else:
+            return NilConst
 
 
 class CaseElseEvaluator(Evaluator):
@@ -347,42 +354,42 @@ class FuncallEvaluator(Evaluator):
 # TODO: Const
 
 
-__evaluators__ = {
+__evaluators__ = (
     # NOTE: `FunctionVal` should be before of `LiteralNode`.
     # NOTE: (Due to it is a subtype of `LiteralNode`.)
-    FunctionVal: FunctionValEvaluator(),
-    FunctionParamVal: FunctionParamValEvaluator(),
-    LiteralNode: LiteralEvaluator(),
-    LogOr: LogOrEvaluator(),
-    LogAnd: LogAndEvaluator(),
-    LogNot: LogNotEvaluator(),
-    ArithPlus: ArithPlusEvaluator(),
-    ArithMinus: ArithMinusEvaluator(),
-    ArithMult: ArithMultEvaluator(),
-    ArithMultMult: ArithMultMultEvaluator(),
-    ArithRem: ArithRemEvaluator(),
-    ArithDiv: ArithDivEvaluator(),
-    ArithDivDiv: ArithDivDivEvaluator(),
-    ComparLt: ComparLtEvaluator(),
-    ComparLe: ComparLeEvaluator(),
-    ComparGe: ComparGeEvaluator(),
-    ComparGt: ComparGtEvaluator(),
-    Equal: EqualEvaluator(),
-    NotEqual: NotEqualEvaluator(),
-    IsNull: IsNullEvaluator(),
-    IsNotNull: IsNotNullEvaluator(),
-    Assign: AssignEvaluator(),
-    AssignUpvar: AssignUpvarEvaluator(),
-    AssignGlobal: AssignGlobalEvaluator(),
-    BindingRef: BindingRefEvaluator(),
-    Prog1: Prog1_Evaluator(),
-    ProgN: ProgN_Evaluator(),
-    ParProg: ParProg_Evaluator(),
-    IfThenElse: IfThenElseEvaluator(),
-    When: WhenEvaluator(),
-    Unless: UnlessEvaluator(),
-    CaseElse: CaseElseEvaluator(),
-    CondElse: CondElseEvaluator(),
-    Funcall: FuncallEvaluator(),
-    Pass: PassEvaluator(),
-}
+    (FunctionParamVal, FunctionParamValEvaluator()),
+    (FunctionVal, FunctionValEvaluator()),
+    (LiteralNode, LiteralEvaluator()),
+    (LogOr, LogOrEvaluator()),
+    (LogAnd, LogAndEvaluator()),
+    (LogNot, LogNotEvaluator()),
+    (ArithPlus, ArithPlusEvaluator()),
+    (ArithMinus, ArithMinusEvaluator()),
+    (ArithMult, ArithMultEvaluator()),
+    (ArithMultMult, ArithMultMultEvaluator()),
+    (ArithRem, ArithRemEvaluator()),
+    (ArithDiv, ArithDivEvaluator()),
+    (ArithDivDiv, ArithDivDivEvaluator()),
+    (ComparLt, ComparLtEvaluator()),
+    (ComparLe, ComparLeEvaluator()),
+    (ComparGe, ComparGeEvaluator()),
+    (ComparGt, ComparGtEvaluator()),
+    (Equal, EqualEvaluator()),
+    (NotEqual, NotEqualEvaluator()),
+    (IsNull, IsNullEvaluator()),
+    (IsNotNull, IsNotNullEvaluator()),
+    (Assign, AssignEvaluator()),
+    (AssignUpvar, AssignUpvarEvaluator()),
+    (AssignGlobal, AssignGlobalEvaluator()),
+    (BindingRef, BindingRefEvaluator()),
+    (Prog1, Prog1_Evaluator()),
+    (ProgN, ProgN_Evaluator()),
+    (ParProg, ParProg_Evaluator()),
+    (IfThenElse, IfThenElseEvaluator()),
+    (When, WhenEvaluator()),
+    (Unless, UnlessEvaluator()),
+    (CaseElse, CaseElseEvaluator()),
+    (CondElse, CondElseEvaluator()),
+    (Funcall, FuncallEvaluator()),
+    (Pass, PassEvaluator()),
+)

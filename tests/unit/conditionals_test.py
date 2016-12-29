@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import NumberVal, NilConst
+from thompson.literals import NumberVal, NilConst, BoolVal
 from thompson.evaluators import evaluate
 from thompson.builtin_operators import ComparLt
 from thompson.builtin_operators import IfThenElse, When, Unless
@@ -69,8 +69,22 @@ def test_unless():
                                 Assign('a', N(777))))  # Jackpot!
     assert N(777) == result
     assert N(777) == b.get('a')
-    #
+
+
+def test_unless2():
+    N = NumberVal
+    b = Binding()
+    c = Context(b)
     result = evaluate(c, Unless(ComparLt(N(42), N(3333)),
                                 Assign('b', N(777))))
+    assert NilConst == result
+    assert not b.contains('b')
+
+
+def test_unless3():
+    B, N = BoolVal, NumberVal
+    b = Binding()
+    c = Context(b)
+    result = evaluate(c, Unless(B(True), Assign('b', N(777))))
     assert NilConst == result
     assert not b.contains('b')

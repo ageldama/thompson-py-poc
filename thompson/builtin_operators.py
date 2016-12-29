@@ -235,9 +235,10 @@ class IfThenElse(ExprNode):
                           str(self.then_clause), str(self.else_clause))
 
 
-class When(IfThenElse):
+class When(ExprNode):
     def __init__(self, cond, then_clause):
-        super().__init__(cond, then_clause)
+        self.cond = cond
+        self.then_clause = then_clause
 
     def __str__(self):
         fmt = "When[cond={}, then={}]"
@@ -245,9 +246,10 @@ class When(IfThenElse):
                           str(self.then_clause))
 
 
-class Unless(IfThenElse):
+class Unless(ExprNode):
     def __init__(self, cond, then_clause):
-        super().__init__(cond, then_clause)
+        self.cond = cond
+        self.then_clause = then_clause
 
     def __str__(self):
         fmt = "Unless[cond={}, then={}]"
