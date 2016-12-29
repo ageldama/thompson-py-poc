@@ -1,12 +1,4 @@
 
-
-* TODO let-bindings?                                                    :ADV:
-  - <2016-12-28 Wed>
-    1. support upvar, global, const?
-    2. depend each binding, DAC-graph.
-    3. ..is it should be in primitives? or just implement with
-       mapped-func?
-
 * TODO JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>
     - https://github.com/antidot/Pyckson
@@ -39,6 +31,13 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+
+* DONE let-bindings?                                                    :ADV:
+  - <2016-12-28 Wed>
+    1. support upvar, global, const?
+    2. depend each binding, DAC-graph.
+    3. ..is it should be in primitives? or just implement with
+       mapped-func?
 * DONE const?                                                           :ADV:
   - <2016-12-27 Tue>
     1. should ~Binding~ support this?

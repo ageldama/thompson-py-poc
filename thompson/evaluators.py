@@ -19,7 +19,7 @@ from thompson.builtin_operators import Prog1, ProgN, ParProg
 from thompson.builtin_operators import IfThenElse, When, Unless
 from thompson.builtin_operators import CaseElse, CondElse
 from thompson.builtin_operators import Funcall
-from thompson.builtin_operators import Const
+from thompson.builtin_operators import Const, Let
 
 
 def find_evaluator(context, node):
@@ -404,7 +404,22 @@ class ConstEvaluator(Evaluator):
         return v
 
 
-# TODO: let
+class LetEvaluator(Evaluator):
+    def _check_exprs(self, exprs):
+        types = (Const, Assign, AssignUpvar, AssignGlobal,)
+        for expr in exprs:
+            assert isinstance(expr, types)
+
+    def _evals(self, context, exprs):
+        for expr in exprs:
+            evaluate(context, expr)
+
+    def eval(self, context, node):
+        self._check_exprs(node.exprs)
+        b2 = Binding(context.binding)
+        c2 = Context(b2)
+        self._evals(c2, node.exprs)
+        return evaluate(c2, node.body)
 
 
 __evaluators__ = (
@@ -448,4 +463,5 @@ __evaluators__ = (
     (Funcall, FuncallEvaluator()),
     (Pass, PassEvaluator()),
     (Const, ConstEvaluator()),
+    (Let, LetEvaluator()),
 )

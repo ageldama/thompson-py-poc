@@ -314,3 +314,13 @@ class Funcall(ExprNode):
     def __str__(self):
         return "Funcall[{}, ({})]".format(self.fun,
                                           to_joined_strs(self.params))
+
+
+class Let(ExprNode):
+    def __init__(self, exprs, body):
+        self.exprs = exprs
+        self.body = body
+
+    def __str__(self):
+        return "Let[{}, {}]".format(to_joined_strs(self.exprs),
+                                    str(self.body))
