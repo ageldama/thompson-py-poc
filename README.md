@@ -89,9 +89,9 @@ cond
 4 - 2
 2 * 3    # Simple multiplcation.
 2 ** 3   # == 8. Power.
-8 / 3    # == 2. Integer division.
-9 rem 2  # == 1. Remainder.
-9 // 2   # == 4.5. Float division.
+7 / 2    # == 3.5. Float division.
+7 rem 2  # == 1. Remainder.
+7 // 2   # == 3. Integer division.
 
 true and false  # false, of course.
 true or false   # true.

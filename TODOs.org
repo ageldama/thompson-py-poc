@@ -1,5 +1,3 @@
-* TODO exchange ~/~ and ~//~ ops in READMEs.
-  - <2016-12-28 Wed> Just like in Python.
 
 
 * TODO simple evaluators per builtin-ops.
@@ -8,18 +6,11 @@
 * TODO eq, ne for func-literals?
   - <2016-12-28 Wed>
 
-
-* DONE Add some ~__repr__~ to nodes.
-  - <2016-12-28 Wed> for debugging.
-
-
-* DONE ~__eq__~ methods for some literal-nodes?
-  - <2016-12-28 Wed>
-
 * TODO storing function defs?
   - <2016-12-28 Wed>
     1) in binding?
     2) as an object-tree?
+
 
 * TODO a stack needs for ~funcall~?
   - <2016-12-28 Wed>
@@ -64,10 +55,14 @@
   - <2016-12-28 Wed>
     1) Separate contents by sections.
 
+* DONE Add some ~__repr__~ to nodes.
+  - <2016-12-28 Wed> for debugging.
+* DONE exchange ~/~ and ~//~ ops in READMEs.
+  - <2016-12-28 Wed> Just like in Python.
+* DONE ~__eq__~ methods for some literal-nodes?
+  - <2016-12-28 Wed>
 * DONE remove doctest.
   - <2016-12-28 Wed> just use doctests as docstrings.
-
-
 * DONE pytest for elpy-test-runner.
   - <2016-12-28 Wed>
     -
