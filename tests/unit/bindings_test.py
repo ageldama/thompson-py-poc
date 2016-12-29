@@ -72,3 +72,22 @@ def test_set_global():
     assert b.parent.get(k) == v
     assert not b.parent.contains_no_inherits(k)
     assert b.parent.parent.get(k) == v
+
+
+def test_consts():
+    b = Binding()
+    b.set('x', 42)
+    b.set('x', 0)
+    b.set('x', 'foo', True)
+    with raises(KeyError):
+        b.set('x', 42)
+    with raises(KeyError):
+        b.set('x', 42, True)
+    #
+    b2 = Binding(b)
+    assert b2.get('x') == 'foo'
+    assert b2.is_const('x')
+    #
+    b3 = Binding(b2)
+    assert b3.is_const('x')
+    assert not b3.is_const_no_inherits('x')

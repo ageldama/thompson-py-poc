@@ -15,6 +15,7 @@ class Binding(object):
         """If `parent` parameter is absent, creates a root-binding."""
         self.parent = parent
         self.b = {}
+        self.const_keys = set()
 
     def contains(self, k):
         """Returns true/false, looking for `k` in whole inheritance-tree."""
@@ -60,20 +61,24 @@ class Binding(object):
         else:
             raise NameError(k)
 
-    def set(self, k, v):
+    def set(self, k, v, const=False):
         """Simply sets a keyed value in this binding."""
+        if k in self.const_keys:
+            raise KeyError(k, "Cannot reassign const = {}".format(k))
         self.b[k] = v
+        if const:
+            self.const_keys.add(k)
 
-    def set_uplevel(self, k, v):
+    def set_uplevel(self, k, v, const=False):
         """Sets association in parent binding, if there's no parent, raises a
         `ValueError`.
         """
         if self.parent is None:
             raise ValueError("there is no parent for this binding!")
         else:
-            self.parent.set(k, v)
+            self.parent.set(k, v, const)
 
-    def set_global(self, k, v):
+    def set_global(self, k, v, const=False):
         """Sets association in root-binding. If there's no parent, then this
         is a root-binding."""
         cur = self
@@ -82,4 +87,14 @@ class Binding(object):
                 break
             else:
                 cur = cur.parent
-        cur.set(k, v)
+        cur.set(k, v, const)
+
+    def is_const_no_inherits(self, k):
+        return k in self.const_keys
+
+    def is_const(self, k):
+        b1 = self.is_const_no_inherits(k)
+        b2 = False
+        if self.parent is not None:
+            b2 = self.parent.is_const(k)
+        return b1 or b2

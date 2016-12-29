@@ -19,6 +19,7 @@ from thompson.builtin_operators import Prog1, ProgN, ParProg
 from thompson.builtin_operators import IfThenElse, When, Unless
 from thompson.builtin_operators import CaseElse, CondElse
 from thompson.builtin_operators import Funcall
+from thompson.builtin_operators import Const
 
 
 def find_evaluator(context, node):
@@ -395,7 +396,14 @@ class MappedFunctionValEvaluator(Evaluator):
         return node  # also does nothing.
 
 
-# TODO: Const
+class ConstEvaluator(Evaluator):
+    def eval(self, context, node):
+        v = evaluate(context, node.src)
+        k = gimme_str_anyway(context, node.dst)
+        context.binding.set(k, v, const=True)
+        return v
+
+
 # TODO: let
 
 
@@ -439,4 +447,5 @@ __evaluators__ = (
     (CondElse, CondElseEvaluator()),
     (Funcall, FuncallEvaluator()),
     (Pass, PassEvaluator()),
+    (Const, ConstEvaluator()),
 )

@@ -1,8 +1,4 @@
 
-* TODO const?                                                           :ADV:
-  - <2016-12-27 Tue>
-    1. should ~Binding~ support this?
-    2. ..or just implement this with its evaluator?
 
 * TODO let-bindings?                                                    :ADV:
   - <2016-12-28 Wed>
@@ -19,12 +15,15 @@
         in Java later).
 
 
+* TODO Fix the bug of `test_func_composition`.                        :DEBUG:
+  - <2016-12-29 Thu>
+
 * TODO Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
   - <2016-12-28 Wed>
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>
 
-* TODO eq, ne for func-literals? builtin-ops                          :DEBUG:
+* TODO eq, ne for func-literals? builtin-ops                            :ADV:
   - <2016-12-28 Wed> almost everything!
 
     
@@ -40,6 +39,10 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+* DONE const?                                                           :ADV:
+  - <2016-12-27 Tue>
+    1. should ~Binding~ support this?
+    2. ..or just implement this with its evaluator?
 * DONE mapped-vars and mapped-funcs.                                  :BASIC:
   - <2016-12-28 Wed>
 
