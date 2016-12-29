@@ -6,10 +6,6 @@
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
 
-
-* TODO Fix the bug of `test_func_composition`.                        :DEBUG:
-  - <2016-12-29 Thu>
-
 * TODO Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
   - <2016-12-28 Wed>
 * TODO docstrings on test functions.                          :DOCUMENTATION:
@@ -31,6 +27,10 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+
+
+* DONE Fix the bug of `test_func_composition`.                        :DEBUG:
+  - <2016-12-29 Thu>
 
 * DONE let-bindings?                                                    :ADV:
   - <2016-12-28 Wed>
