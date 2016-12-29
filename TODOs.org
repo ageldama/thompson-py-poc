@@ -1,56 +1,9 @@
-
-
-* TODO simple evaluators per builtin-ops.
-  - <2016-12-28 Wed>
-
-* TODO eq, ne for func-literals? builtin-ops
-  - <2016-12-28 Wed> almost everything!
-
-    
-* TODO storing function defs?
-  - <2016-12-28 Wed>
-    1) in binding?
-    2) as an object-tree?
-
-* TODO docstrings for func-val, func-val-params.
-  - <2016-12-29 Thu>
-
-* TODO annots for func-val-params?
-  - <2016-12-29 Thu>
-
-* DONE a stack needs for ~funcall~?
-  - <2016-12-28 Wed>
-    - <2016-12-29 Thu> no-need. interpreted within py-stack.
-
-* TODO mapped-vars and mapped-funcs.
-  - <2016-12-28 Wed>
-
-
-* TODO Arrange packages (nodes, builtin-ops, evaluators)
-  - <2016-12-28 Wed>
-
-* TODO JSON Ser/DeSer?
-  - <2016-12-27 Tue>
-    - https://github.com/antidot/Pyckson
-      - (I guess) Jackson-clone.
-      - Seems nice fit to PoC's objective. (because, it will rewritten
-        in Java later).
-
-* TODO ~Comments~ on everywhere?
-  - <2016-12-27 Tue> Every node should be able to have a comment.
-
-* TODO the /evaluator/.
-  - <2016-12-27 Tue>
-    - or just use term /interpreter/.
-      - because using same term evaluator for a node and nodes is
-        confusing.
-
-* TODO const?
+* TODO const?                                                           :ADV:
   - <2016-12-27 Tue>
     1. should ~Binding~ support this?
     2. ..or just implement this with its evaluator?
 
-* TODO let-bindings?
+* TODO let-bindings?                                                    :ADV:
   - <2016-12-28 Wed>
     1. support upvar, global, const?
     2. depend each binding, DAC-graph.
@@ -58,9 +11,56 @@
        mapped-func?
 
 
-* TODO Update the README.
+* TODO mapped-vars and mapped-funcs.                                  :BASIC:
+  - <2016-12-28 Wed>
+
+
+
+* TODO simple evaluators per builtin-ops.                             :BASIC:
+  - <2016-12-28 Wed>
+
+* TODO eq, ne for func-literals? builtin-ops                          :DEBUG:
+  - <2016-12-28 Wed> almost everything!
+
+    
+* TODO docstrings for func-val, func-val-params.                        :ADV:
+  - <2016-12-29 Thu>
+
+* TODO annots for func-val-params?                                      :ADV:
+  - <2016-12-29 Thu>
+
+
+* TODO Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
+  - <2016-12-28 Wed>
+
+* TODO JSON Ser/DeSer?                                                  :ADV:
+  - <2016-12-27 Tue>
+    - https://github.com/antidot/Pyckson
+      - (I guess) Jackson-clone.
+      - Seems nice fit to PoC's objective. (because, it will rewritten
+        in Java later).
+
+* TODO ~Comments~ on everywhere?                                        :ADV:
+  - <2016-12-27 Tue> Every node should be able to have a comment.
+
+* TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+
+* DONE a stack needs for ~funcall~?
+  - <2016-12-28 Wed>
+    - <2016-12-29 Thu> no-need. interpreted within py-stack.
+
+* DONE the /evaluator/.
+  - <2016-12-27 Tue>
+    - or just use term /interpreter/.
+      - because using same term evaluator for a node and nodes is
+        confusing.
+
+* DONE storing function defs?
+  - <2016-12-28 Wed>
+    1) in binding?
+    2) as an object-tree?
 
 * DONE Add some ~__repr__~ to nodes.
   - <2016-12-28 Wed> for debugging.

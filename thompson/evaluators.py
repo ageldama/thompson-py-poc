@@ -345,7 +345,9 @@ class FuncallEvaluator(Evaluator):
             v = evaluate(context, param_val)
             b.set(k, v)
         # eval func-val's body using func-val's binding.
-        result = evaluate(Context(b), node.body)
+        c = Context(b)
+        fun = evaluate(c, node.fun)
+        result = evaluate(c, fun.body)
         return result
 
 # TODO: mapped-binding-ref (vars)
