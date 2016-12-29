@@ -1,11 +1,11 @@
 # -*- coding: utf-8; -*-
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import NumberVal, NilConst, StringVal
-from thompson.literals import FunctionParamVal
+from thompson.literals import StringVal
+from thompson.literals import FunctionParamVal, FunctionVal
+from thompson.builtin_operators import ArithPlus, BindingRef
 from thompson.evaluators import evaluate
 from thompson.evaluators import gimme_str_anyway
-import pytest
 
 
 def test_gimme_str():
@@ -30,4 +30,14 @@ def test_func_param_eval():
 
 
 def test_func_literal_eval():
-    pass
+    S = StringVal
+    b = Binding()
+    b.set('foo', 'bar')
+    c = Context(b)
+    params_expr = [FunctionParamVal(S('x')), FunctionParamVal('y')]
+    body_expr = ArithPlus(BindingRef('x'), BindingRef('y'))
+    fun = FunctionVal(params_expr, body_expr)
+    result = evaluate(c, fun)
+    assert result.binding.get('foo') == 'bar'
+    assert result.params[0].name == S('x')
+    assert result.params[1].name == 'y'

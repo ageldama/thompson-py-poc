@@ -3,9 +3,10 @@
 * TODO simple evaluators per builtin-ops.
   - <2016-12-28 Wed>
 
-* TODO eq, ne for func-literals?
-  - <2016-12-28 Wed>
+* TODO eq, ne for func-literals? builtin-ops
+  - <2016-12-28 Wed> almost everything!
 
+    
 * TODO storing function defs?
   - <2016-12-28 Wed>
     1) in binding?
