@@ -3,6 +3,7 @@ from abc import abstractmethod
 from thompson.literals import LiteralNode, NilConst, NullVal, BoolVal
 from thompson.literals import FunctionVal, FunctionParamVal
 from thompson.literals import NumberVal, StringVal
+from thompson.literals import MappedVal, MappedFunctionVal
 from thompson.bindings import Binding
 from thompson.context import Context
 from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
@@ -332,28 +333,70 @@ class FunctionParamValEvaluator(Evaluator):
 
 
 class FuncallEvaluator(Evaluator):
-    def eval(self, context, node):
-        fun_val = evaluate(context, node.fun)
-        # check arity.
-        fun_arity = len(fun_val.params)
-        params_len = len(node.params)
+    def _check_arity(self, fun, given_params):
+        fun_params = fun.params
+        fun_arity = len(fun_params)
+        params_len = len(given_params)
         assert fun_arity == params_len
-        # map params -> func-val's binding.
-        b = fun_val.binding
-        for (fun_param, param_val) in zip(fun_val.params, node.params):
+
+    def _bind_params(self, context, fun, given_params):
+        b = fun.binding
+        for (fun_param, param_val) in zip(fun.params, given_params):
             k = evaluate(context, fun_param).name
             v = evaluate(context, param_val)
             b.set(k, v)
-        # eval func-val's body using func-val's binding.
-        c = Context(b)
-        fun = evaluate(c, node.fun)
-        result = evaluate(c, fun.body)
-        return result
 
-# TODO: mapped-binding-ref (vars)
-# TODO: mapped-binding-ref (funcs)
+    def _unwrap_param(self, param):
+        if isinstance(param, (BoolVal, StringVal, NumberVal,)):
+            return param.get()
+        elif isinstance(param, NullVal):
+            return None
+        elif isinstance(param, MappedVal):
+            return param.v
+        else:
+            return param
+
+    def _unwrap_params(self, context, params):
+        return [self._unwrap_param(evaluate(context, p)) for p in params]
+
+    def _wrap_result(self, v):
+        if isinstance(v, bool):
+            return BoolVal(v)
+        elif isinstance(v, (int, float,)):
+            return NumberVal(v)
+        elif isinstance(v, str):
+            return StringVal(v)
+        elif v is None:
+            return NilConst
+        else:
+            return MappedVal(v)
+
+    def eval(self, context, node):
+        fun = evaluate(context, node.fun)
+        if isinstance(fun, FunctionVal):
+            self._check_arity(fun, node.params)
+            self._bind_params(context, fun, node.params)
+            c = Context(fun.binding)
+            return evaluate(c, fun.body)
+        elif isinstance(fun, MappedFunctionVal):
+            p = self._unwrap_params(context, node.params)
+            return self._wrap_result(fun.f(*p))
+        else:
+            raise NotImplementedError()
+
+
+class MappedValEvaluator(Evaluator):
+    def eval(self, context, node):
+        return node  # simply do nothing.
+
+
+class MappedFunctionValEvaluator(Evaluator):
+    def eval(self, context, node):
+        return node  # also does nothing.
+
 
 # TODO: Const
+# TODO: let
 
 
 __evaluators__ = (
@@ -361,6 +404,8 @@ __evaluators__ = (
     # NOTE: (Due to it is a subtype of `LiteralNode`.)
     (FunctionParamVal, FunctionParamValEvaluator()),
     (FunctionVal, FunctionValEvaluator()),
+    (MappedVal, MappedValEvaluator()),
+    (MappedFunctionVal, MappedFunctionValEvaluator()),
     (LiteralNode, LiteralEvaluator()),
     (LogOr, LogOrEvaluator()),
     (LogAnd, LogAndEvaluator()),

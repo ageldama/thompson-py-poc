@@ -1,3 +1,4 @@
+
 * TODO const?                                                           :ADV:
   - <2016-12-27 Tue>
     1. should ~Binding~ support this?
@@ -10,29 +11,6 @@
     3. ..is it should be in primitives? or just implement with
        mapped-func?
 
-
-* TODO mapped-vars and mapped-funcs.                                  :BASIC:
-  - <2016-12-28 Wed>
-
-
-
-* TODO simple evaluators per builtin-ops.                             :BASIC:
-  - <2016-12-28 Wed>
-
-* TODO eq, ne for func-literals? builtin-ops                          :DEBUG:
-  - <2016-12-28 Wed> almost everything!
-
-    
-* TODO docstrings for func-val, func-val-params.                        :ADV:
-  - <2016-12-29 Thu>
-
-* TODO annots for func-val-params?                                      :ADV:
-  - <2016-12-29 Thu>
-
-
-* TODO Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
-  - <2016-12-28 Wed>
-
 * TODO JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>
     - https://github.com/antidot/Pyckson
@@ -40,12 +18,40 @@
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
 
-* TODO ~Comments~ on everywhere?                                        :ADV:
+
+* TODO Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
+  - <2016-12-28 Wed>
+* TODO docstrings on test functions.                          :DOCUMENTATION:
+  - <2016-12-29 Thu>
+
+* TODO eq, ne for func-literals? builtin-ops                          :DEBUG:
+  - <2016-12-28 Wed> almost everything!
+
+    
+* TODO docstring-field for func-val, func-val-params.                   :ADV:
+  - <2016-12-29 Thu>
+
+* TODO annots for func-val-params?                                      :ADV:
+  - <2016-12-29 Thu> arities(if it is a function-param)...
+
+* TODO ~Comments~-fields on everywhere?                                 :ADV:
   - <2016-12-27 Tue> Every node should be able to have a comment.
 
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+* DONE mapped-vars and mapped-funcs.                                  :BASIC:
+  - <2016-12-28 Wed>
+
+* DONE Byte-code compiler?                                     :COMPILER:ADV:
+  - <2016-12-29 Thu> 
+    - ..do it in JVM instead of this.
+    - because there's no actual bytecode emitter in python3. (only
+      `dis` available.)
+
+
+* DONE simple evaluators per builtin-ops.                             :BASIC:
+  - <2016-12-28 Wed>
 
 * DONE a stack needs for ~funcall~?
   - <2016-12-28 Wed>

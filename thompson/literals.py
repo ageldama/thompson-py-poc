@@ -132,3 +132,25 @@ class FunctionParamVal(LiteralNode):
 
     def __str__(self):
         return repr(self)
+
+
+class MappedVal(LiteralNode):
+    def __init__(self, v):
+        self.v = v
+
+    def __repr__(self):
+        return "MappedVal({})".format(repr(self.v))
+
+    def __str__(self):
+        return repr(self)
+
+
+class MappedFunctionVal(LiteralNode):
+    def __init__(self, f):
+        self.f = f
+
+    def __repr__(self):
+        return "MappedFunctionVal({})".format(repr(self.f))
+
+    def __str__(self):
+        return repr(self)
