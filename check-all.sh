@@ -1,2 +1,2 @@
-find thompson/ tests/ -name "*.py" -exec pep8 {} -v \;
+find thompson/ tests/ -name "*.py" -exec flake8 {} \;
 

@@ -1,9 +1,8 @@
 # -*- coding: utf-8; -*-
-from thompson.nodes import Node
 from abc import abstractmethod
 
 
-class ExprNode(Node):
+class Evaluator(object):
     @abstractmethod
-    def __str__(self):
+    def eval(self, context, node):
         pass

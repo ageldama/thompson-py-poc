@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
+from thompson.strs import to_joined_strs
 
 
 class Assign(ExprNode):
@@ -54,4 +55,3 @@ class Let(ExprNode):
     def __str__(self):
         return "Let[{}, {}]".format(to_joined_strs(self.exprs),
                                     str(self.body))
-

@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
+from thompson.strs import to_joined_strs
 
 
 class Prog1(ExprNode):

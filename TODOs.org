@@ -14,10 +14,6 @@
 * TODO JSONSchema-based validation of expressions?                      :ADV:
   - <2016-12-30 Fri>
 
-
-* TODO Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
-  - <2016-12-28 Wed>
-
 * TODO Semantical Static Analysis?                                      :ADV:
   - <2016-12-30 Fri>
 
@@ -37,6 +33,10 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+
+
+* DONE Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
+  - <2016-12-28 Wed>
 
 * DONE Rename Plus/Minus -> Add/Sub.                               :REFACTOR:
   - <2016-12-30 Fri>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; -*-
-from thompson.context.binding import Binding
+from thompson.context.binding import Binding  # noqa: F401
 
 
 class Context(object):
