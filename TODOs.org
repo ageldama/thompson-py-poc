@@ -1,3 +1,4 @@
+* TODO ~typing~ ?
 
 * TODO JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>
