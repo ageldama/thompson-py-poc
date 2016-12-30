@@ -7,3 +7,9 @@ class ExprNode(Node):
     @abstractmethod
     def __str__(self) -> str:
         pass
+
+
+class NonExprNode(Node):
+    @abstractmethod
+    def __str__(self) -> str:
+        pass

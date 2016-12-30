@@ -1,5 +1,5 @@
 # -*- coding: utf-8; -*-
-from thompson.nodes.ops.expr_node import ExprNode
+from thompson.nodes.ops.expr_node import ExprNode, NonExprNode
 from thompson.strs import to_joined_strs
 from typing import Union, Optional, Sequence
 
@@ -45,7 +45,7 @@ class Unless(ExprNode):
                           str(self.then_clause))
 
 
-class CaseItem(ExprNode):
+class CaseItem(NonExprNode):
     def __init__(self,
                  v: Union['LiteralNode', ExprNode],
                  then_clause: Union['LiteralNode', ExprNode]):
@@ -71,7 +71,7 @@ class CaseElse(ExprNode):
             str(self.else_clause))
 
 
-class CondItem(ExprNode):
+class CondItem(NonExprNode):
     def __init__(self,
                  cond: Union['LiteralNode', ExprNode],
                  then_clause: Union['LiteralNode', ExprNode]):

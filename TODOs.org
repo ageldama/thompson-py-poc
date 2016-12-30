@@ -6,10 +6,6 @@
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
 
-
-* TODO CaseItem, CondItem, FunctionParamVal .. is not a evaluatable-nodes.
-  - <2016-12-30 Fri> Hence, change the type.
-
 * TODO Q. ParamVals for MappedFunction?
   - <2016-12-30 Fri> with that, it would be more descriptive.
 
@@ -38,6 +34,11 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+
+
+* DONE CaseItem, CondItem, FunctionParamVal .. is not a evaluatable-nodes.
+  - <2016-12-30 Fri> Hence, change the type.
+    - not with ~FunctionParamVal~, these have own evaluator. (it is a expr.)
 * DONE Apply Python ~typing~ signatures on funcs?                  :REFACTOR:
   - <2016-12-30 Fri>
 
