@@ -1,4 +1,12 @@
-* TODO ~typing~ ?
+* TODO Apply Python ~typing~ signatures on funcs?                  :REFACTOR:
+  - <2016-12-30 Fri>
+
+
+* TODO Rename Plus/Minus -> Add/Sub.                               :REFACTOR:
+  - <2016-12-30 Fri>
+
+* TODO No-wrap/unwrap mapped-funcs?                                   :BASIC:
+  - <2016-12-30 Fri>
 
 * TODO JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>
@@ -7,11 +15,6 @@
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
 
-* TODO Rename Plus/Minus -> Add/Sub.                               :REFACTOR:
-  - <2016-12-30 Fri>
-
-* TODO No-wrap/unwrap mapped-funcs?                                   :BASIC:
-  - <2016-12-30 Fri>
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>
 
