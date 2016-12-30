@@ -2,10 +2,10 @@
 from pytest import raises
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import NumberVal, StringVal
 from thompson.evaluators import evaluate
-from thompson.builtin_operators import BindingRef
-from thompson.builtin_operators import Assign, AssignGlobal, AssignUpvar
+from thompson.nodes.literals import NumberVal, StringVal
+from thompson.nodes.ops import BindingRef
+from thompson.nodes.ops import Assign, AssignGlobal, AssignUpvar
 
 
 def test_simple_set_and_get():

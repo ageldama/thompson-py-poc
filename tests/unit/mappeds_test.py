@@ -1,8 +1,8 @@
 # -*- coding: utf-8; -*-
-from thompson.literals import StringVal, NumberVal, BoolVal, NilConst
-from thompson.literals import MappedVal, MappedFunctionVal
-from thompson.literals import NoWrappingMappedFunctionVal
-from thompson.builtin_operators import Assign, BindingRef, Funcall
+from thompson.nodes.literals import StringVal, NumberVal, BoolVal, NilConst
+from thompson.nodes.literals import MappedVal, MappedFunctionVal
+from thompson.nodes.literals import NoWrappingMappedFunctionVal
+from thompson.nodes.ops import Assign, BindingRef, Funcall
 from operator import add
 
 

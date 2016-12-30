@@ -1,6 +1,6 @@
 # -*- coding: utf-8; -*-
-from thompson.literals import NumberVal
-from thompson.builtin_operators import ArithAdd
+from thompson.nodes.literals import NumberVal
+from thompson.nodes.ops import ArithAdd
 from thompson.context import Context
 from thompson.bindings import Binding
 from thompson.evaluators import evaluate

@@ -1,6 +1,6 @@
 # -*- coding: utf-8; -*-
-from thompson.literals import NumberVal, BoolVal
-from thompson.builtin_operators import ComparLt, ComparGt, ComparLe, ComparGe
+from thompson.nodes.literals import NumberVal, BoolVal
+from thompson.nodes.ops import ComparLt, ComparGt, ComparLe, ComparGe
 
 
 def test_compar_ops(empty_context_eval):

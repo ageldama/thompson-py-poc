@@ -1,12 +1,12 @@
 # -*- coding: utf-8; -*-
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import NumberVal, NilConst, StringVal
 from thompson.evaluators import evaluate
-from thompson.builtin_operators import ComparLt
-from thompson.builtin_operators import CondElse, CondItem
-from thompson.builtin_operators import CaseElse, CaseItem
-from thompson.builtin_operators import Assign
+from thompson.nodes.literals import NumberVal, NilConst, StringVal
+from thompson.nodes.ops import ComparLt
+from thompson.nodes.ops import CondElse, CondItem
+from thompson.nodes.ops import CaseElse, CaseItem
+from thompson.nodes.ops import Assign
 
 
 def test_cond_else():

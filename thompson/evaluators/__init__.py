@@ -1,26 +1,26 @@
 # -*- coding: utf-8; -*-
 from abc import abstractmethod
-from thompson.literals import LiteralNode, NilConst, NullVal, BoolVal
-from thompson.literals import FunctionVal, FunctionParamVal
-from thompson.literals import NumberVal, StringVal
-from thompson.literals import MappedVal, MappedFunctionVal
-from thompson.literals import NoWrappingMappedFunctionVal
+from thompson.nodes.literals import LiteralNode, NilConst, NullVal, BoolVal
+from thompson.nodes.literals import FunctionVal, FunctionParamVal
+from thompson.nodes.literals import NumberVal, StringVal
+from thompson.nodes.literals import MappedVal, MappedFunctionVal
+from thompson.nodes.literals import NoWrappingMappedFunctionVal
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
-from thompson.builtin_operators import ArithAdd, ArithSub
-from thompson.builtin_operators import ArithDiv, ArithDivDiv, ArithRem
-from thompson.builtin_operators import ArithMult, ArithMultMult
-from thompson.builtin_operators import ComparLt, ComparLe, ComparGt, ComparGe
-from thompson.builtin_operators import Equal, NotEqual
-from thompson.builtin_operators import IsNotNull, IsNull
-from thompson.builtin_operators import BindingRef
-from thompson.builtin_operators import Assign, AssignGlobal, AssignUpvar
-from thompson.builtin_operators import Prog1, ProgN, ParProg
-from thompson.builtin_operators import IfThenElse, When, Unless
-from thompson.builtin_operators import CaseElse, CondElse
-from thompson.builtin_operators import Funcall
-from thompson.builtin_operators import Const, Let
+from thompson.nodes.ops import Pass, LogOr, LogAnd, LogNot
+from thompson.nodes.ops import ArithAdd, ArithSub
+from thompson.nodes.ops import ArithDiv, ArithDivDiv, ArithRem
+from thompson.nodes.ops import ArithMult, ArithMultMult
+from thompson.nodes.ops import ComparLt, ComparLe, ComparGt, ComparGe
+from thompson.nodes.ops import Equal, NotEqual
+from thompson.nodes.ops import IsNotNull, IsNull
+from thompson.nodes.ops import BindingRef
+from thompson.nodes.ops import Assign, AssignGlobal, AssignUpvar
+from thompson.nodes.ops import Prog1, ProgN, ParProg
+from thompson.nodes.ops import IfThenElse, When, Unless
+from thompson.nodes.ops import CaseElse, CondElse
+from thompson.nodes.ops import Funcall
+from thompson.nodes.ops import Const, Let
 
 
 def find_evaluator(context, node):

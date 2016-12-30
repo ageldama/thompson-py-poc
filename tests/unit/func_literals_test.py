@@ -1,9 +1,9 @@
 # -*- coding: utf-8; -*-
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import StringVal
-from thompson.literals import FunctionParamVal, FunctionVal
-from thompson.builtin_operators import ArithAdd, BindingRef
+from thompson.nodes.literals import StringVal
+from thompson.nodes.literals import FunctionParamVal, FunctionVal
+from thompson.nodes.ops import ArithAdd, BindingRef
 from thompson.evaluators import evaluate
 from thompson.evaluators import gimme_str_anyway
 

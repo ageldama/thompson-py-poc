@@ -1,7 +1,8 @@
 # -*- coding: utf-8; -*-
 from pytest import fixture, raises
-from thompson.literals import BoolVal, NumberVal, StringVal, NullVal, NilConst
-from thompson.builtin_operators import Pass
+from thompson.nodes.literals import BoolVal, NumberVal, StringVal
+from thompson.nodes.literals import NullVal, NilConst
+from thompson.nodes.ops import Pass
 from thompson.evaluators import find_evaluator
 from thompson.evaluators import LiteralEvaluator, PassEvaluator
 

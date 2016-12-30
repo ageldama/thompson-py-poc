@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 from pytest import fixture
-from thompson.literals import BoolVal
-from thompson.builtin_operators import LogNot, LogOr, LogAnd
+from thompson.nodes.literals import BoolVal
+from thompson.nodes.ops import LogNot, LogOr, LogAnd
 
 
 @fixture

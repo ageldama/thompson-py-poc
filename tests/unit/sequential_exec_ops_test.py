@@ -1,10 +1,10 @@
 # -*- coding: utf-8; -*-
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import NumberVal, NilConst
 from thompson.evaluators import evaluate
-from thompson.builtin_operators import Prog1, ProgN, ParProg
-from thompson.builtin_operators import Assign, BindingRef, ArithAdd
+from thompson.nodes.literals import NumberVal, NilConst
+from thompson.nodes.ops import Prog1, ProgN, ParProg
+from thompson.nodes.ops import Assign, BindingRef, ArithAdd
 
 
 def test_prog1():

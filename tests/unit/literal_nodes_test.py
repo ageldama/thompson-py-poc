@@ -1,6 +1,7 @@
 # -*- coding: utf-8; -*-
 from pytest import raises, fixture
-from thompson.literals import StringVal, NumberVal, BoolVal, NullVal, NilConst
+from thompson.nodes.literals import StringVal, NumberVal, BoolVal
+from thompson.nodes.literals import NullVal, NilConst
 
 
 def test_literal_nodes_type_oks():

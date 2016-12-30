@@ -1,11 +1,11 @@
 # -*- coding: utf-8; -*-
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import NumberVal, NilConst, BoolVal
 from thompson.evaluators import evaluate
-from thompson.builtin_operators import ComparLt
-from thompson.builtin_operators import IfThenElse, When, Unless
-from thompson.builtin_operators import Assign
+from thompson.nodes.literals import NumberVal, NilConst, BoolVal
+from thompson.nodes.ops import ComparLt
+from thompson.nodes.ops import IfThenElse, When, Unless
+from thompson.nodes.ops import Assign
 
 
 def test_if_then():

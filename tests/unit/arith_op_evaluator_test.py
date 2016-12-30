@@ -1,8 +1,8 @@
 # -*- coding: utf-8; -*-
-from thompson.literals import NumberVal
-from thompson.builtin_operators import ArithAdd, ArithSub
-from thompson.builtin_operators import ArithMult, ArithMultMult
-from thompson.builtin_operators import ArithDiv, ArithDivDiv, ArithRem
+from thompson.nodes.literals import NumberVal
+from thompson.nodes.ops import ArithAdd, ArithSub
+from thompson.nodes.ops import ArithMult, ArithMultMult
+from thompson.nodes.ops import ArithDiv, ArithDivDiv, ArithRem
 
 
 def test_arith_ops(empty_context_eval):

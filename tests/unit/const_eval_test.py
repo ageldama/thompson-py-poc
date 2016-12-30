@@ -1,6 +1,6 @@
 # -*- coding: utf-8; -*-
-from thompson.literals import NumberVal
-from thompson.builtin_operators import Const, Assign
+from thompson.nodes.literals import NumberVal
+from thompson.nodes.ops import Const, Assign
 from pytest import raises
 
 

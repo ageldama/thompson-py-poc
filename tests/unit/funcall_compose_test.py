@@ -1,11 +1,11 @@
 # -*- coding: utf-8; -*-
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import NumberVal
-from thompson.literals import FunctionParamVal, FunctionVal
-from thompson.builtin_operators import Assign
-from thompson.builtin_operators import Funcall
-from thompson.builtin_operators import ArithAdd, ArithMult, BindingRef
+from thompson.nodes.literals import NumberVal
+from thompson.nodes.literals import FunctionParamVal, FunctionVal
+from thompson.nodes.ops import Assign
+from thompson.nodes.ops import Funcall
+from thompson.nodes.ops import ArithAdd, ArithMult, BindingRef
 from thompson.evaluators import evaluate
 
 

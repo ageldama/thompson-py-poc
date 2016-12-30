@@ -1,9 +1,9 @@
 # -*- coding: utf-8; -*-
 from thompson.bindings import Binding
 from thompson.context import Context
-from thompson.literals import NumberVal
-from thompson.builtin_operators import Let, Assign, Const
-from thompson.builtin_operators import BindingRef, ArithAdd
+from thompson.nodes.literals import NumberVal
+from thompson.nodes.ops import Let, Assign, Const
+from thompson.nodes.ops import BindingRef, ArithAdd
 from thompson.evaluators import evaluate
 
 

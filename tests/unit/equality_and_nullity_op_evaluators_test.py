@@ -1,8 +1,8 @@
 # -*- coding: utf-8; -*-
-from thompson.literals import NilConst, NullVal, BoolVal
-from thompson.literals import NumberVal, StringVal
-from thompson.builtin_operators import Equal, NotEqual
-from thompson.builtin_operators import IsNotNull, IsNull
+from thompson.nodes.literals import NilConst, NullVal, BoolVal
+from thompson.nodes.literals import NumberVal, StringVal
+from thompson.nodes.ops import Equal, NotEqual
+from thompson.nodes.ops import IsNotNull, IsNull
 
 
 def test_equality(empty_context_eval):
