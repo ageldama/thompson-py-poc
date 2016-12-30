@@ -1,13 +1,6 @@
 * TODO Apply Python ~typing~ signatures on funcs?                  :REFACTOR:
   - <2016-12-30 Fri>
 
-
-* DONE Rename Plus/Minus -> Add/Sub.                               :REFACTOR:
-  - <2016-12-30 Fri>
-
-* TODO No-wrap/unwrap mapped-funcs?                                   :BASIC:
-  - <2016-12-30 Fri>
-
 * TODO JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>
     - https://github.com/antidot/Pyckson
@@ -15,12 +8,8 @@
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
 
-* DONE Max-Stack-Depth as a script? (not a testcase)               :REFACTOR:
-  - <2016-12-30 Fri>
-
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>
-
 
 * TODO JSONSchema-based validation of expressions?                      :ADV:
   - <2016-12-30 Fri>
@@ -49,6 +38,14 @@
   - <2016-12-28 Wed>
     1) Separate contents by sections.
 
+* DONE Rename Plus/Minus -> Add/Sub.                               :REFACTOR:
+  - <2016-12-30 Fri>
+
+* DONE No-wrap/unwrap mapped-funcs?                                   :BASIC:
+  - <2016-12-30 Fri>
+
+* DONE Max-Stack-Depth as a script? (not a testcase)               :REFACTOR:
+  - <2016-12-30 Fri>
 
 * DONE Fix the bug of `test_func_composition`.                        :DEBUG:
   - <2016-12-29 Thu>
@@ -71,7 +68,6 @@
     - ..do it in JVM instead of this.
     - because there's no actual bytecode emitter in python3. (only
       `dis` available.)
-
 
 * DONE simple evaluators per builtin-ops.                             :BASIC:
   - <2016-12-28 Wed>

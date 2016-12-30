@@ -1,6 +1,7 @@
 # -*- coding: utf-8; -*-
 from thompson.literals import StringVal, NumberVal, BoolVal, NilConst
 from thompson.literals import MappedVal, MappedFunctionVal
+from thompson.literals import NoWrappingMappedFunctionVal
 from thompson.builtin_operators import Assign, BindingRef, Funcall
 from operator import add
 
@@ -73,3 +74,19 @@ def test_mapped_dict_funs(empty_context_eval):
     E(Funcall(BindingRef('dict_put'), [d, S('foo'), S('bar')]))
     result = E(Funcall(BindingRef('dict_get'), [d, S('foo')]))
     assert result == S('bar')
+
+
+def str_mult(s, times):
+    S = StringVal
+    s_ = s.get()
+    times_ = times.get()
+    return S(s_ * times_)
+
+
+def test_no_wrapping_mapped_fun(empty_context_eval):
+    E = empty_context_eval
+    S, N = StringVal, NumberVal
+    E(Assign('str_mult', NoWrappingMappedFunctionVal(str_mult)))
+    #
+    result = E(Funcall(BindingRef('str_mult'), [S('foo'), N(3)]))
+    assert result == S('foo' * 3)

@@ -154,3 +154,14 @@ class MappedFunctionVal(LiteralNode):
 
     def __str__(self):
         return repr(self)
+
+
+class NoWrappingMappedFunctionVal(LiteralNode):
+    def __init__(self, f):
+        self.f = f
+
+    def __repr__(self):
+        return "NoWrappingMappedFunctionVal({})".format(repr(self.f))
+
+    def __str__(self):
+        return repr(self)

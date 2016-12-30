@@ -4,6 +4,7 @@ from thompson.literals import LiteralNode, NilConst, NullVal, BoolVal
 from thompson.literals import FunctionVal, FunctionParamVal
 from thompson.literals import NumberVal, StringVal
 from thompson.literals import MappedVal, MappedFunctionVal
+from thompson.literals import NoWrappingMappedFunctionVal
 from thompson.bindings import Binding
 from thompson.context import Context
 from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
@@ -379,6 +380,8 @@ class FuncallEvaluator(Evaluator):
             self._bind_params(context, fun, node.params)
             c = Context(fun.binding)
             return evaluate(c, fun.body)
+        elif isinstance(fun, NoWrappingMappedFunctionVal):
+            return fun.f(*node.params)
         elif isinstance(fun, MappedFunctionVal):
             p = self._unwrap_params(context, node.params)
             return self._wrap_result(fun.f(*p))
@@ -429,6 +432,7 @@ __evaluators__ = (
     (FunctionVal, FunctionValEvaluator()),
     (MappedVal, MappedValEvaluator()),
     (MappedFunctionVal, MappedFunctionValEvaluator()),
+    (NoWrappingMappedFunctionVal, MappedFunctionValEvaluator()),
     (LiteralNode, LiteralEvaluator()),
     (LogOr, LogOrEvaluator()),
     (LogAnd, LogAndEvaluator()),
