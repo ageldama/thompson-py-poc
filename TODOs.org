@@ -1,5 +1,3 @@
-* TODO Apply Python ~typing~ signatures on funcs?                  :REFACTOR:
-  - <2016-12-30 Fri>
 
 * TODO JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>
@@ -7,6 +5,13 @@
       - (I guess) Jackson-clone.
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
+
+
+* TODO CaseItem, CondItem, FunctionParamVal .. is not a evaluatable-nodes.
+  - <2016-12-30 Fri> Hence, change the type.
+
+* TODO Q. ParamVals for MappedFunction?
+  - <2016-12-30 Fri> with that, it would be more descriptive.
 
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>
@@ -33,6 +38,8 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+* DONE Apply Python ~typing~ signatures on funcs?                  :REFACTOR:
+  - <2016-12-30 Fri>
 
 
 * DONE Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:

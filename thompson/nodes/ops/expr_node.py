@@ -5,5 +5,5 @@ from abc import abstractmethod
 
 class ExprNode(Node):
     @abstractmethod
-    def __str__(self):
+    def __str__(self) -> str:
         pass
