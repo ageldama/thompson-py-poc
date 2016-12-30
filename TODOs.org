@@ -15,7 +15,7 @@
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
 
-* TODO Max-Stack-Depth as a script? (not a testcase)               :REFACTOR:
+* DONE Max-Stack-Depth as a script? (not a testcase)               :REFACTOR:
   - <2016-12-30 Fri>
 
 * TODO docstrings on test functions.                          :DOCUMENTATION:
