@@ -5,7 +5,7 @@ from thompson.literals import StringVal, NumberVal
 from thompson.literals import FunctionParamVal, FunctionVal
 from thompson.builtin_operators import Assign, AssignGlobal, AssignUpvar
 from thompson.builtin_operators import Funcall
-from thompson.builtin_operators import ArithPlus, BindingRef
+from thompson.builtin_operators import ArithAdd, BindingRef
 from thompson.evaluators import evaluate
 
 
@@ -17,7 +17,7 @@ def test_simple_adder():
     b.set('y', 123)
     c = Context(b)
     params_expr = [FunctionParamVal(S('x')), FunctionParamVal('y')]
-    body_expr = ArithPlus(BindingRef('x'), BindingRef('y'))
+    body_expr = ArithAdd(BindingRef('x'), BindingRef('y'))
     fun_expr = FunctionVal(params_expr, body_expr)
     funcall_expr = Funcall(fun_expr, [N(1), N(2)])
     #
@@ -37,7 +37,7 @@ def test_closure1_inc():
     b_creation.set('magic', N(42))
     c_creation = Context(b_creation)
     params_expr = [FunctionParamVal('x')]
-    body_expr = ArithPlus(BindingRef('x'), BindingRef('magic'))
+    body_expr = ArithAdd(BindingRef('x'), BindingRef('magic'))
     evaluate(c_creation,
              AssignGlobal('inc', FunctionVal(params_expr, body_expr)))
     # funcall inc(1).
@@ -64,7 +64,7 @@ def test_closure2_counter():
     # NOTE: Use `AssignUpvar` to modify closure's binding, not
     # `Assign`. Because, basically, function's closure is wrapped with
     # another `Binding` to separate function's own scope.
-    body_expr = AssignUpvar('count', ArithPlus(N(1), BindingRef('count')))
+    body_expr = AssignUpvar('count', ArithAdd(N(1), BindingRef('count')))
     evaluate(c_creation,
              AssignGlobal('counter', FunctionVal(params_expr, body_expr)))
     #
@@ -88,7 +88,7 @@ def test_make_adder():
     c = Context(b)
     # set adder = fun {|x, y| ... }
     params_expr = [FunctionParamVal(S('x')), FunctionParamVal('y')]
-    body_expr = ArithPlus(BindingRef('x'), BindingRef('y'))
+    body_expr = ArithAdd(BindingRef('x'), BindingRef('y'))
     evaluate(c, Assign('adder', FunctionVal(params_expr, body_expr)))
     # execute.
     result = evaluate(c, Funcall(BindingRef('adder'), [N(1), N(6)]))
@@ -98,7 +98,7 @@ def test_make_adder():
 def define_make_incx(c):
     params_expr = [FunctionParamVal('x')]
     body = FunctionVal([FunctionParamVal('n')],
-                       ArithPlus(BindingRef('x'), BindingRef('n')))
+                       ArithAdd(BindingRef('x'), BindingRef('n')))
     return evaluate(c, Assign('make_incx', FunctionVal(params_expr, body)))
 
 

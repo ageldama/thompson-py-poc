@@ -7,7 +7,7 @@ from thompson.literals import MappedVal, MappedFunctionVal
 from thompson.bindings import Binding
 from thompson.context import Context
 from thompson.builtin_operators import Pass, LogOr, LogAnd, LogNot
-from thompson.builtin_operators import ArithPlus, ArithMinus
+from thompson.builtin_operators import ArithAdd, ArithSub
 from thompson.builtin_operators import ArithDiv, ArithDivDiv, ArithRem
 from thompson.builtin_operators import ArithMult, ArithMultMult
 from thompson.builtin_operators import ComparLt, ComparLe, ComparGt, ComparGe
@@ -82,14 +82,14 @@ class LogNotEvaluator(Evaluator):
         return BoolVal(not a_.get())
 
 
-class ArithPlusEvaluator(Evaluator):
+class ArithAddEvaluator(Evaluator):
     def eval(self, context, node):
         a_ = eval_and_type_check(context, node.a, NumberVal)
         b_ = eval_and_type_check(context, node.b, NumberVal)
         return NumberVal(a_.get() + b_.get())
 
 
-class ArithMinusEvaluator(Evaluator):
+class ArithSubEvaluator(Evaluator):
     def eval(self, context, node):
         a_ = eval_and_type_check(context, node.a, NumberVal)
         b_ = eval_and_type_check(context, node.b, NumberVal)
@@ -433,8 +433,8 @@ __evaluators__ = (
     (LogOr, LogOrEvaluator()),
     (LogAnd, LogAndEvaluator()),
     (LogNot, LogNotEvaluator()),
-    (ArithPlus, ArithPlusEvaluator()),
-    (ArithMinus, ArithMinusEvaluator()),
+    (ArithAdd, ArithAddEvaluator()),
+    (ArithSub, ArithSubEvaluator()),
     (ArithMult, ArithMultEvaluator()),
     (ArithMultMult, ArithMultMultEvaluator()),
     (ArithRem, ArithRemEvaluator()),

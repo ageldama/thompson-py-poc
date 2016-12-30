@@ -64,20 +64,20 @@ class LogNot(ExprNode):
         return "LogNot[{}]".format(str(self.a))
 
 
-class ArithPlus(ExprNode):
+class ArithAdd(ExprNode):
     def __init__(self, a, b):
         self.a, self.b = a, b
 
     def __str__(self):
-        return "ArithPlus[{}, {}]".format(str(self.a), str(self.b))
+        return "ArithAdd[{}, {}]".format(str(self.a), str(self.b))
 
 
-class ArithMinus(ExprNode):
+class ArithSub(ExprNode):
     def __init__(self, a, b):
         self.a, self.b = a, b
 
     def __str__(self):
-        return "ArithMinus[{}, {}]".format(str(self.a), str(self.b))
+        return "ArithSub[{}, {}]".format(str(self.a), str(self.b))
 
 
 class ArithMult(ExprNode):

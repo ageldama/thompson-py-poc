@@ -3,7 +3,7 @@ from thompson.bindings import Binding
 from thompson.context import Context
 from thompson.literals import StringVal
 from thompson.literals import FunctionParamVal, FunctionVal
-from thompson.builtin_operators import ArithPlus, BindingRef
+from thompson.builtin_operators import ArithAdd, BindingRef
 from thompson.evaluators import evaluate
 from thompson.evaluators import gimme_str_anyway
 
@@ -35,7 +35,7 @@ def test_func_literal_eval():
     b.set('foo', 'bar')
     c = Context(b)
     params_expr = [FunctionParamVal(S('x')), FunctionParamVal('y')]
-    body_expr = ArithPlus(BindingRef('x'), BindingRef('y'))
+    body_expr = ArithAdd(BindingRef('x'), BindingRef('y'))
     fun = FunctionVal(params_expr, body_expr)
     result = evaluate(c, fun)
     assert result.binding.get('foo') == 'bar'

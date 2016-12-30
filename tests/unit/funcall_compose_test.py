@@ -5,7 +5,7 @@ from thompson.literals import NumberVal
 from thompson.literals import FunctionParamVal, FunctionVal
 from thompson.builtin_operators import Assign
 from thompson.builtin_operators import Funcall
-from thompson.builtin_operators import ArithPlus, ArithMult, BindingRef
+from thompson.builtin_operators import ArithAdd, ArithMult, BindingRef
 from thompson.evaluators import evaluate
 
 
@@ -21,7 +21,7 @@ def define_compose1(c):
 def define_inc1(c):
     N = NumberVal
     params = [FunctionParamVal('x')]
-    body = ArithPlus(N(1), BindingRef('x'))
+    body = ArithAdd(N(1), BindingRef('x'))
     return evaluate(c, Assign('inc1', FunctionVal(params, body)))
 
 
@@ -43,7 +43,7 @@ def test_func_composition():
     assert evaluate(c_root, Funcall(BindingRef('inc1'), [N(1)])) == N(2)
     define_square(c_root)
     assert evaluate(c_root, Funcall(BindingRef('square'), [N(4)])) == N(16)
-    # compose - square(inc1(x))
+    # compose(square, inc1) ==> square(inc1(x))
     evaluate(c_root, Assign('my_fun',
                             Funcall(BindingRef('compose1'),
                                     [BindingRef('square'),

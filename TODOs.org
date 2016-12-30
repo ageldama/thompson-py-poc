@@ -2,7 +2,7 @@
   - <2016-12-30 Fri>
 
 
-* TODO Rename Plus/Minus -> Add/Sub.                               :REFACTOR:
+* DONE Rename Plus/Minus -> Add/Sub.                               :REFACTOR:
   - <2016-12-30 Fri>
 
 * TODO No-wrap/unwrap mapped-funcs?                                   :BASIC:
@@ -14,6 +14,9 @@
       - (I guess) Jackson-clone.
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
+
+* TODO Max-Stack-Depth as a script? (not a testcase)               :REFACTOR:
+  - <2016-12-30 Fri>
 
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>

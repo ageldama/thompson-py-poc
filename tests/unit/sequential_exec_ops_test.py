@@ -4,7 +4,7 @@ from thompson.context import Context
 from thompson.literals import NumberVal, NilConst
 from thompson.evaluators import evaluate
 from thompson.builtin_operators import Prog1, ProgN, ParProg
-from thompson.builtin_operators import Assign, BindingRef, ArithPlus
+from thompson.builtin_operators import Assign, BindingRef, ArithAdd
 
 
 def test_prog1():
@@ -14,8 +14,8 @@ def test_prog1():
     c = Context(b)
     #
     l = Prog1([Assign('a', N(1)),
-               Assign('b', ArithPlus(N(1), BindingRef('a'))),
-               Assign('c', ArithPlus(N(1), BindingRef('b')))])
+               Assign('b', ArithAdd(N(1), BindingRef('a'))),
+               Assign('c', ArithAdd(N(1), BindingRef('b')))])
     result = evaluate(c, l)
     assert result == N(1)
     assert evaluate(c, BindingRef('a')) == N(1)
@@ -30,8 +30,8 @@ def test_progn():
     c = Context(b)
     #
     l = ProgN([Assign('a', N(1)),
-               Assign('b', ArithPlus(N(1), BindingRef('a'))),
-               Assign('c', ArithPlus(N(1), BindingRef('b')))])
+               Assign('b', ArithAdd(N(1), BindingRef('a'))),
+               Assign('c', ArithAdd(N(1), BindingRef('b')))])
     result = evaluate(c, l)
     assert result == N(3)
     assert evaluate(c, BindingRef('a')) == N(1)
