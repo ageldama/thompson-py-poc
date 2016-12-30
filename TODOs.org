@@ -6,10 +6,24 @@
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
 
-* TODO Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
-  - <2016-12-28 Wed>
+* TODO Rename Plus/Minus -> Add/Sub.                               :REFACTOR:
+  - <2016-12-30 Fri>
+
+* TODO No-wrap/unwrap mapped-funcs?                                   :BASIC:
+  - <2016-12-30 Fri>
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>
+
+
+* TODO JSONSchema-based validation of expressions?                      :ADV:
+  - <2016-12-30 Fri>
+
+
+* TODO Arrange packages (nodes, builtin-ops, evaluators)           :REFACTOR:
+  - <2016-12-28 Wed>
+
+* TODO Semantical Static Analysis?                                      :ADV:
+  - <2016-12-30 Fri>
 
 * TODO eq, ne for func-literals? builtin-ops                            :ADV:
   - <2016-12-28 Wed> almost everything!
