@@ -1,7 +1,6 @@
 # -*- coding: utf-8; -*-
 from pytest import raises
-from thompson.bindings import Binding
-from thompson.context import Context
+from thompson.context import Context, Binding
 from thompson.evaluators import evaluate
 from thompson.nodes.literals import NumberVal, StringVal
 from thompson.nodes.ops import BindingRef

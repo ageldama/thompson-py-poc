@@ -1,4 +1,5 @@
 # -*- coding: utf-8; -*-
+from thompson.context.binding import Binding
 
 
 class Context(object):

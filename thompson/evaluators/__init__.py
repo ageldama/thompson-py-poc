@@ -5,8 +5,7 @@ from thompson.nodes.literals import FunctionVal, FunctionParamVal
 from thompson.nodes.literals import NumberVal, StringVal
 from thompson.nodes.literals import MappedVal, MappedFunctionVal
 from thompson.nodes.literals import NoWrappingMappedFunctionVal
-from thompson.bindings import Binding
-from thompson.context import Context
+from thompson.context import Context, Binding
 from thompson.nodes.ops import Pass, LogOr, LogAnd, LogNot
 from thompson.nodes.ops import ArithAdd, ArithSub
 from thompson.nodes.ops import ArithDiv, ArithDivDiv, ArithRem

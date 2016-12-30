@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 
 from pytest import raises
-from thompson.bindings import Binding
+from thompson.context import Binding
 
 
 def test_creation():

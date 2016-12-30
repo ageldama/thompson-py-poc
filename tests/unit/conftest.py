@@ -1,7 +1,6 @@
 # -*- coding: utf-8; -*-
 from pytest import fixture
-from thompson.bindings import Binding
-from thompson.context import Context
+from thompson.context import Context, Binding
 from thompson.evaluators import evaluate
 
 

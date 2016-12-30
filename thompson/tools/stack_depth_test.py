@@ -1,8 +1,7 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.literals import NumberVal
 from thompson.nodes.ops import ArithAdd
-from thompson.context import Context
-from thompson.bindings import Binding
+from thompson.context import Context, Binding
 from thompson.evaluators import evaluate
 
 

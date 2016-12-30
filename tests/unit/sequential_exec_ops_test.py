@@ -1,6 +1,5 @@
 # -*- coding: utf-8; -*-
-from thompson.bindings import Binding
-from thompson.context import Context
+from thompson.context import Context, Binding
 from thompson.evaluators import evaluate
 from thompson.nodes.literals import NumberVal, NilConst
 from thompson.nodes.ops import Prog1, ProgN, ParProg
