@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.literals import StringVal, NumberVal, BoolVal, NilConst
+from thompson.nodes.literals import FunctionParamVal
 from thompson.nodes.literals import MappedVal, MappedFunctionVal
 from thompson.nodes.literals import NoWrappingMappedFunctionVal
 from thompson.nodes.ops import Assign, BindingRef, Funcall
@@ -15,7 +16,9 @@ def test_mapped_var(empty_context_eval):
 def test_mapped_fun(empty_context_eval):
     E = empty_context_eval
     N = NumberVal
-    E(Assign('add', MappedFunctionVal(add)))
+    E(Assign('add', MappedFunctionVal(add,
+                                      [FunctionParamVal('a'),
+                                       FunctionParamVal('b')])))
     result = E(Funcall(BindingRef('add'), [N(1), N(2)]))
     assert result == N(3)
 
@@ -36,9 +39,15 @@ def always_none(v):
 def test_mapped_fun_unwrap_and_wrap(empty_context_eval):
     E = empty_context_eval
     S, B = StringVal, BoolVal
-    E(Assign('simple_str_fun', MappedFunctionVal(simple_str_fun)))
-    E(Assign('simple_bool_fun', MappedFunctionVal(simple_bool_fun)))
-    E(Assign('always_none', MappedFunctionVal(always_none)))
+    E(Assign('simple_str_fun',
+             MappedFunctionVal(simple_str_fun,
+                               [FunctionParamVal('s')])))
+    E(Assign('simple_bool_fun',
+             MappedFunctionVal(simple_bool_fun,
+                               [FunctionParamVal('b')])))
+    E(Assign('always_none',
+             MappedFunctionVal(always_none,
+                               [FunctionParamVal('n')])))
     # str.
     result = E(Funcall(BindingRef('simple_str_fun'), [S('foo')]))
     assert result == S('foofoofoo')
@@ -65,9 +74,16 @@ def dict_get(d, k):
 def test_mapped_dict_funs(empty_context_eval):
     E = empty_context_eval
     S = StringVal
-    E(Assign('dict_create', MappedFunctionVal(dict_create)))
-    E(Assign('dict_put', MappedFunctionVal(dict_put)))
-    E(Assign('dict_get', MappedFunctionVal(dict_get)))
+    E(Assign('dict_create', MappedFunctionVal(dict_create, [])))
+    E(Assign('dict_put',
+             MappedFunctionVal(dict_put,
+                               [FunctionParamVal('d'),
+                                FunctionParamVal('k'),
+                                FunctionParamVal('v')])))
+    E(Assign('dict_get',
+             MappedFunctionVal(dict_get,
+                               [FunctionParamVal('d'),
+                                FunctionParamVal('k')])))
     #
     d = E(Funcall(BindingRef('dict_create'), []))
     assert isinstance(d, MappedVal)
@@ -86,7 +102,8 @@ def str_mult(s, times):
 def test_no_wrapping_mapped_fun(empty_context_eval):
     E = empty_context_eval
     S, N = StringVal, NumberVal
-    E(Assign('str_mult', NoWrappingMappedFunctionVal(str_mult)))
+    params = [FunctionParamVal('s'), FunctionParamVal('times')]
+    E(Assign('str_mult', NoWrappingMappedFunctionVal(str_mult, params)))
     #
     result = E(Funcall(BindingRef('str_mult'), [S('foo'), N(3)]))
     assert result == S('foo' * 3)

@@ -151,22 +151,30 @@ class MappedVal(LiteralNode):
 
 
 class MappedFunctionVal(LiteralNode):
-    def __init__(self, f: Callable):
+    def __init__(self,
+                 f: Callable,
+                 params: Sequence['FunctionParamVal']):
         self.f = f
+        self.params = params
 
     def __repr__(self) -> str:
-        return "MappedFunctionVal({})".format(repr(self.f))
+        return "MappedFunctionVal({}, {})".format(
+            repr(self.f), repr(self.params))
 
     def __str__(self) -> str:
         return repr(self)
 
 
 class NoWrappingMappedFunctionVal(LiteralNode):
-    def __init__(self, f: Callable):
+    def __init__(self,
+                 f: Callable,
+                 params: Sequence['FunctionParamVal']):
         self.f = f
+        self.params = params
 
     def __repr__(self) -> str:
-        return "NoWrappingMappedFunctionVal({})".format(repr(self.f))
+        return "NoWrappingMappedFunctionVal({}, {})".format(
+            repr(self.f), repr(self.params))
 
     def __str__(self) -> str:
         return repr(self)
