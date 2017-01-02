@@ -18,6 +18,8 @@
 
 * TODO eq, ne for func-literals? builtin-ops                            :ADV:
   - <2016-12-28 Wed> almost everything!
+    1) now it's done for most literals. (except fun-val, because of
+       its expr-node...)
 
     
 * TODO docstring-field for func-val, func-val-params.                   :ADV:

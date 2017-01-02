@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 from abc import abstractmethod
+import math
 from thompson.nodes import Evaluatable
 from typing import Union, Optional, Sequence, Any, Callable
 from thompson.context import Binding
@@ -13,11 +14,19 @@ class LiteralNode(Evaluatable):
         raise NotImplementedError
 
     @abstractmethod
+    def __eq__(self):
+        pass
+
+    @abstractmethod
     def __str__(self):
         pass
 
     @abstractmethod
     def __repr__(self):
+        pass
+
+    @abstractmethod
+    def to_json_default(self, json_encoder):
         pass
 
 
@@ -44,8 +53,15 @@ class BoolVal(LiteralNode):
     def __str__(self) -> str:
         return str(self.get())
 
+    def to_json_default(self, json_encoder):
+        return {'bool': self.get()}
 
+
+# TODO: singleton?
 class NullVal(LiteralNode):
+    def __init__(self, *arg) -> None:
+        pass
+
     def __eq__(self, other: 'NullVal') -> bool:
         return isinstance(other, NullVal)
 
@@ -54,6 +70,9 @@ class NullVal(LiteralNode):
 
     def __str__(self) -> str:
         return str(self.get())
+
+    def to_json_default(self, json_encoder):
+        return {'null': None}
 
 
 NilConst = NullVal()
@@ -82,6 +101,9 @@ class StringVal(LiteralNode):
     def __str__(self) -> str:
         return str(self.get())
 
+    def to_json_default(self, json_encoder):
+        return {'str': self.get()}
+
 
 class NumberVal(LiteralNode):
     def __init__(self, v: Union[int, float]) -> None:
@@ -98,6 +120,10 @@ class NumberVal(LiteralNode):
     def __eq__(self, other: 'NumberVal') -> bool:
         if not isinstance(other, NumberVal):
             raise TypeError()
+        elif math.isinf(self.get()) and math.isinf(other.get()):
+            return True
+        elif math.isnan(self.get()) and math.isnan(other.get()):
+            return True
         else:
             # TODO: epsilon comparison for floats?
             return self.get() == other.get()
@@ -107,6 +133,9 @@ class NumberVal(LiteralNode):
 
     def __str__(self) -> str:
         return str(self.get())
+
+    def to_json_default(self, json_encoder):
+        return {'num': self.get()}
 
 
 class FunctionVal(LiteralNode):
@@ -118,6 +147,15 @@ class FunctionVal(LiteralNode):
         self.body = body
         self.binding = binding
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, FunctionVal):
+            return False
+        else:
+            # TODO: implement body-expr equality?
+            return self.params == other.params \
+                and self.body == other.body \
+                and self.binding is other.binding
+
     def __repr__(self) -> str:
         return "FunctionVal({}, {}, {})".format(
             repr(self.binding), repr(self.params),
@@ -126,10 +164,20 @@ class FunctionVal(LiteralNode):
     def __str__(self) -> str:
         return repr(self)  # FIXME: not-evalable-str.
 
+    def to_json_default(self, json_encoder):
+        # NOTE: exclude binding.
+        pass  # TODO: because body...
+
 
 class FunctionParamVal(LiteralNode):
     def __init__(self, name: str, **kwargs) -> None:
         self.name = name
+
+    def __eq__(self, other):
+        if not isinstance(other, FunctionParamVal):
+            return False
+        else:
+            return self.name == other.name
 
     def __repr__(self) -> str:
         return "FunctionParamVal({})".format(repr(self.name))
@@ -137,16 +185,28 @@ class FunctionParamVal(LiteralNode):
     def __str__(self) -> str:
         return repr(self)
 
+    def to_json_default(self, json_encoder):
+        return {'fun-param': self.name}
+
 
 class MappedVal(LiteralNode):
     def __init__(self, v: Any) -> None:
         self.v = v
+
+    def __eq__(self, other):
+        if not isinstance(other, MappedVal):
+            return False
+        else:
+            return self.v == other.v
 
     def __repr__(self) -> str:
         return "MappedVal({})".format(repr(self.v))
 
     def __str__(self) -> str:
         return repr(self)
+
+    def to_json_default(self, json_encoder):
+        raise ValueError('MappedVal is cannot be serialized!')
 
 
 class MappedFunctionVal(LiteralNode):
@@ -156,12 +216,22 @@ class MappedFunctionVal(LiteralNode):
         self.f = f
         self.params = params
 
+    def __eq__(self, other):
+        if not isinstance(other, MappedFunctionVal):
+            return False
+        else:
+            return self.f is other.f \
+                and self.params == other.params
+
     def __repr__(self) -> str:
         return "MappedFunctionVal({}, {})".format(
             repr(self.f), repr(self.params))
 
     def __str__(self) -> str:
         return repr(self)
+
+    def to_json_default(self, json_encoder):
+        raise ValueError('MappedFunctionVal is cannot be serialized!')
 
 
 class NoWrappingMappedFunctionVal(LiteralNode):
@@ -171,9 +241,20 @@ class NoWrappingMappedFunctionVal(LiteralNode):
         self.f = f
         self.params = params
 
+    def __eq__(self, other):
+        if not isinstance(other, NoWrappingMappedFunctionVal):
+            return False
+        else:
+            return self.f == other.f \
+                and self.params == other.params
+
     def __repr__(self) -> str:
         return "NoWrappingMappedFunctionVal({}, {})".format(
             repr(self.f), repr(self.params))
 
     def __str__(self) -> str:
         return repr(self)
+
+    def to_json_default(self, json_encoder):
+        raise ValueError(
+            'NoWrappingMappedFunctionVal is cannot be serialized!')
