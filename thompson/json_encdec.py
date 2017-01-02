@@ -1,16 +1,16 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 import json
 from thompson.nodes.literals import BoolVal, StringVal, NumberVal
 from thompson.nodes.literals import NullVal
 from thompson.nodes.literals import FunctionParamVal
 
 
-class LiteralNodeJsonEncoder(json.JSONEncoder):
+class NodeJsonEncoder(json.JSONEncoder):
     def default(self, obj):
         return obj.to_json_default(self)
 
 
-class LiteralNodeJsonDecoder(json.JSONDecoder):
+class NodeJsonDecoder(json.JSONDecoder):
     def __init__(self, *args, **kargs):
         json.JSONDecoder.__init__(self, object_hook=self.dict_to_object,
                                   *args, **kargs)
