@@ -1,6 +1,7 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode, NonExprNode
 from thompson.strs import to_joined_strs
+from thompson.jsons import enc_default, enc_defaults
 from typing import Optional, Sequence
 
 
@@ -26,6 +27,14 @@ class IfThenElse(ExprNode):
                 and self.then_clause == other.then_clause \
                 and self.else_clause == other.else_clause
 
+    def to_json_default(self, json_encoder):
+        return {'if': {'cond':
+                       enc_default(self.cond, json_encoder),
+                       'then':
+                       enc_default(self.then_clause, json_encoder),
+                       'else':
+                       enc_default(self.else_clause, json_encoder)}}
+
 
 class When(ExprNode):
     def __init__(self,
@@ -45,6 +54,12 @@ class When(ExprNode):
         else:
             return self.cond == other.cond \
                 and self.then_clause == other.then_clause
+
+    def to_json_default(self, json_encoder):
+        return {'when': {'cond':
+                         enc_default(self.cond, json_encoder),
+                         'then':
+                         enc_default(self.then_clause, json_encoder)}}
 
 
 class Unless(ExprNode):
@@ -66,6 +81,12 @@ class Unless(ExprNode):
             return self.cond == other.cond \
                 and self.then_clause == other.then_clause
 
+    def to_json_default(self, json_encoder):
+        return {'unless': {'cond':
+                           enc_default(self.cond, json_encoder),
+                           'then':
+                           enc_default(self.then_clause, json_encoder)}}
+
 
 class CaseItem(NonExprNode):
     def __init__(self,
@@ -83,6 +104,12 @@ class CaseItem(NonExprNode):
         else:
             return self.v == other.v \
                 and self.then_clause == other.then_clause
+
+    def to_json_default(self, json_encoder):
+        return {'case-item': {'v':
+                              enc_default(self.v, json_encoder),
+                              'then':
+                              enc_default(self.then_clause, json_encoder)}}
 
 
 class CaseElse(ExprNode):
@@ -107,6 +134,13 @@ class CaseElse(ExprNode):
                 and self.case_items == other.case_items \
                 and self.else_clause == other.else_clause
 
+    def to_json_default(self, json_encoder):
+        return {'case-else': {'v': enc_default(self.v, json_encoder),
+                              'case-items':
+                              enc_defaults(self.case_items, json_encoder),
+                              'else':
+                              enc_default(self.else_clause, json_encoder)}}
+
 
 class CondItem(NonExprNode):
     def __init__(self,
@@ -126,6 +160,12 @@ class CondItem(NonExprNode):
             return self.cond == other.cond \
                 and self.then_clause == other.then_clause
 
+    def to_json_default(self, json_encoder):
+        return {'cond-item': {'cond':
+                              enc_default(self.cond, json_encoder),
+                              'then':
+                              enc_default(self.then_clause, json_encoder)}}
+
 
 class CondElse(ExprNode):
     def __init__(self,
@@ -144,3 +184,9 @@ class CondElse(ExprNode):
         else:
             return self.cond_items == other.cond_items \
                 and self.else_clause == other.else_clause
+
+    def to_json_default(self, json_encoder):
+        return {'cond-else': {'cond-items':
+                              enc_defaults(self.cond_items, json_encoder),
+                              'else':
+                              enc_default(self.else_clause, json_encoder)}}

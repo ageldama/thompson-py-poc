@@ -25,10 +25,6 @@ class LiteralNode(Evaluatable):
     def __repr__(self):
         pass
 
-    @abstractmethod
-    def to_json_default(self, json_encoder):
-        pass
-
 
 class BoolVal(LiteralNode):
     def __init__(self, v: bool) -> None:

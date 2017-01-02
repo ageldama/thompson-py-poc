@@ -1,6 +1,7 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
 from thompson.strs import to_joined_strs
+from thompson.jsons import enc_default, enc_defaults
 from typing import Union
 
 
@@ -20,6 +21,12 @@ class Assign(ExprNode):
             return self.dst == other.dst \
                 and self.src == other.src
 
+    def to_json_default(self, json_encoder):
+        return {'assign': {'dst':
+                           enc_default(self.dst, json_encoder),
+                           'src':
+                           enc_default(self.src, json_encoder)}}
+
 
 class AssignUpvar(ExprNode):
     def __init__(self, dst: Union['StringVal', str],
@@ -36,6 +43,12 @@ class AssignUpvar(ExprNode):
         else:
             return self.dst == other.dst \
                 and self.src == other.src
+
+    def to_json_default(self, json_encoder):
+        return {'assign-upvar': {'dst':
+                                 enc_default(self.dst, json_encoder),
+                                 'src':
+                                 enc_default(self.src, json_encoder)}}
 
 
 class AssignGlobal(ExprNode):
@@ -54,6 +67,12 @@ class AssignGlobal(ExprNode):
             return self.dst == other.dst \
                 and self.src == other.src
 
+    def to_json_default(self, json_encoder):
+        return {'assign-global': {'dst':
+                                  enc_default(self.dst, json_encoder),
+                                  'src':
+                                  enc_default(self.src, json_encoder)}}
+
 
 class Const(ExprNode):
     def __init__(self, dst: Union['StringVal', str],
@@ -71,6 +90,12 @@ class Const(ExprNode):
             return self.dst == other.dst \
                 and self.src == other.src
 
+    def to_json_default(self, json_encoder):
+        return {'const': {'dst':
+                          enc_default(self.dst, json_encoder),
+                          'src':
+                          enc_default(self.src, json_encoder)}}
+
 
 class BindingRef(ExprNode):
     def __init__(self, k: Union['StringVal', str]) -> None:
@@ -84,6 +109,10 @@ class BindingRef(ExprNode):
             return False
         else:
             return self.k == other.k
+
+    def to_json_default(self, json_encoder):
+        return {'binding-ref': {'k':
+                                enc_default(self.k, json_encoder)}}
 
 
 class Let(ExprNode):
@@ -103,3 +132,9 @@ class Let(ExprNode):
         else:
             return self.exprs == other.exprs \
                 and self.body == other.body
+
+    def to_json_default(self, json_encoder):
+        return {'let': {'exprs':
+                        enc_defaults(self.exprs, json_encoder),
+                        'body':
+                        enc_default(self.body, json_encoder)}}

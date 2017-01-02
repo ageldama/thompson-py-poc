@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
+from thompson.jsons import enc_default
 
 
 class Equal(ExprNode):
@@ -18,6 +19,10 @@ class Equal(ExprNode):
             return self.a == other.a \
                 and self.b == other.b
 
+    def to_json_default(self, json_encoder):
+        return {'eq?': {'a': enc_default(self.a, json_encoder),
+                        'b': enc_default(self.b, json_encoder)}}
+
 
 class NotEqual(ExprNode):
     def __init__(self,
@@ -35,6 +40,10 @@ class NotEqual(ExprNode):
             return self.a == other.a \
                 and self.b == other.b
 
+    def to_json_default(self, json_encoder):
+        return {'ne?': {'a': enc_default(self.a, json_encoder),
+                        'b': enc_default(self.b, json_encoder)}}
+
 
 class IsNull(ExprNode):
     def __init__(self, a: 'Evaluatable') -> None:
@@ -49,6 +58,9 @@ class IsNull(ExprNode):
         else:
             return self.a == other.a
 
+    def to_json_default(self, json_encoder):
+        return {'null?': enc_default(self.a, json_encoder)}
+
 
 class IsNotNull(ExprNode):
     def __init__(self, a: 'Evaluatable') -> None:
@@ -62,3 +74,6 @@ class IsNotNull(ExprNode):
             return False
         else:
             return self.a == other.a
+
+    def to_json_default(self, json_encoder):
+        return {'not-null?': enc_default(self.a, json_encoder)}

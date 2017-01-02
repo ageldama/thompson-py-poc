@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
+from thompson.jsons import enc_default
 
 
 class ComparLt(ExprNode):
@@ -16,6 +17,12 @@ class ComparLt(ExprNode):
             return self.a == other.a \
                 and self.b == other.b
 
+    def to_json_default(self, json_encoder):
+        return {'cmp-lt': {'a':
+                           enc_default(self.a, json_encoder),
+                           'b':
+                           enc_default(self.b, json_encoder)}}
+
 
 class ComparLe(ExprNode):
     def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
@@ -30,6 +37,12 @@ class ComparLe(ExprNode):
         else:
             return self.a == other.a \
                 and self.b == other.b
+
+    def to_json_default(self, json_encoder):
+        return {'cmp-le': {'a':
+                           enc_default(self.a, json_encoder),
+                           'b':
+                           enc_default(self.b, json_encoder)}}
 
 
 class ComparGt(ExprNode):
@@ -46,6 +59,12 @@ class ComparGt(ExprNode):
             return self.a == other.a \
                 and self.b == other.b
 
+    def to_json_default(self, json_encoder):
+        return {'cmp-gt': {'a':
+                           enc_default(self.a, json_encoder),
+                           'b':
+                           enc_default(self.b, json_encoder)}}
+
 
 class ComparGe(ExprNode):
     def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
@@ -60,3 +79,9 @@ class ComparGe(ExprNode):
         else:
             return self.a == other.a \
                 and self.b == other.b
+
+    def to_json_default(self, json_encoder):
+        return {'cmp-ge': {'a':
+                           enc_default(self.a, json_encoder),
+                           'b':
+                           enc_default(self.b, json_encoder)}}

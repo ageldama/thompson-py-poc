@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
+from thompson.jsons import enc_default
 
 
 class LogAnd(ExprNode):
@@ -17,6 +18,10 @@ class LogAnd(ExprNode):
         else:
             return self.a == other.a and self.b == self.b
 
+    def to_json_default(self, json_encoder):
+        return {'log-and': {'a': enc_default(self.a, json_encoder),
+                            'b': enc_default(self.b, json_encoder)}}
+
 
 class LogOr(ExprNode):
     def __init__(self,
@@ -33,6 +38,10 @@ class LogOr(ExprNode):
         else:
             return self.a == other.a and self.b == self.b
 
+    def to_json_default(self, json_encoder):
+        return {'log-or': {'a': enc_default(self.a, json_encoder),
+                           'b': enc_default(self.b, json_encoder)}}
+
 
 class LogNot(ExprNode):
     def __init__(self, a: 'Evaluatable') -> None:
@@ -46,3 +55,6 @@ class LogNot(ExprNode):
             return False
         else:
             return self.a == other.a
+
+    def to_json_default(self, json_encoder):
+        return {'log-not': enc_default(self.a, json_encoder)}
