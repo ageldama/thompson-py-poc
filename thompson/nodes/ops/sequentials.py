@@ -12,6 +12,12 @@ class Prog1(ExprNode):
     def __str__(self) -> str:
         return "Prog1[{}]".format(to_joined_strs(self.exprs))
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Prog1):
+            return False
+        else:
+            return self.exprs == other.exprs
+
 
 class ProgN(ExprNode):
     def __init__(self,
@@ -21,6 +27,12 @@ class ProgN(ExprNode):
     def __str__(self) -> str:
         return "ProgN[{}]".format(to_joined_strs(self.exprs))
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, ProgN):
+            return False
+        else:
+            return self.exprs == other.exprs
+
 
 class ParProg(ExprNode):
     def __init__(self, exprs: Sequence['Evaluatable']) -> None:
@@ -28,3 +40,9 @@ class ParProg(ExprNode):
 
     def __str__(self) -> str:
         return "ParProg[{}]".format(to_joined_strs(self.exprs))
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, ParProg):
+            return False
+        else:
+            return self.exprs == other.exprs

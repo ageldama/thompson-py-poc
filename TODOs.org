@@ -6,6 +6,9 @@
       - (I guess) Jackson-clone.
       - Seems nice fit to PoC's objective. (because, it will rewritten
         in Java later).
+  - <2017-01-02 Mon>
+    - Just using ~json.JSONEncoder/JSONDecoder~ in standard library.
+      - because /Pyckson/ isn't succinct for this.
 
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>
@@ -15,11 +18,6 @@
 
 * TODO Semantical Static Analysis?                                      :ADV:
   - <2016-12-30 Fri>
-
-* TODO eq, ne for func-literals? builtin-ops                            :ADV:
-  - <2016-12-28 Wed> almost everything!
-    1) now it's done for most literals. (except fun-val, because of
-       its expr-node...)
 
     
 * TODO docstring-field for func-val, func-val-params.                   :ADV:
@@ -34,6 +32,12 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+
+* DONE eq, ne for func-literals? builtin-ops                            :ADV:
+  - <2016-12-28 Wed> almost everything!
+    1) now it's done for most literals. (except fun-val, because of
+       its expr-node...)
+    2) had to be done for json ser-deser.
 * DONE ~Evaluatable~ type-hierarchy.                               :REFACTOR:
   - <2017-01-02 Mon>
     * Simplify ~typing~ signatures.

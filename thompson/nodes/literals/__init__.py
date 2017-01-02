@@ -151,10 +151,9 @@ class FunctionVal(LiteralNode):
         if not isinstance(other, FunctionVal):
             return False
         else:
-            # TODO: implement body-expr equality?
+            # NOTE: only compares literal values, not its binding.
             return self.params == other.params \
-                and self.body == other.body \
-                and self.binding is other.binding
+                and self.body == other.body
 
     def __repr__(self) -> str:
         return "FunctionVal({}, {}, {})".format(
@@ -166,7 +165,7 @@ class FunctionVal(LiteralNode):
 
     def to_json_default(self, json_encoder):
         # NOTE: exclude binding.
-        pass  # TODO: because body...
+        pass  # TODO: because the body...
 
 
 class FunctionParamVal(LiteralNode):

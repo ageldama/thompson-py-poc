@@ -18,6 +18,14 @@ class IfThenElse(ExprNode):
         return fmt.format(str(self.cond),
                           str(self.then_clause), str(self.else_clause))
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, IfThenElse):
+            return False
+        else:
+            return self.cond == other.cond \
+                and self.then_clause == other.then_clause \
+                and self.else_clause == other.else_clause
+
 
 class When(ExprNode):
     def __init__(self,
@@ -30,6 +38,13 @@ class When(ExprNode):
         fmt = "When[cond={}, then={}]"
         return fmt.format(str(self.cond),
                           str(self.then_clause))
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, When):
+            return False
+        else:
+            return self.cond == other.cond \
+                and self.then_clause == other.then_clause
 
 
 class Unless(ExprNode):
@@ -44,6 +59,13 @@ class Unless(ExprNode):
         return fmt.format(str(self.cond),
                           str(self.then_clause))
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Unless):
+            return False
+        else:
+            return self.cond == other.cond \
+                and self.then_clause == other.then_clause
+
 
 class CaseItem(NonExprNode):
     def __init__(self,
@@ -54,6 +76,13 @@ class CaseItem(NonExprNode):
     def __str__(self) -> str:
         return "CaseItem[v={}, then={}]".format(
             str(self.v), str(self.then_clause))
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, CaseItem):
+            return False
+        else:
+            return self.v == other.v \
+                and self.then_clause == other.then_clause
 
 
 class CaseElse(ExprNode):
@@ -70,6 +99,14 @@ class CaseElse(ExprNode):
             str(self.v), to_joined_strs(self.case_items),
             str(self.else_clause))
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, CaseElse):
+            return False
+        else:
+            return self.v == other.v \
+                and self.case_items == other.case_items \
+                and self.else_clause == other.else_clause
+
 
 class CondItem(NonExprNode):
     def __init__(self,
@@ -82,6 +119,13 @@ class CondItem(NonExprNode):
         return "CondItem[cond={}, then={}]".format(str(self.cond),
                                                    str(self.then_clause))
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, CondItem):
+            return False
+        else:
+            return self.cond == other.cond \
+                and self.then_clause == other.then_clause
+
 
 class CondElse(ExprNode):
     def __init__(self,
@@ -93,3 +137,10 @@ class CondElse(ExprNode):
     def __str__(self) -> str:
         return "CondElse[conds={}, else={}]".format(
             str(self.cond_items), str(self.else_clause))
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, CondElse):
+            return False
+        else:
+            return self.cond_items == other.cond_items \
+                and self.else_clause == other.else_clause

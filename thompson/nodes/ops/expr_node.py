@@ -8,8 +8,16 @@ class ExprNode(Evaluatable):
     def __str__(self) -> str:
         pass
 
+    @abstractmethod
+    def __eq__(self, other) -> bool:
+        pass
+
 
 class NonExprNode(Node):
     @abstractmethod
     def __str__(self) -> str:
+        pass
+
+    @abstractmethod
+    def __eq__(self, other) -> bool:
         pass
