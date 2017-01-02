@@ -3,7 +3,7 @@ from thompson.nodes.ops.expr_node import ExprNode
 
 
 class ArithAdd(ExprNode):
-    def __init__(self, a: 'Evalutable', b: 'Evalutable'):
+    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:
@@ -11,7 +11,7 @@ class ArithAdd(ExprNode):
 
 
 class ArithSub(ExprNode):
-    def __init__(self, a: 'Evalutable', b: 'Evalutable'):
+    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:
@@ -19,7 +19,7 @@ class ArithSub(ExprNode):
 
 
 class ArithMult(ExprNode):
-    def __init__(self, a: 'Evalutable', b: 'Evalutable'):
+    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:
@@ -27,7 +27,7 @@ class ArithMult(ExprNode):
 
 
 class ArithMultMult(ExprNode):
-    def __init__(self, a: 'Evaluatable', nth: 'Evaluatable'):
+    def __init__(self, a: 'Evaluatable', nth: 'Evaluatable') -> None:
         self.a, self.nth = a, nth
 
     def __str__(self) -> str:
@@ -35,7 +35,8 @@ class ArithMultMult(ExprNode):
 
 
 class ArithDiv(ExprNode):
-    def __init__(self, numerator: 'Evaluatable', denominator: 'Evaluatable'):
+    def __init__(self, numerator: 'Evaluatable',
+                 denominator: 'Evaluatable') -> None:
         self.numerator, self.denominator = numerator, denominator
 
     def __str__(self) -> str:
@@ -44,7 +45,8 @@ class ArithDiv(ExprNode):
 
 
 class ArithRem(ExprNode):
-    def __init__(self, numerator: 'Evaluatable', denominator: 'Evaluatable'):
+    def __init__(self, numerator: 'Evaluatable',
+                 denominator: 'Evaluatable') -> None:
         self.numerator, self.denominator = numerator, denominator
 
     def __str__(self) -> str:
@@ -53,7 +55,8 @@ class ArithRem(ExprNode):
 
 
 class ArithDivDiv(ExprNode):
-    def __init__(self, numerator: 'Evaluatable', denominator: 'Evaluatable'):
+    def __init__(self, numerator: 'Evaluatable',
+                 denominator: 'Evaluatable') -> None:
         self.numerator, self.denominator = numerator, denominator
 
     def __str__(self) -> str:

@@ -22,7 +22,7 @@ class LiteralNode(Evaluatable):
 
 
 class BoolVal(LiteralNode):
-    def __init__(self, v: bool):
+    def __init__(self, v: bool) -> None:
         self.set(v)
 
     def set(self, v: bool):
@@ -60,7 +60,7 @@ NilConst = NullVal()
 
 
 class StringVal(LiteralNode):
-    def __init__(self, v: str):
+    def __init__(self, v: str) -> None:
         self.set(v)
 
     def get(self) -> str:
@@ -84,7 +84,7 @@ class StringVal(LiteralNode):
 
 
 class NumberVal(LiteralNode):
-    def __init__(self, v: Union[int, float]):
+    def __init__(self, v: Union[int, float]) -> None:
         self.set(v)
 
     def get(self) -> Union[int, float]:
@@ -113,7 +113,7 @@ class FunctionVal(LiteralNode):
     def __init__(self,
                  params: Sequence['FunctionParamVal'],
                  body: Evaluatable,
-                 binding: Optional[Binding]=NilConst):
+                 binding: Optional[Binding]=NilConst) -> None:
         self.params = params
         self.body = body
         self.binding = binding
@@ -128,7 +128,7 @@ class FunctionVal(LiteralNode):
 
 
 class FunctionParamVal(LiteralNode):
-    def __init__(self, name: str, **kwargs):
+    def __init__(self, name: str, **kwargs) -> None:
         self.name = name
 
     def __repr__(self) -> str:
@@ -139,7 +139,7 @@ class FunctionParamVal(LiteralNode):
 
 
 class MappedVal(LiteralNode):
-    def __init__(self, v: Any):
+    def __init__(self, v: Any) -> None:
         self.v = v
 
     def __repr__(self) -> str:
@@ -152,7 +152,7 @@ class MappedVal(LiteralNode):
 class MappedFunctionVal(LiteralNode):
     def __init__(self,
                  f: Callable,
-                 params: Sequence['FunctionParamVal']):
+                 params: Sequence['FunctionParamVal']) -> None:
         self.f = f
         self.params = params
 
@@ -167,7 +167,7 @@ class MappedFunctionVal(LiteralNode):
 class NoWrappingMappedFunctionVal(LiteralNode):
     def __init__(self,
                  f: Callable,
-                 params: Sequence['FunctionParamVal']):
+                 params: Sequence['FunctionParamVal']) -> None:
         self.f = f
         self.params = params
 

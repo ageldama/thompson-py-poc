@@ -5,6 +5,7 @@ Used to hold variables in expression-language. Also takes care of
 binding-inheritances.
 """
 from typing import Optional, Any
+from typing import Mapping  # noqa: F401
 
 
 class Binding(object):
@@ -12,11 +13,11 @@ class Binding(object):
 
     Each stackframe has own Binding, and Binding can has a parent.
     """
-    def __init__(self, parent: Optional['Binding']=None):
+    def __init__(self, parent: Optional['Binding']=None) -> None:
         """If `parent` parameter is absent, creates a root-binding."""
         self.parent = parent
-        self.b = {}
-        self.const_keys = set()
+        self.b = {}  # type: Mapping[Any, Any]
+        self.const_keys = set()  # type: Set[str]
 
     def contains(self, k: Any) -> bool:
         """Returns true/false, looking for `k` in whole inheritance-tree."""

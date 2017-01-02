@@ -6,7 +6,7 @@ from typing import Sequence
 
 class Prog1(ExprNode):
     def __init__(self,
-                 exprs: Sequence['Evaluatable']):
+                 exprs: Sequence['thompson.nodes.Evaluatable']) -> None:
         self.exprs = exprs
 
     def __str__(self) -> str:
@@ -15,7 +15,7 @@ class Prog1(ExprNode):
 
 class ProgN(ExprNode):
     def __init__(self,
-                 exprs: Sequence['Evaluatable']):
+                 exprs: Sequence['Evaluatable']) -> None:
         self.exprs = exprs
 
     def __str__(self) -> str:
@@ -23,7 +23,7 @@ class ProgN(ExprNode):
 
 
 class ParProg(ExprNode):
-    def __init__(self, exprs: Sequence['Evaluatable']):
+    def __init__(self, exprs: Sequence['Evaluatable']) -> None:
         self.exprs = exprs
 
     def __str__(self) -> str:

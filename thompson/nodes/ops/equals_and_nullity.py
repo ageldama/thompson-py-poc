@@ -5,7 +5,7 @@ from thompson.nodes.ops.expr_node import ExprNode
 class Equal(ExprNode):
     def __init__(self,
                  a: 'Evaluatable',
-                 b: 'Evaluatable'):
+                 b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:
@@ -15,7 +15,7 @@ class Equal(ExprNode):
 class NotEqual(ExprNode):
     def __init__(self,
                  a: 'Evaluatable',
-                 b: 'Evaluatable'):
+                 b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:
@@ -23,7 +23,7 @@ class NotEqual(ExprNode):
 
 
 class IsNull(ExprNode):
-    def __init__(self, a: 'Evaluatable'):
+    def __init__(self, a: 'Evaluatable') -> None:
         self.a = a
 
     def __str__(self) -> str:
@@ -31,7 +31,7 @@ class IsNull(ExprNode):
 
 
 class IsNotNull(ExprNode):
-    def __init__(self, a: 'Evaluatable'):
+    def __init__(self, a: 'Evaluatable') -> None:
         self.a = a
 
     def __str__(self) -> str:

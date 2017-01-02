@@ -12,7 +12,7 @@ class Pass(ExprNode):
 class Funcall(ExprNode):
     def __init__(self,
                  fun: 'Evaluatable',
-                 params: Sequence[Any]):
+                 params: Sequence[Any]) -> None:
         self.fun = fun
         self.params = params
 

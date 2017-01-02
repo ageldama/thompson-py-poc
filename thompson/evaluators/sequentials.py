@@ -5,7 +5,7 @@ from thompson.nodes.literals import NilConst
 
 
 class Prog1_Evaluator(Evaluator):
-    def eval(self, context, node):
+    def eval(self, context, node: 'Evaluatable') -> 'Evaluatable':
         if len(node.exprs) == 0:
             return NilConst
         result = evaluate(context, node.exprs[0])
@@ -15,7 +15,7 @@ class Prog1_Evaluator(Evaluator):
 
 
 class ProgN_Evaluator(Evaluator):
-    def eval(self, context, node):
+    def eval(self, context, node: 'Evaluatable') -> 'Evaluatable':
         if len(node.exprs) == 0:
             return NilConst
         result = None
@@ -25,6 +25,6 @@ class ProgN_Evaluator(Evaluator):
 
 
 class ParProg_Evaluator(ProgN_Evaluator):
-    def eval(self, context, node):
+    def eval(self, context, node: 'Evaluatable') -> 'Evaluatable':
         super().eval(context, node)
         return NilConst

@@ -8,7 +8,7 @@ class IfThenElse(ExprNode):
     def __init__(self,
                  cond: 'Evaluatable',
                  then_clause: 'Evaluatable',
-                 else_clause: Optional['Evaluatable']=None):
+                 else_clause: Optional['Evaluatable']=None) -> None:
         self.cond = cond
         self.then_clause = then_clause
         self.else_clause = else_clause
@@ -22,7 +22,7 @@ class IfThenElse(ExprNode):
 class When(ExprNode):
     def __init__(self,
                  cond: 'Evaluatable',
-                 then_clause: 'Evaluatable'):
+                 then_clause: 'Evaluatable') -> None:
         self.cond = cond
         self.then_clause = then_clause
 
@@ -35,7 +35,7 @@ class When(ExprNode):
 class Unless(ExprNode):
     def __init__(self,
                  cond: 'Evaluatable',
-                 then_clause: 'Evaluatable'):
+                 then_clause: 'Evaluatable') -> None:
         self.cond = cond
         self.then_clause = then_clause
 
@@ -48,7 +48,7 @@ class Unless(ExprNode):
 class CaseItem(NonExprNode):
     def __init__(self,
                  v: 'Evaluatable',
-                 then_clause: 'Evaluatable'):
+                 then_clause: 'Evaluatable') -> None:
         self.v, self.then_clause = v, then_clause
 
     def __str__(self) -> str:
@@ -60,7 +60,7 @@ class CaseElse(ExprNode):
     def __init__(self,
                  v: 'Evaluatable',
                  case_items: Sequence[CaseItem],
-                 else_clause: Optional['Evaluatable']=None):
+                 else_clause: Optional['Evaluatable']=None) -> None:
         self.v = v
         self.case_items = case_items
         self.else_clause = else_clause
@@ -74,7 +74,7 @@ class CaseElse(ExprNode):
 class CondItem(NonExprNode):
     def __init__(self,
                  cond: 'Evaluatable',
-                 then_clause: 'Evaluatable'):
+                 then_clause: 'Evaluatable') -> None:
         self.cond = cond
         self.then_clause = then_clause
 
@@ -86,7 +86,7 @@ class CondItem(NonExprNode):
 class CondElse(ExprNode):
     def __init__(self,
                  cond_items: Sequence[CondItem],
-                 else_clause: Optional['Evaluatable']=None):
+                 else_clause: Optional['Evaluatable']=None) -> None:
         self.cond_items = cond_items
         self.else_clause = else_clause
 

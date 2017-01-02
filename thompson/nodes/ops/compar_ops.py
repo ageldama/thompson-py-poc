@@ -3,7 +3,7 @@ from thompson.nodes.ops.expr_node import ExprNode
 
 
 class ComparLt(ExprNode):
-    def __init__(self, a: 'Evaluatable', b: 'Evaluatable'):
+    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:
@@ -11,7 +11,7 @@ class ComparLt(ExprNode):
 
 
 class ComparLe(ExprNode):
-    def __init__(self, a: 'Evaluatable', b: 'Evaluatable'):
+    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:
@@ -19,7 +19,7 @@ class ComparLe(ExprNode):
 
 
 class ComparGt(ExprNode):
-    def __init__(self, a: 'Evaluatable', b: 'Evaluatable'):
+    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:
@@ -27,7 +27,7 @@ class ComparGt(ExprNode):
 
 
 class ComparGe(ExprNode):
-    def __init__(self, a: 'Evaluatable', b: 'Evaluatable'):
+    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
         self.a, self.b = a, b
 
     def __str__(self) -> str:

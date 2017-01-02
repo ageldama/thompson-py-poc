@@ -3,5 +3,5 @@ from thompson.context.binding import Binding
 
 
 class Context(object):
-    def __init__(self, binding: Binding):
-        self.binding = binding
+    def __init__(self, binding: Binding) -> None:
+        self.binding = binding  # type: Binding
