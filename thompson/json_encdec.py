@@ -32,3 +32,43 @@ class NodeJsonDecoder(json.JSONDecoder):
             raise KeyError("Cannot be instantiated {} type".format(ks))
         else:
             return d
+
+
+"""
+** TODO prog1
+** TODO progn
+** TODO parprog
+** TODO log-and
+** TODO log-or
+** TODO log-not
+** TODO arith+
+** TODO arith-
+** TODO arith/
+** TODO arith//
+** TODO arith*
+** TODO arith**
+** TODO arith-rem
+** TODO cmp-<
+** TODO cmp-<=
+** TODO cmp->
+** TODO cmp->=
+** TODO eq
+** TODO ne
+** TODO is-null
+** TODO is-not-null
+** TODO assign
+** TODO assign-upvar
+** TODO assign-global
+** TODO const
+** TODO binding-ref
+** TODO let
+** TODO if-then-else
+** TODO when
+** TODO unless
+** TODO case-item
+** TODO case-else
+** TODO cond-item
+** TODO cond-else
+** TODO pass
+** TODO funcall
+"""
