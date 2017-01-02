@@ -1,14 +1,14 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode, NonExprNode
 from thompson.strs import to_joined_strs
-from typing import Union, Optional, Sequence
+from typing import Optional, Sequence
 
 
 class IfThenElse(ExprNode):
     def __init__(self,
-                 cond: Union['LiteralNode', ExprNode],
-                 then_clause: Union['LiteralNode', ExprNode],
-                 else_clause: Optional[Union['LiteralNode', ExprNode]]=None):
+                 cond: 'Evaluatable',
+                 then_clause: 'Evaluatable',
+                 else_clause: Optional['Evaluatable']=None):
         self.cond = cond
         self.then_clause = then_clause
         self.else_clause = else_clause
@@ -21,8 +21,8 @@ class IfThenElse(ExprNode):
 
 class When(ExprNode):
     def __init__(self,
-                 cond: Union['LiteralNode', ExprNode],
-                 then_clause: Union['LiteralNode', ExprNode]):
+                 cond: 'Evaluatable',
+                 then_clause: 'Evaluatable'):
         self.cond = cond
         self.then_clause = then_clause
 
@@ -34,8 +34,8 @@ class When(ExprNode):
 
 class Unless(ExprNode):
     def __init__(self,
-                 cond: Union['LiteralNode', ExprNode],
-                 then_clause: Union['LiteralNode', ExprNode]):
+                 cond: 'Evaluatable',
+                 then_clause: 'Evaluatable'):
         self.cond = cond
         self.then_clause = then_clause
 
@@ -47,8 +47,8 @@ class Unless(ExprNode):
 
 class CaseItem(NonExprNode):
     def __init__(self,
-                 v: Union['LiteralNode', ExprNode],
-                 then_clause: Union['LiteralNode', ExprNode]):
+                 v: 'Evaluatable',
+                 then_clause: 'Evaluatable'):
         self.v, self.then_clause = v, then_clause
 
     def __str__(self) -> str:
@@ -58,9 +58,9 @@ class CaseItem(NonExprNode):
 
 class CaseElse(ExprNode):
     def __init__(self,
-                 v: Union['LiteralNode', ExprNode],
+                 v: 'Evaluatable',
                  case_items: Sequence[CaseItem],
-                 else_clause: Optional[Union['LiteralNode', ExprNode]]=None):
+                 else_clause: Optional['Evaluatable']=None):
         self.v = v
         self.case_items = case_items
         self.else_clause = else_clause
@@ -73,8 +73,8 @@ class CaseElse(ExprNode):
 
 class CondItem(NonExprNode):
     def __init__(self,
-                 cond: Union['LiteralNode', ExprNode],
-                 then_clause: Union['LiteralNode', ExprNode]):
+                 cond: 'Evaluatable',
+                 then_clause: 'Evaluatable'):
         self.cond = cond
         self.then_clause = then_clause
 
@@ -86,7 +86,7 @@ class CondItem(NonExprNode):
 class CondElse(ExprNode):
     def __init__(self,
                  cond_items: Sequence[CondItem],
-                 else_clause: Optional[Union['LiteralNode', ExprNode]]=None):
+                 else_clause: Optional['Evaluatable']=None):
         self.cond_items = cond_items
         self.else_clause = else_clause
 

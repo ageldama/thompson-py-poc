@@ -6,7 +6,7 @@ from typing import Union
 
 class Assign(ExprNode):
     def __init__(self, dst: Union['StringVal', str],
-                 src: Union['LiteralNode', ExprNode]):
+                 src: 'Evaluatable'):
         self.dst, self.src = dst, src
 
     def __str__(self) -> str:
@@ -16,7 +16,7 @@ class Assign(ExprNode):
 
 class AssignUpvar(ExprNode):
     def __init__(self, dst: Union['StringVal', str],
-                 src: Union['LiteralNode', ExprNode]):
+                 src: 'Evaluatable'):
         self.dst, self.src = dst, src
 
     def __str__(self) -> str:
@@ -26,7 +26,7 @@ class AssignUpvar(ExprNode):
 
 class AssignGlobal(ExprNode):
     def __init__(self, dst: Union['StringVal', str],
-                 src: Union['LiteralNode', ExprNode]):
+                 src: 'Evaluatable'):
         self.dst, self.src = dst, src
 
     def __str__(self) -> str:
@@ -36,7 +36,7 @@ class AssignGlobal(ExprNode):
 
 class Const(ExprNode):
     def __init__(self, dst: Union['StringVal', str],
-                 src: Union['LiteralNode', ExprNode]):
+                 src: 'Evaluatable'):
         self.dst, self.src = dst, src
 
     def __str__(self) -> str:
@@ -55,7 +55,7 @@ class BindingRef(ExprNode):
 class Let(ExprNode):
     def __init__(self,
                  exprs: Union[Assign, Const, AssignUpvar, AssignGlobal],
-                 body: Union['LiteralNode', ExprNode]):
+                 body: 'Evalutable'):
         self.exprs = exprs
         self.body = body
 

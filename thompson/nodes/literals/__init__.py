@@ -3,7 +3,6 @@ from abc import abstractmethod
 from thompson.nodes import Evaluatable
 from typing import Union, Optional, Sequence, Any, Callable
 from thompson.context import Binding
-from thompson.nodes.ops.expr_node import ExprNode
 
 
 class LiteralNode(Evaluatable):
@@ -113,7 +112,7 @@ class NumberVal(LiteralNode):
 class FunctionVal(LiteralNode):
     def __init__(self,
                  params: Sequence['FunctionParamVal'],
-                 body: Union[LiteralNode, ExprNode],
+                 body: Evaluatable,
                  binding: Optional[Binding]=NilConst):
         self.params = params
         self.body = body

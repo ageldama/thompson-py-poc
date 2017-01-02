@@ -1,7 +1,7 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
 from thompson.strs import to_joined_strs
-from typing import Union, Sequence
+from typing import Sequence, Any
 
 
 class Pass(ExprNode):
@@ -11,8 +11,8 @@ class Pass(ExprNode):
 
 class Funcall(ExprNode):
     def __init__(self,
-                 fun: Union[ExprNode, 'LiteralNode'],
-                 params: Sequence):
+                 fun: 'Evaluatable',
+                 params: Sequence[Any]):
         self.fun = fun
         self.params = params
 

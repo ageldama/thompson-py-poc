@@ -1,12 +1,12 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
 from thompson.strs import to_joined_strs
-from typing import Union, Sequence
+from typing import Sequence
 
 
 class Prog1(ExprNode):
     def __init__(self,
-                 exprs: Sequence[Union[ExprNode, 'LiteralNode']]):
+                 exprs: Sequence['Evaluatable']):
         self.exprs = exprs
 
     def __str__(self) -> str:
@@ -15,7 +15,7 @@ class Prog1(ExprNode):
 
 class ProgN(ExprNode):
     def __init__(self,
-                 exprs: Sequence[Union[ExprNode, 'LiteralNode']]):
+                 exprs: Sequence['Evaluatable']):
         self.exprs = exprs
 
     def __str__(self) -> str:
@@ -23,7 +23,7 @@ class ProgN(ExprNode):
 
 
 class ParProg(ExprNode):
-    def __init__(self, exprs: Union[ExprNode, 'LiteralNode']):
+    def __init__(self, exprs: Sequence['Evaluatable']):
         self.exprs = exprs
 
     def __str__(self) -> str:

@@ -1,7 +1,4 @@
 
-* TODO ~Evaluatable~ type-hierarchy.                               :REFACTOR:
-  - <2017-01-02 Mon>
-    * Simplify ~typing~ signatures.
 
 * TODO JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>
@@ -35,6 +32,9 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+* DONE ~Evaluatable~ type-hierarchy.                               :REFACTOR:
+  - <2017-01-02 Mon>
+    * Simplify ~typing~ signatures.
 
 * DONE Q. ParamVals for MappedFunction?
   - <2016-12-30 Fri> with that, it would be more descriptive.

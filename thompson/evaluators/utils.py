@@ -13,7 +13,7 @@ def append_evaluator(type_pred,
 
 
 def find_evaluator(context: 'Context',
-                   node: Union['LiteralNode', 'ExprNode']) -> 'Evaluator':
+                   node: 'Evaluatable') -> 'Evaluator':
     for (types, evaluator) in __evaluators__:
         if isinstance(node, types):
             return evaluator
@@ -21,14 +21,14 @@ def find_evaluator(context: 'Context',
 
 
 def evaluate(context: 'Context',
-             node: Union['LiteralNode', 'ExprNode']) -> 'LiteralNode':
+             node: 'Evaluatable') -> 'LiteralNode':
     """evaluate a node"""
     evaluator = find_evaluator(context, node)
     return evaluator.eval(context, node)
 
 
 def eval_and_type_check(context: 'Context',
-                        node: Union['LiteralNode', 'ExprNode'],
+                        node: 'Evaluatable',
                         type_pred) -> 'LiteralNode':
     node_ = evaluate(context, node)
     assert isinstance(node_, type_pred)
@@ -36,7 +36,7 @@ def eval_and_type_check(context: 'Context',
 
 
 def gimme_str_anyway(context: 'Context',
-                     node: Union['LiteralNode', 'ExprNode']) -> str:
+                     node: 'Evaluatable') -> str:
     if isinstance(node, str):
         return node
     elif isinstance(node, (StringVal, NumberVal,)):
