@@ -1,9 +1,9 @@
 # -*- coding: utf-8; -*-
-from thompson.nodes import Node
+from thompson.nodes import Node, Evaluatable
 from abc import abstractmethod
 
 
-class ExprNode(Node):
+class ExprNode(Evaluatable):
     @abstractmethod
     def __str__(self) -> str:
         pass

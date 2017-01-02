@@ -1,12 +1,12 @@
 # -*- coding: utf-8; -*-
 from abc import abstractmethod
-from thompson.nodes import Node
+from thompson.nodes import Evaluatable
 from typing import Union, Optional, Sequence, Any, Callable
 from thompson.context import Binding
 from thompson.nodes.ops.expr_node import ExprNode
 
 
-class LiteralNode(Node):
+class LiteralNode(Evaluatable):
     def set(self, v):
         raise NotImplementedError
 

@@ -1,4 +1,8 @@
 
+* TODO ~Evaluatable~ type-hierarchy.                               :REFACTOR:
+  - <2017-01-02 Mon>
+    * Simplify ~typing~ signatures.
+
 * TODO JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>
     - https://github.com/antidot/Pyckson
