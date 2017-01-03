@@ -18,10 +18,10 @@ class ComparLt(ExprNode):
                 and self.b == other.b
 
     def to_json_default(self, json_encoder):
-        return {'cmp-lt': {'a':
-                           enc_default(self.a, json_encoder),
-                           'b':
-                           enc_default(self.b, json_encoder)}}
+        return {'lt?': {'a':
+                        enc_default(self.a, json_encoder),
+                        'b':
+                        enc_default(self.b, json_encoder)}}
 
 
 class ComparLe(ExprNode):
@@ -39,10 +39,10 @@ class ComparLe(ExprNode):
                 and self.b == other.b
 
     def to_json_default(self, json_encoder):
-        return {'cmp-le': {'a':
-                           enc_default(self.a, json_encoder),
-                           'b':
-                           enc_default(self.b, json_encoder)}}
+        return {'le?': {'a':
+                        enc_default(self.a, json_encoder),
+                        'b':
+                        enc_default(self.b, json_encoder)}}
 
 
 class ComparGt(ExprNode):
@@ -60,10 +60,10 @@ class ComparGt(ExprNode):
                 and self.b == other.b
 
     def to_json_default(self, json_encoder):
-        return {'cmp-gt': {'a':
-                           enc_default(self.a, json_encoder),
-                           'b':
-                           enc_default(self.b, json_encoder)}}
+        return {'gt?': {'a':
+                        enc_default(self.a, json_encoder),
+                        'b':
+                        enc_default(self.b, json_encoder)}}
 
 
 class ComparGe(ExprNode):
@@ -81,7 +81,7 @@ class ComparGe(ExprNode):
                 and self.b == other.b
 
     def to_json_default(self, json_encoder):
-        return {'cmp-ge': {'a':
-                           enc_default(self.a, json_encoder),
-                           'b':
-                           enc_default(self.b, json_encoder)}}
+        return {'ge?': {'a':
+                        enc_default(self.a, json_encoder),
+                        'b':
+                        enc_default(self.b, json_encoder)}}

@@ -111,8 +111,7 @@ class BindingRef(ExprNode):
             return self.k == other.k
 
     def to_json_default(self, json_encoder):
-        return {'binding-ref': {'k':
-                                enc_default(self.k, json_encoder)}}
+        return {'ref': enc_default(self.k, json_encoder)}
 
 
 class Let(ExprNode):
