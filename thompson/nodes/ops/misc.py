@@ -6,6 +6,9 @@ from typing import Sequence, Any
 
 
 class Pass(ExprNode):
+    def __init__(self, *arg) -> None:
+        pass
+
     def __str__(self) -> str:
         return "Pass"
 

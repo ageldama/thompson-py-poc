@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
 import json
-from typing import Sequence, Callable
+from thompson.nodes import Node
 from thompson.nodes.literals import BoolVal, StringVal, NumberVal
 from thompson.nodes.literals import NullVal
 from thompson.nodes.literals import FunctionParamVal
-from thompson.nodes.ops.sequentials import Prog1, ProgN, ParProg  # noqa: F401
-from thompson.nodes.ops.log_ops import LogAnd, LogOr, LogNot  # noqa: F401
-from thompson.nodes.ops.arith_ops import ArithAdd, ArithSub  # noqa: F401
-from thompson.nodes.ops.arith_ops import ArithMult, ArithMultMult  # noqa: F401
-from thompson.nodes.ops.arith_ops import ArithDiv, ArithDivDiv  # noqa: F401
-from thompson.nodes.ops.arith_ops import ArithRem  # noqa: F401
-from thompson.nodes.ops.compar_ops import ComparLt, ComparLe  # noqa: F401
-from thompson.nodes.ops.compar_ops import ComparGt, ComparGe  # noqa: F401
-from thompson.nodes.ops.equals_and_nullity import Equal, NotEqual  # noqa: F401
-from thompson.nodes.ops.equals_and_nullity import IsNull, IsNotNull  # noqa: F401, E501
-from thompson.nodes.ops.assigns import Assign, AssignUpvar, AssignGlobal  # noqa: F401, E501
-from thompson.nodes.ops.assigns import Const, BindingRef, Let  # noqa: F401
-from thompson.nodes.ops.conditionals import IfThenElse, When, Unless  # noqa: F401, E501
-from thompson.nodes.ops.conditionals import CaseItem, CaseElse  # noqa: F401
-from thompson.nodes.ops.conditionals import CondItem, CondElse  # noqa: F401
-from thompson.nodes.ops.misc import Pass, Funcall  # noqa: F401
+from thompson.nodes.ops.sequentials import Prog1, ProgN, ParProg
+from thompson.nodes.ops.log_ops import LogAnd, LogOr, LogNot
+from thompson.nodes.ops.arith_ops import ArithAdd, ArithSub
+from thompson.nodes.ops.arith_ops import ArithMult, ArithMultMult
+from thompson.nodes.ops.arith_ops import ArithDiv, ArithDivDiv
+from thompson.nodes.ops.arith_ops import ArithRem
+from thompson.nodes.ops.compar_ops import ComparLt, ComparLe
+from thompson.nodes.ops.compar_ops import ComparGt, ComparGe
+from thompson.nodes.ops.equals_and_nullity import Equal, NotEqual
+from thompson.nodes.ops.equals_and_nullity import IsNull, IsNotNull  # noqa: E501
+from thompson.nodes.ops.assigns import Assign, AssignUpvar, AssignGlobal  # noqa: E501
+from thompson.nodes.ops.assigns import Const, BindingRef, Let
+from thompson.nodes.ops.conditionals import IfThenElse, When, Unless  # noqa: E501
+from thompson.nodes.ops.conditionals import CaseItem, CaseElse
+from thompson.nodes.ops.conditionals import CondItem, CondElse
+from thompson.nodes.ops.misc import Pass, Funcall
 
 
 class NodeJsonEncoder(json.JSONEncoder):
@@ -28,6 +28,11 @@ class NodeJsonEncoder(json.JSONEncoder):
 
 
 __dict_to_objs__ = {
+    'bool': BoolVal,
+    'null': NullVal,
+    'str': StringVal,
+    'num': NumberVal,
+    'fun-param': FunctionParamVal,
     'progn1': Prog1,
     'progn': ProgN,
     'parprog': ParProg,
@@ -72,43 +77,23 @@ class NodeJsonDecoder(json.JSONDecoder):
         json.JSONDecoder.__init__(self, object_hook=self.dict_to_object,
                                   *args, **kargs)
 
+    def gather_params(self, d, ks):
+        if isinstance(d, Node):
+            return d
+        else:
+            return [d[k] for k in ks]
+
     def dict_to_object(self, d):
-        allowed_keys = {'num', 'str', 'bool', 'null', 'fun-param'}
+        keywords = __dict_to_objs__.keys()
         if isinstance(d, dict):
-            if 0 < len(allowed_keys.intersection(d.keys())):
-                ks = d.keys()
-                vs = d.values()
-                k_and_ctor = (('bool', BoolVal),
-                              ('str', StringVal),
-                              ('num', NumberVal),
-                              ('null', NullVal),
-                              ('fun-param', FunctionParamVal))
-                for k, ctor in k_and_ctor:
-                    if k in ks:
-                        return ctor(*vs)
-                raise KeyError("Cannot be instantiated {} type".format(ks))
+            k = set(d.keys()).pop()  # thus, it should has only 1-key.
+            if k in keywords:
+                ctor = __dict_to_objs__[k]
+                if callable(ctor):
+                    return ctor(self.dict_to_object(d[k]))
+                else:
+                    return ctor[0](*self.gather_params(d[k], ctor[1:]))
             else:
-                ks = d.keys()
-                if len(ks) == 1:
-                    k = set(ks).pop()
-                    if k in __dict_to_objs__.keys():
-                        to_obj = __dict_to_objs__[k]
-                        assert to_obj is not None
-                        if isinstance(to_obj, Sequence):
-                            to_obj_ = to_obj[0]
-                            assert isinstance(to_obj_, Callable)
-                            assert isinstance(to_obj[1:], Sequence)
-                            assert to_obj[1:] is not None
-                            print(d, k)
-                            return to_obj_(*self.__by_keys(d[k], to_obj[1:]))
-                        else:
-                            return to_obj(self.dict_to_object(d[k]))
-                    else:
-                        raise KeyError(
-                            "Unsupported JSON node for '{}'".format(k))
+                return d
         else:
             return d
-
-    def __by_keys(self, d, ks):
-        print(d, ks)
-        return [self.dict_to_object(d[k]) for k in ks]
