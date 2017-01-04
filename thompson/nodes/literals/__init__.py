@@ -4,6 +4,7 @@ import math
 from thompson.nodes import Evaluatable
 from typing import Union, Optional, Sequence, Any, Callable
 from thompson.context import Binding
+from thompson.jsons import enc_defaults, enc_default
 
 
 class LiteralNode(Evaluatable):
@@ -47,7 +48,7 @@ class BoolVal(LiteralNode):
         return "BoolVal({})".format(str(self.get()))
 
     def __str__(self) -> str:
-        return str(self.get())
+        return self.__repr__()
 
     def to_json_default(self, json_encoder):
         return {'bool': self.get()}
@@ -65,7 +66,7 @@ class NullVal(LiteralNode):
         return "NullVal()"
 
     def __str__(self) -> str:
-        return str(self.get())
+        return self.__repr__()
 
     def to_json_default(self, json_encoder):
         return {'null': None}
@@ -95,7 +96,7 @@ class StringVal(LiteralNode):
         return "StringVal('{}')".format(self.get())
 
     def __str__(self) -> str:
-        return str(self.get())
+        return self.__repr__()
 
     def to_json_default(self, json_encoder):
         return {'str': self.get()}
@@ -128,7 +129,7 @@ class NumberVal(LiteralNode):
         return "NumberVal('{}')".format(self.get())
 
     def __str__(self) -> str:
-        return str(self.get())
+        return self.__repr__()
 
     def to_json_default(self, json_encoder):
         return {'num': self.get()}
@@ -161,7 +162,8 @@ class FunctionVal(LiteralNode):
 
     def to_json_default(self, json_encoder):
         # NOTE: exclude binding.
-        pass  # TODO: because the body...
+        return {'fun': {'params': enc_defaults(self.params, json_encoder),
+                        'body': enc_default(self.body, json_encoder)}}
 
 
 class FunctionParamVal(LiteralNode):

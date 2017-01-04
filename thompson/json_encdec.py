@@ -3,6 +3,7 @@ import json
 from thompson.nodes import Node
 from thompson.nodes.literals import BoolVal, StringVal, NumberVal
 from thompson.nodes.literals import NullVal
+from thompson.nodes.literals import FunctionVal
 from thompson.nodes.literals import FunctionParamVal
 from thompson.nodes.ops.sequentials import Prog1, ProgN, ParProg
 from thompson.nodes.ops.log_ops import LogAnd, LogOr, LogNot
@@ -37,6 +38,7 @@ __dict_to_objs__ = {
     'str': StringVal,
     'num': NumberVal,
     'fun-param': FunctionParamVal,
+    'fun': [FunctionVal, 'params', 'body'],
     'prog1': Prog1,
     'progn': ProgN,
     'parprog': ParProg,

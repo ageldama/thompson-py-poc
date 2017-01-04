@@ -1,5 +1,18 @@
 
 
+* TODO complex functional examples in json?
+  - <2017-01-04 Wed>
+    1) SEE: ~funcall_test.py~
+    2) SEE: ~funcall_compose_test.py~
+
+* TODO "discount rule" example?
+  - <2017-01-04 Wed>
+
+* TODO Update the README.                                     :DOCUMENTATION:
+  - <2016-12-28 Wed>
+    1) Separate contents by sections.
+  
+
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>
 
@@ -18,10 +31,10 @@
 
 * TODO ~Comments~-fields on everywhere?                                 :ADV:
   - <2016-12-27 Tue> Every node should be able to have a comment.
-
-* TODO Update the README.                                     :DOCUMENTATION:
-  - <2016-12-28 Wed>
-    1) Separate contents by sections.
+* DONE standalone interpreter.
+  - <2017-01-04 Wed>
+* DONE ~eval_json_str~ or ~eval_json_inputstream~?
+  - <2017-01-04 Wed>
 
 * DONE JSON Ser/DeSer?                                                  :ADV:
   - <2016-12-27 Tue>

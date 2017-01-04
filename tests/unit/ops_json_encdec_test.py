@@ -20,9 +20,14 @@ from thompson.nodes.ops.misc import Pass, Funcall
 from thompson.json_encdec import loads as json_loads
 from thompson.json_encdec import dumps as json_dumps
 from thompson.nodes.literals import NumberVal, BoolVal
+from thompson.nodes.literals import FunctionVal, FunctionParamVal
 
 
 val_and_json_alist = [
+    ('fun', (FunctionVal([FunctionParamVal('x'), FunctionParamVal('y')],
+                         ArithAdd(BindingRef('x'), BindingRef('y'))),
+             """{"fun": {"params": [{"fun-param": "x"}, {"fun-param": "y"}],
+             "body":{"add": {"a": {"ref": "x"}, "b": {"ref": "y"}}}}}""")),
     ('assign', (Assign('x', NumberVal(42)),
                 """{"assign": {"dst": "x", "src": {"num": 42}}}""")),
     ('assign-upvar', (AssignUpvar('x', NumberVal(42)),
