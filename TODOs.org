@@ -1,15 +1,5 @@
 
 
-* TODO JSON Ser/DeSer?                                                  :ADV:
-  - <2016-12-27 Tue>
-    - https://github.com/antidot/Pyckson
-      - (I guess) Jackson-clone.
-      - Seems nice fit to PoC's objective. (because, it will rewritten
-        in Java later).
-  - <2017-01-02 Mon>
-    - Just using ~json.JSONEncoder/JSONDecoder~ in standard library.
-      - because /Pyckson/ isn't succinct for this.
-
 * TODO docstrings on test functions.                          :DOCUMENTATION:
   - <2016-12-29 Thu>
 
@@ -32,6 +22,16 @@
 * TODO Update the README.                                     :DOCUMENTATION:
   - <2016-12-28 Wed>
     1) Separate contents by sections.
+
+* DONE JSON Ser/DeSer?                                                  :ADV:
+  - <2016-12-27 Tue>
+    - https://github.com/antidot/Pyckson
+      - (I guess) Jackson-clone.
+      - Seems nice fit to PoC's objective. (because, it will rewritten
+        in Java later).
+  - <2017-01-02 Mon>
+    - Just using ~json.JSONEncoder/JSONDecoder~ in standard library.
+      - because /Pyckson/ isn't succinct for this.
 
 * DONE eq, ne for func-literals? builtin-ops                            :ADV:
   - <2016-12-28 Wed> almost everything!

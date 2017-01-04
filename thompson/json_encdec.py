@@ -27,13 +27,17 @@ class NodeJsonEncoder(json.JSONEncoder):
         return obj.to_json_default(self)
 
 
+def dumps(node: 'Node') -> str:
+    return json.dumps(node, cls=NodeJsonEncoder)
+
+
 __dict_to_objs__ = {
     'bool': BoolVal,
     'null': NullVal,
     'str': StringVal,
     'num': NumberVal,
     'fun-param': FunctionParamVal,
-    'progn1': Prog1,
+    'prog1': Prog1,
     'progn': ProgN,
     'parprog': ParProg,
     'log-and': [LogAnd, 'a', 'b'],
@@ -66,22 +70,21 @@ __dict_to_objs__ = {
     'when': [When, 'cond', 'then'],
     'unless': [Unless, 'cond', 'then'],
     'case-item': [CaseItem, 'v', 'then'],
-    'case': [CaseElse, 'v', 'case-items', 'else'],
+    'case-else': [CaseElse, 'v', 'case-items', 'else'],
     'cond-item': [CondItem, 'cond', 'then'],
-    'cond': [CondElse, 'cond-items', 'else'],
+    'cond-else': [CondElse, 'cond-items', 'else'],
 }
 
 
-class NodeJsonDecoder(json.JSONDecoder):
+class DictToNodeTransformer(object):
     def __init__(self, *args, **kargs):
-        json.JSONDecoder.__init__(self, object_hook=self.dict_to_object,
-                                  *args, **kargs)
+        pass
 
     def gather_params(self, d, ks):
         if isinstance(d, Node):
             return d
         else:
-            return [d[k] for k in ks]
+            return [self.dict_to_object(d[k]) for k in ks]
 
     def dict_to_object(self, d):
         keywords = __dict_to_objs__.keys()
@@ -95,5 +98,13 @@ class NodeJsonDecoder(json.JSONDecoder):
                     return ctor[0](*self.gather_params(d[k], ctor[1:]))
             else:
                 return d
+        elif isinstance(d, (tuple, list)):
+            return [self.dict_to_object(i) for i in d]
         else:
             return d
+
+
+def loads(s: str) -> 'Node':
+    d = json.loads(s)
+    transformer = DictToNodeTransformer()
+    return transformer.dict_to_object(d)

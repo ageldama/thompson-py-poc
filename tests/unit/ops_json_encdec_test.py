@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 from pytest import fixture
 from thompson.nodes import Node
 from thompson.nodes.ops.sequentials import Prog1, ProgN, ParProg
@@ -18,8 +17,8 @@ from thompson.nodes.ops.conditionals import IfThenElse, When, Unless  # noqa: E5
 from thompson.nodes.ops.conditionals import CaseItem, CaseElse
 from thompson.nodes.ops.conditionals import CondItem, CondElse
 from thompson.nodes.ops.misc import Pass, Funcall
-from thompson.json_encdec import NodeJsonEncoder
-from thompson.json_encdec import NodeJsonDecoder
+from thompson.json_encdec import loads as json_loads
+from thompson.json_encdec import dumps as json_dumps
 from thompson.nodes.literals import NumberVal, BoolVal
 
 
@@ -76,12 +75,6 @@ val_and_json_alist = [
     ('ref', (BindingRef('x'), '{"ref": "x"}'),
      (Const('pi', NumberVal(3.14)),
       '{"const": {"dst": "pi", "src": {"num": 3.14}}}')),
-    ('let+', (Let([Assign('x', BoolVal(True)),
-                   Const('pi', NumberVal(3.14))], NumberVal(42)),
-              """{"let": {"exprs": [
-                         {"assign": {"dst": "x", "src": {"bool": true}}},
-                         {"const": {"dst": "pi", "src": {"num": 3.14}}}],
-                  "body": {"num": 42}}}""")),
     ('let0', (Let([], NumberVal(42)),
               """{"let": {"exprs": [], "body": {"num": 42}}}""")),
     ('funcall2', (Funcall(BindingRef('add'),
@@ -89,14 +82,8 @@ val_and_json_alist = [
                   """{"funcall": {"fun": {"ref": "add"},
                   "params": [{"ref": "x"}, {"ref": "y"}]}}""")),
     ('prog1-', (Prog1([]), """{"prog1": []}""")),
-    ('prog1+', (Prog1([BindingRef('x'), BindingRef('y')]),
-                """{"prog1": [{"ref": "x"}, {"ref": "y"}]}""")),
     ('progn-', (ProgN([]), """{"progn": []}""")),
-    ('progn+', (ProgN([BindingRef('x'), BindingRef('y')]),
-                """{"progn": [{"ref": "x"}, {"ref": "y"}]}""")),
     ('parprog-', (ParProg([]), """{"parprog": []}""")),
-    ('parprog+', (ParProg([BindingRef('x'), BindingRef('y')]),
-                  """{"parprog": [{"ref": "x"}, {"ref": "y"}]}""")),
     ('if-then', (IfThenElse(Equal(BindingRef('x'), NumberVal(42)),
                    Assign('result', BoolVal(True))),
               """{"if": {"cond": {"eq?": {"a": {"ref": "x"}, "b": {"num": 42}}},
@@ -132,10 +119,6 @@ val_and_json_alist = [
                                                      "b": {"num": 7}}},
                                     "then": {"bool": true}}}
                    ], "else": {"num": 3.14}}}""")),
-]
-
-val_and_json_alist_ = [
-    # FIXME:
     ('case-else', (CaseElse(BindingRef('x'),
                             [CaseItem(BoolVal(True), NumberVal(42)),
                              CaseItem(NumberVal(42), NumberVal(777))],
@@ -146,6 +129,18 @@ val_and_json_alist_ = [
                      {"case-item": {"v": {"num": 42},
                                     "then": {"num": 777}}}
                    ], "else": {"num": 3.14}}}""")),
+    ('prog1+', (Prog1([BindingRef('x'), BindingRef('y')]),
+                """{"prog1": [{"ref": "x"}, {"ref": "y"}]}""")),
+    ('progn+', (ProgN([BindingRef('x'), BindingRef('y')]),
+                """{"progn": [{"ref": "x"}, {"ref": "y"}]}""")),
+    ('parprog+', (ParProg([BindingRef('x'), BindingRef('y')]),
+                  """{"parprog": [{"ref": "x"}, {"ref": "y"}]}""")),
+    ('let+', (Let([Assign('x', BoolVal(True)),
+                   Const('pi', NumberVal(3.14))], NumberVal(42)),
+              """{"let": {"exprs": [
+                         {"assign": {"dst": "x", "src": {"bool": true}}},
+                         {"const": {"dst": "pi", "src": {"num": 3.14}}}],
+                  "body": {"num": 42}}}""")),
 ]
 
 
@@ -156,18 +151,19 @@ def value_and_json(request):
 
 
 def literally_decode_json(s):
+    import json
     return json.loads(s)
 
 
 def test_json_encode_ops_nodes(value_and_json):
     val, json_str = value_and_json
-    j = json.dumps(val, cls=NodeJsonEncoder)
+    j = json_dumps(val)
     assert isinstance(j, str)
     assert literally_decode_json(j) == literally_decode_json(json_str)
 
 
 def test_json_decode_ops_nodes(value_and_json):
     val, json_str = value_and_json
-    o = json.loads(json_str, cls=NodeJsonDecoder)
+    o = json_loads(json_str)
     assert isinstance(o, Node)
-    # TODO: assert o == val
+    assert o == val

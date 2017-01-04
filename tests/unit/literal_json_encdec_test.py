@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 from pytest import fixture, raises
 import math
 from thompson.nodes.literals import BoolVal, StringVal, NumberVal
@@ -7,8 +6,7 @@ from thompson.nodes.literals import NilConst
 from thompson.nodes.literals import FunctionParamVal
 from thompson.nodes.literals import MappedVal, MappedFunctionVal
 from thompson.nodes.literals import NoWrappingMappedFunctionVal
-from thompson.json_encdec import NodeJsonEncoder
-from thompson.json_encdec import NodeJsonDecoder
+from thompson.json_encdec import loads as json_loads, dumps as json_dumps
 
 
 @fixture(params=[(BoolVal(True), '{"bool": true}'),
@@ -37,7 +35,7 @@ def serialization_not_allowed_values(request):
 
 def test_json_encode_LiteralNodes(value_and_json):
     val, json_str = value_and_json
-    j = json.dumps(val, cls=NodeJsonEncoder)
+    j = json_dumps(val)
     assert isinstance(j, str)
     assert json_str == j
 
@@ -45,11 +43,11 @@ def test_json_encode_LiteralNodes(value_and_json):
 def test_json_encode_not_alloweds(serialization_not_allowed_values):
     val = serialization_not_allowed_values
     with raises(ValueError):
-        json.dumps(val, cls=NodeJsonEncoder)
+        json_dumps(val)
 
 
 def test_json_decode_LiteralNodes(value_and_json):
     val, json_str = value_and_json
-    o = json.loads(json_str, cls=NodeJsonDecoder)
+    o = json_loads(json_str)
     assert isinstance(val, type(o))
     assert val == o
