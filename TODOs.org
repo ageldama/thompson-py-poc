@@ -1,10 +1,5 @@
 
 
-* TODO complex functional examples in json?
-  - <2017-01-04 Wed>
-    1) SEE: ~funcall_test.py~
-    2) SEE: ~funcall_compose_test.py~
-
 * TODO "discount rule" example?
   - <2017-01-04 Wed>
 
@@ -31,6 +26,21 @@
 
 * TODO ~Comments~-fields on everywhere?                                 :ADV:
   - <2016-12-27 Tue> Every node should be able to have a comment.
+
+* DONE complex functional examples in json?
+  - <2017-01-04 Wed>
+    1) SEE: ~funcall_test.py~
+    2) SEE: ~funcall_compose_test.py~
+  - <2017-01-11 Wed> [5/5]
+    1. [X] ~closure1-inc~
+    2. [X] ~closure2-counter~
+
+    3. [X] ~make-adder~
+       - Cancel. /not a matter anymore/
+
+    4. [X] ~incx~
+
+    5. [X] ~compose1~, ~inc1~, ~square~, and ~test-compose1~
 * DONE standalone interpreter.
   - <2017-01-04 Wed>
 * DONE ~eval_json_str~ or ~eval_json_inputstream~?

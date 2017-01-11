@@ -62,3 +62,10 @@ def test_run_json_make_incx(test_data_path):
     from thompson.app.json_eval import run
     result = run(fn)
     assert result == NumberVal(43)
+
+
+def test_run_json_compose(test_data_path):
+    fn = test_data_path / 'closure_compose.json'
+    from thompson.app.json_eval import run
+    result = run(fn)
+    assert result == NumberVal(9)
