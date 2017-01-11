@@ -55,3 +55,10 @@ def test_run_json_counter(test_data_path):
     from thompson.app.json_eval import run
     result = run(fn)
     assert result == NumberVal(3)
+
+
+def test_run_json_make_incx(test_data_path):
+    fn = test_data_path / 'closure_make_incx.json'
+    from thompson.app.json_eval import run
+    result = run(fn)
+    assert result == NumberVal(43)
