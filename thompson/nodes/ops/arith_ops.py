@@ -10,6 +10,9 @@ class ArithAdd(ExprNode):
     def __str__(self) -> str:
         return "ArithAdd[{}, {}]".format(str(self.a), str(self.b))
 
+    def __repr__(self) -> str:
+        return self.__str__()
+
     def __eq__(self, other) -> bool:
         if not isinstance(other, ArithAdd):
             return False

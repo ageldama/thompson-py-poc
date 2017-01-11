@@ -1,5 +1,6 @@
 # -*- coding: utf-8; -*-
 import sys
+import thompson.evaluators.registry  # noqa
 from thompson.json_eval import evaluate_json_file
 from thompson.context import Context, Binding
 from pathlib import Path

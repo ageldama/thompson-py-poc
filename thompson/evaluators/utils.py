@@ -17,7 +17,8 @@ def find_evaluator(context: 'Context',
     for (types, evaluator) in __evaluators__:
         if isinstance(node, types):
             return evaluator
-    raise ValueError("No matching evaluator for {}".format(str(node)))
+    raise ValueError("No matching evaluator for {} in {}"
+                     .format(str(node), str(__evaluators__)))
 
 
 def evaluate(context: 'Context',

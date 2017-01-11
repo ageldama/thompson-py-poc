@@ -1,0 +1,1 @@
+{"progn": [{"let": {"body": {"pass": 42}, "exprs": [{"assign": {"src": {"num": 42}, "dst": "n"}}, {"assign-global": {"src": {"fun": {"body": {"add": {"b": {"ref": "n"}, "a": {"ref": "x"}}}, "params": [{"fun-param": "x"}]}}, "dst": "inc"}}]}}, {"funcall": {"fun": {"ref": "inc"}, "params": [{"num": 42}]}}]}
