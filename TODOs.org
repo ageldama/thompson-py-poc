@@ -27,6 +27,8 @@
 * TODO ~Comments~-fields on everywhere?                                 :ADV:
   - <2016-12-27 Tue> Every node should be able to have a comment.
 
+* TODO ~__repr__~-methods for every ~ExprNode~.
+  - <2017-01-11 Wed>
 * DONE complex functional examples in json?
   - <2017-01-04 Wed>
     1) SEE: ~funcall_test.py~
