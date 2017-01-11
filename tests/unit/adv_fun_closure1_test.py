@@ -41,7 +41,7 @@ def test_eval_json(test_data_path):
     fn = test_data_path / 'closure1.json'
     with fn.open('r') as f:
         result = evaluate_json_file(Context(Binding()), f)
-        print(result)
+        assert result == NumberVal(84)
 
 
 def test_eval_json_with_app(test_data_path):

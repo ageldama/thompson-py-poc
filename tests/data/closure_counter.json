@@ -1,1 +1,9 @@
-{"progn": [{"let": {"body": {"pass": 42}, "exprs": [{"assign": {"src": {"num": 0}, "dst": "count"}}, {"assign-global": {"src": {"fun": {"body": {"assign-upvar": {"src": {"add": {"a": {"num": 1}, "b": {"ref": "count"}}}, "dst": "count"}}, "params": []}}, "dst": "counter"}}]}}, {"funcall": {"fun": {"ref": "counter"}, "params": []}}, {"funcall": {"fun": {"ref": "counter"}, "params": []}}, {"funcall": {"fun": {"ref": "counter"}, "params": []}}]}
+{"progn": [{"let": {"body": {"pass": 42},
+                    "exprs": [{"assign": {"src": {"num": 0}, "dst": "count"}},
+                              {"assign-global": {"src": {"fun": {"body": {"assign-upvar": {"src": {"add": {"a": {"num": 1},
+                                                                                                           "b": {"ref": "count"}}},
+                                                                                           "dst": "count"}}, "params": []}},
+                                                 "dst": "counter"}}]}},
+           {"funcall": {"fun": {"ref": "counter"}, "params": []}},
+           {"funcall": {"fun": {"ref": "counter"}, "params": []}},
+           {"funcall": {"fun": {"ref": "counter"}, "params": []}}]}

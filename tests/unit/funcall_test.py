@@ -76,7 +76,6 @@ def test_closure2_counter():
     assert not b2.contains_no_inherits('count')
     assert not b_root.contains_no_inherits('count')
     assert b_creation.contains_no_inherits('count')
-    print(b_creation.get('count'))
     assert b_creation.get('count') == N(3)
 
 
