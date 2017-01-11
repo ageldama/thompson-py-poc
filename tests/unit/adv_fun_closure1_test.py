@@ -9,6 +9,7 @@ from thompson.nodes.ops import ArithAdd, BindingRef
 from thompson.json_encdec import loads
 from thompson.json_eval import evaluate_json_file
 from thompson.context import Context, Binding
+from thompson.app.json_eval import run
 
 
 def make_expr():
@@ -45,6 +46,12 @@ def test_eval_json(test_data_path):
 
 def test_eval_json_with_app(test_data_path):
     fn = test_data_path / 'closure1.json'
-    from thompson.app.json_eval import run
     result = run(fn)
     assert result == NumberVal(84)
+
+
+def test_run_json_counter(test_data_path):
+    fn = test_data_path / 'closure_counter.json'
+    from thompson.app.json_eval import run
+    result = run(fn)
+    assert result == NumberVal(3)
