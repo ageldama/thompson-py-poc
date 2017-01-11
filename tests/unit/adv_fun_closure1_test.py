@@ -41,3 +41,10 @@ def test_eval_json(test_data_path):
     with fn.open('r') as f:
         result = evaluate_json_file(Context(Binding()), f)
         print(result)
+
+
+def test_eval_json_with_app(test_data_path):
+    fn = test_data_path / 'closure1.json'
+    from thompson.app.json_eval import run
+    result = run(fn)
+    assert result == NumberVal(84)
