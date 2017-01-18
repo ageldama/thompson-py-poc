@@ -23,6 +23,7 @@
 # Run standalone interpreter
 
 * Run `./json-rel.sh [FILENAME]`
+  * Examples are in `./tests/data/` directory.
 
 
 # Intentions
