@@ -13,7 +13,7 @@
 1. `git clone git@github.com:zalando-incubator/thompson-py-poc.git`
 2. `cd` into cloned directory and run `virtualenv --python=python3 .`
 3. `source bin/activate`
-4. `pip install ``cat requirements.txt```
+4. `pip install -r requirements.txt`
 
 # Run tests
 
