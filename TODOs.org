@@ -2,10 +2,6 @@
 
 * TODO "discount rule" example?
   - <2017-01-04 Wed>
-
-* TODO Update the README.                                     :DOCUMENTATION:
-  - <2016-12-28 Wed>
-    1) Separate contents by sections.
   
 
 * TODO docstrings on test functions.                          :DOCUMENTATION:
@@ -29,6 +25,10 @@
 
 * TODO ~__repr__~-methods for every ~ExprNode~.
   - <2017-01-11 Wed>
+
+* DONE Update the README.                                     :DOCUMENTATION:
+  - <2016-12-28 Wed>
+    1) Separate contents by sections.
 * DONE complex functional examples in json?
   - <2017-01-04 Wed>
     1) SEE: ~funcall_test.py~

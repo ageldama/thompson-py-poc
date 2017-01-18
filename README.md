@@ -2,6 +2,28 @@
 
     the easiest and efficient way to express "the offers that cannot be refused".
 
+# Requirements
+
+1. Python 3.5+
+2. [Virtualenv](https://virtualenv.pypa.io/en/stable/)
+
+
+# Setup
+
+1. `git clone git@github.com:zalando-incubator/thompson-py-poc.git`
+2. `cd` into cloned directory and run `virtualenv --python=python3 .`
+3. `source bin/activate`
+4. `pip install ``cat requirements.txt```
+
+# Run tests
+
+* Run `./run-py-test.sh`
+
+
+# Run standalone interpreter
+
+* Run `./json-rel.sh [FILENAME]`
+
 
 # Intentions
 
