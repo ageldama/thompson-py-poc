@@ -17,3 +17,10 @@ class Atom(object):
 
 def parse_file(f):
     return None  # TODO:
+
+
+def parse(s):
+    return None  # TODO
+
+def dumps(obj):
+    return ""  # TODO:
