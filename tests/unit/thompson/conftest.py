@@ -18,4 +18,4 @@ def empty_context_eval(empty_context: 'Context') -> Callable:
 
 @fixture
 def test_data_path():
-    return (Path(__file__).parent.parent / 'data')
+    return (Path(__file__).parent.parent.parent / 'data')
