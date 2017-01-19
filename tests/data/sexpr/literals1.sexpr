@@ -1,0 +1,6 @@
+;;; -*- coding: utf-8; mode: lisp; -*-
+;; an atom and a list.
+(example 12345 42 3.14 0 -123 -42.3  ;; numbers.
+         "foo" "bar" "SpamEggs"      ;; strings.
+         true false  ;; booleans
+         nil)  ;; null
