@@ -1,18 +1,21 @@
 # -*- coding: utf-8; -*-
 from pytest import fixture
 from pathlib import Path
-from sexpr import parse_file, Atom, dumps, parse
+from sexpr import Atom, dumps
+from sexpr.parser import parse_file, parse
 
 
 fn_and_expects = [
     ('comments.sexpr', None),
     ('atom1.sexpr', Atom('foo')),
+]
+"""
     ('literals1.sexpr',
      [Atom('example'), 12345, 42, 3.14, 0, -123, -42.3,
       "foo", "bar", "SpamEggs", True, False, None]),
     ('nested_list.sexpr',
      [Atom('foo'), [Atom('bar'), ["spam", "eggs"], 42], True]),
-]
+"""
 
 
 @fixture(params=[(i[0], i[1]) for i in fn_and_expects],
