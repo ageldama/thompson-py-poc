@@ -1,87 +1,61 @@
 # -*- coding: utf-8; -*-
 from thompson.nodes.ops.expr_node import ExprNode
-from thompson.jsons import enc_default
+from thompson.strs import to_joined_strs
+from thompson.jsons import enc_defaults
+from thompson.eqs import eq_params
 
 
 class ComparLt(ExprNode):
-    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
-        self.a, self.b = a, b
+    def __init__(self, params: ['Evaluatable']) -> None:
+        self.params = params
 
     def __str__(self) -> str:
-        return "ComparLt[{}, {}]".format(str(self.a), str(self.b))
+        return "ComparLt[{}]".format(to_joined_strs(self.params))
 
     def __eq__(self, other) -> bool:
-        if not isinstance(other, ComparLt):
-            return False
-        else:
-            return self.a == other.a \
-                and self.b == other.b
+        return eq_params(self, other, ComparLt)
 
     def to_json_default(self, json_encoder):
-        return {'lt?': {'a':
-                        enc_default(self.a, json_encoder),
-                        'b':
-                        enc_default(self.b, json_encoder)}}
+        return {'lt?': enc_defaults(self.params, json_encoder)}
 
 
 class ComparLe(ExprNode):
-    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
-        self.a, self.b = a, b
+    def __init__(self, params: ['Evaluatable']) -> None:
+        self.params = params
 
     def __str__(self) -> str:
-        return "ComparLe[{}, {}]".format(str(self.a), str(self.b))
+        return "ComparLe[{}]".format(to_joined_strs(self.params))
 
     def __eq__(self, other) -> bool:
-        if not isinstance(other, ComparLe):
-            return False
-        else:
-            return self.a == other.a \
-                and self.b == other.b
+        return eq_params(self, other, ComparLe)
 
     def to_json_default(self, json_encoder):
-        return {'le?': {'a':
-                        enc_default(self.a, json_encoder),
-                        'b':
-                        enc_default(self.b, json_encoder)}}
+        return {'le?': enc_defaults(self.params, json_encoder)}
 
 
 class ComparGt(ExprNode):
-    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
-        self.a, self.b = a, b
+    def __init__(self, params: ['Evaluatable']) -> None:
+        self.params = params
 
     def __str__(self) -> str:
-        return "ComparGt[{}, {}]".format(str(self.a), str(self.b))
+        return "ComparGt[{}]".format(to_joined_strs(self.params))
 
     def __eq__(self, other) -> bool:
-        if not isinstance(other, ComparGt):
-            return False
-        else:
-            return self.a == other.a \
-                and self.b == other.b
+        return eq_params(self, other, ComparGt)
 
     def to_json_default(self, json_encoder):
-        return {'gt?': {'a':
-                        enc_default(self.a, json_encoder),
-                        'b':
-                        enc_default(self.b, json_encoder)}}
+        return {'gt?': enc_defaults(self.params, json_encoder)}
 
 
 class ComparGe(ExprNode):
-    def __init__(self, a: 'Evaluatable', b: 'Evaluatable') -> None:
-        self.a, self.b = a, b
+    def __init__(self, params: ['Evaluatable']) -> None:
+        self.params = params
 
     def __str__(self) -> str:
-        return "ComparGe[{}, {}]".format(str(self.a), str(self.b))
+        return "ComparGe[{}]".format(to_joined_strs(self.params))
 
     def __eq__(self, other) -> bool:
-        if not isinstance(other, ComparGe):
-            return False
-        else:
-            return self.a == other.a \
-                and self.b == other.b
+        return eq_params(self, other, ComparGe)
 
     def to_json_default(self, json_encoder):
-        return {'ge?': {'a':
-                        enc_default(self.a, json_encoder),
-                        'b':
-                        enc_default(self.b, json_encoder)}}
+        return {'ge?': enc_defaults(self.params, json_encoder)}
