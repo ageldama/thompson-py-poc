@@ -5,8 +5,14 @@ from sexpr import Atom, Exprs
 
 def p_toplevel(p):
     '''toplevel : atom
+                | empty
                 | list'''
     p[0] = p[1]
+
+
+def p_empty(p):
+    'empty :'
+    pass
 
 
 def p_symbol(p):

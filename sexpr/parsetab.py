@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'A38C7D5E5BAF630F5B34115B18D084A4'
+_lr_signature = '13E3E4ED154F7B9EE3C3305241F97E63'
     
-_lr_action_items = {'NUMBER':([0,1,2,4,5,8,9,10,11,12,13,14,],[1,-6,-3,-5,1,-4,-8,1,-10,-7,-9,-11,]),'SYMBOL':([0,1,2,4,5,8,9,10,11,12,13,14,],[2,-6,-3,-5,2,-4,-8,2,-10,-7,-9,-11,]),'STRING':([0,1,2,4,5,8,9,10,11,12,13,14,],[4,-6,-3,-5,4,-4,-8,4,-10,-7,-9,-11,]),'RPAREN':([1,2,4,5,8,9,10,11,12,13,14,],[-6,-3,-5,11,-4,-8,14,-10,-7,-9,-11,]),'LPAREN':([0,1,2,4,5,8,9,10,11,12,13,14,],[5,-6,-3,-5,5,-4,-8,5,-10,-7,-9,-11,]),'$end':([1,2,3,4,6,7,8,11,14,],[-6,-3,-1,-5,-2,0,-4,-10,-11,]),}
+_lr_action_items = {'NUMBER':([0,2,3,4,5,8,10,11,12,13,14,15,],[4,-6,-7,-8,4,-5,-12,-9,-10,4,-13,-11,]),'RPAREN':([2,3,4,5,8,10,11,12,13,14,15,],[-6,-7,-8,10,-5,-12,-9,-10,14,-13,-11,]),'LPAREN':([0,2,3,4,5,8,10,11,12,13,14,15,],[5,-6,-7,-8,5,-5,-12,-9,-10,5,-13,-11,]),'SYMBOL':([0,2,3,4,5,8,10,11,12,13,14,15,],[8,-6,-7,-8,8,-5,-12,-9,-10,8,-13,-11,]),'$end':([0,1,2,3,4,6,7,8,9,10,14,],[-4,-3,-6,-7,-8,0,-1,-5,-2,-12,-13,]),'STRING':([0,2,3,4,5,8,10,11,12,13,14,15,],[3,-6,-7,-8,3,-5,-12,-9,-10,3,-13,-11,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'list':([0,5,10,],[6,12,12,]),'toplevel':([0,],[7,]),'atom':([0,5,10,],[3,9,13,]),'exprs':([5,],[10,]),'symbol':([0,5,10,],[8,8,8,]),}
+_lr_goto_items = {'list':([0,5,13,],[1,11,11,]),'symbol':([0,5,13,],[2,2,2,]),'toplevel':([0,],[6,]),'atom':([0,5,13,],[7,12,15,]),'empty':([0,],[9,]),'exprs':([5,],[13,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,14 +27,16 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> toplevel","S'",1,None,None,None),
   ('toplevel -> atom','toplevel',1,'p_toplevel','parser.py',7),
-  ('toplevel -> list','toplevel',1,'p_toplevel','parser.py',8),
-  ('symbol -> SYMBOL','symbol',1,'p_symbol','parser.py',13),
-  ('atom -> symbol','atom',1,'p_atom','parser.py',18),
-  ('atom -> STRING','atom',1,'p_atom','parser.py',19),
-  ('atom -> NUMBER','atom',1,'p_atom','parser.py',20),
-  ('atom -> list','atom',1,'p_atom','parser.py',21),
-  ('exprs -> atom','exprs',1,'p_exprs_1','parser.py',26),
-  ('exprs -> exprs atom','exprs',2,'p_exprs_2','parser.py',33),
-  ('list -> LPAREN RPAREN','list',2,'p_list_0','parser.py',40),
-  ('list -> LPAREN exprs RPAREN','list',3,'p_list_1','parser.py',45),
+  ('toplevel -> empty','toplevel',1,'p_toplevel','parser.py',8),
+  ('toplevel -> list','toplevel',1,'p_toplevel','parser.py',9),
+  ('empty -> <empty>','empty',0,'p_empty','parser.py',14),
+  ('symbol -> SYMBOL','symbol',1,'p_symbol','parser.py',19),
+  ('atom -> symbol','atom',1,'p_atom','parser.py',29),
+  ('atom -> STRING','atom',1,'p_atom','parser.py',30),
+  ('atom -> NUMBER','atom',1,'p_atom','parser.py',31),
+  ('atom -> list','atom',1,'p_atom','parser.py',32),
+  ('exprs -> atom','exprs',1,'p_exprs_1','parser.py',37),
+  ('exprs -> exprs atom','exprs',2,'p_exprs_2','parser.py',44),
+  ('list -> LPAREN RPAREN','list',2,'p_list_0','parser.py',51),
+  ('list -> LPAREN exprs RPAREN','list',3,'p_list_1','parser.py',56),
 ]

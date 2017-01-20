@@ -21,6 +21,12 @@ def test_string():
     assert match_tok(produce_tokens('""')[0], "STRING", "")
 
 
+def test_nearby_strings():
+    toks = produce_tokens('"foo" "bar"')
+    assert match_tok(toks[0], "STRING", "foo")
+    assert match_tok(toks[1], "STRING", "bar")
+
+
 def test_boolean():
     assert match_tok(produce_tokens('"true"')[0], "STRING", "true")
     assert match_tok(produce_tokens('true')[0], "SYMBOL", 'true')
