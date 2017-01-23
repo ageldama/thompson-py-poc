@@ -1,0 +1,57 @@
+#+COMMENT: -*- mode: org; coding: utf-8; -*-
+
+#+TITLE: How to translate S-Expr into ST or in vice-versa
+
+* when met an atom in s-expr
+  1) if it matches as a built-in ===> transform-to-st.
+  2) else,
+     1) if it is 1st item in the list,
+        - ~(funcall (ref ..) (cdr ..))~
+     2) else,
+        - ~(ref ..)~
+
+* Built-ins and its translation-table.
+| ST-name       | s-expr-atom         | ST-params           | s-expr-syn example              |
+|---------------+---------------------+---------------------+---------------------------------|
+| BoolVal       | ~true~ -or- ~false~ |                     |                                 |
+| NullVal       | ~nil~               |                     |                                 |
+| NumberVal     | (nums)              |                     |                                 |
+| StringVal     | (strs)              |                     |                                 |
+| FunctionVal   | ~fn~                | params, body        | ~(fn [x y] (+ x y))~            |
+| Prog1         | ~prog1~             | body                | ~(prog1 ,@body)~                |
+| ProgN         | ~progn~             | body                | ~(progn ,@body)~                |
+| ParProg       | ~parprog~           | body                | ~(parprog ,@body)~              |
+| LogAnd        | ~log-and~           | params              | ~(log-and a b c)~               |
+| LogOr         | ~log-or~            | params              | ~(log-or a b c)~                |
+| LogNot        | ~log-not~           | param               | ~(log-not a)~                   |
+| ArithAdd      | ~+~                 | params              | ~(+ a b c)~                     |
+| ArithSub      | ~-~                 | params              | ~(- a b c)~                     |
+| ArithMult     | ~*~                 | params              | ~(* a b c)~                     |
+| ArithMultMult | ~**~                | params              | ~(** a b c)~                    |
+| ArithDiv      | ~/~                 | params              | ~(/ a b c)~                     |
+| ArithDivDiv   | ~//~                | params              | ~(// a b c)~                    |
+| ArithRem      | ~rem~               | params              | ~(rem a b c)~                   |
+| ComparLt      | ~<~                 | params              | ~(< a b c)~                     |
+| ComparLe      | ~<=~                | params              | ~(<= a b c)~                    |
+| ComparGt      | ~>~                 | params              | ~(> a b c)~                     |
+| ComparGe      | ~>=~                | params              | ~(>= a b c)~                    |
+| Equal         | ~eq?~               | params              | ~(== a b c)~                    |
+| NotEqual      | ~ne?~               | params              | ~(!= a b c)~                    |
+| IsNull        | ~null?~             | param               | ~(null? a)~                     |
+| IsNotNull     | ~not-null?~         | param               | ~(not-null? a)~                 |
+| Assign        | ~set~               | dst, src            | ~(set dst src)~                 |
+| AssignUpvar   | ~set^~              | dst, src            | ~(set^ dst src)~                |
+| AssignGlobal  | ~set/~              | dst, src            | ~(set/ dst src)~                |
+| Const         | ~const~             | dst, src            | ~(const dst src)~               |
+| Let           | ~let~               | exprs, body         | ~(let [(set x 42)] ,@body)~     |
+| Ref           | (n/a)               |                     |                                 |
+| Pass          | ~pass~              |                     | ~(pass)~                        |
+| Funcall       | ~fncall~ or (n/a)   | fun, params         | ~(fncall my-fun [1 2 3])~       |
+|               |                     |                     | ~(my-fun 1 2 3)~                |
+| IfThenElse    | ~if~                | cond, then, else    | ~(if ,cond ,then ,else)~        |
+| When          | ~when~              | cond, then          | ~(when ,cond ,then)~            |
+| Unless        | ~unless~            | cond, then          | ~(unless ,cond ,then)~          |
+| CaseElse      | ~case~              | v, case-items, else | ~(case v [,@case-items] ,else)~ |
+| CaseItem      | (n/a)               | v, then             | ~(v ,then)~                     |
+| CondElse      | ~cond~              | cond-items, else    | ~(cond [,@cond-items] ,else)~   |
+| CondItem      | (n/a)               | cond, then          | ~(,cond ,then)~                 |
