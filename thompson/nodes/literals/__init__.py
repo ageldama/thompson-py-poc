@@ -59,6 +59,9 @@ class NullVal(LiteralNode):
     def __init__(self, *arg) -> None:
         pass
 
+    def get(self):
+        return None
+
     def __eq__(self, other: 'NullVal') -> bool:
         return isinstance(other, NullVal)
 

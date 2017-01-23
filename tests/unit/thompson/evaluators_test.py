@@ -3,6 +3,7 @@ from pytest import fixture, raises
 from thompson.nodes.literals import BoolVal, NumberVal, StringVal
 from thompson.nodes.literals import NullVal, NilConst
 from thompson.nodes.ops import Pass
+import thompson.evaluators.registry  # noqa: F401
 from thompson.evaluators import find_evaluator
 from thompson.evaluators import LiteralEvaluator, PassEvaluator
 
@@ -18,6 +19,7 @@ def test_find_evaluator(empty_context_find_evaluator):
     assert isinstance(F(BoolVal(True)), LiteralEvaluator)
     assert isinstance(F(StringVal('')), LiteralEvaluator)
     assert isinstance(F(NumberVal(42)), LiteralEvaluator)
+    assert isinstance(F(NullVal()), LiteralEvaluator)
     assert isinstance(F(NullVal()), LiteralEvaluator)
     with raises(ValueError):
         F(None)

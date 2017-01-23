@@ -27,12 +27,11 @@ __dict_and_nodes = [
     ('cond-else', ({"cond-else": {"cond-items": [
         {"cond-item": {"cond": {"null?": {"ref": "x"}},
                        "then": {"num": 42}}},
-        {"cond-item": {"cond": {"eq?": {"a": {"ref": "y"},
-                                        "b": {"num": 7}}},
+        {"cond-item": {"cond": {"eq?": [{"ref": "y"}, {"num": 7}]},
                        "then": {"bool": True}}}],
                                   "else": {"num": 3.14}}},
                    CondElse([CondItem(IsNull(BindingRef('x')), NumberVal(42)),
-                             CondItem(Equal(BindingRef('y'), NumberVal(7)),
+                             CondItem(Equal([BindingRef('y'), NumberVal(7)]),
                                       BoolVal(True))],
                             NumberVal(3.14)))),
 ]

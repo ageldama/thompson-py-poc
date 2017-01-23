@@ -17,8 +17,8 @@ def make_expr():
     expr = ProgN([Let([Assign('n', N(42)),
                        AssignGlobal('inc',
                                     FunctionVal([FunctionParamVal('x')],
-                                                ArithAdd(BindingRef('x'),
-                                                         BindingRef('n'))))],
+                                                ArithAdd([BindingRef('x'),
+                                                          BindingRef('n')])))],
                   Pass()),
                   Funcall(BindingRef('inc'), [N(42)])])
     return expr

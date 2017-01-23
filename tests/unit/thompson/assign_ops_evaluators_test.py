@@ -1,6 +1,7 @@
 # -*- coding: utf-8; -*-
 from pytest import raises
 from thompson.context import Context, Binding
+import thompson.evaluators.registry  # noqa: F401
 from thompson.evaluators import evaluate
 from thompson.nodes.literals import NumberVal, StringVal
 from thompson.nodes.ops import BindingRef

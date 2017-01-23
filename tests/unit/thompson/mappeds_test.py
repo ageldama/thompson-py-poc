@@ -1,4 +1,5 @@
 # -*- coding: utf-8; -*-
+import thompson.evaluators.registry  # noqa: F401
 from thompson.nodes.literals import StringVal, NumberVal, BoolVal, NilConst
 from thompson.nodes.literals import FunctionParamVal
 from thompson.nodes.literals import MappedVal, MappedFunctionVal

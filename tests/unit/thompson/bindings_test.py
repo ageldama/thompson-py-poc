@@ -1,5 +1,4 @@
 # -*- coding: utf-8; -*-
-
 from pytest import raises
 from thompson.context import Binding
 
