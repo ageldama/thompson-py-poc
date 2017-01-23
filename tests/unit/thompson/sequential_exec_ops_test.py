@@ -1,4 +1,5 @@
 # -*- coding: utf-8; -*-
+import thompson.evaluators.registry  # noqa: F401
 from thompson.context import Context, Binding
 from thompson.evaluators import evaluate
 from thompson.nodes.literals import NumberVal, NilConst
@@ -13,8 +14,8 @@ def test_prog1():
     c = Context(b)
     #
     l = Prog1([Assign('a', N(1)),
-               Assign('b', ArithAdd(N(1), BindingRef('a'))),
-               Assign('c', ArithAdd(N(1), BindingRef('b')))])
+               Assign('b', ArithAdd([N(1), BindingRef('a')])),
+               Assign('c', ArithAdd([N(1), BindingRef('b')]))])
     result = evaluate(c, l)
     assert result == N(1)
     assert evaluate(c, BindingRef('a')) == N(1)
@@ -29,8 +30,8 @@ def test_progn():
     c = Context(b)
     #
     l = ProgN([Assign('a', N(1)),
-               Assign('b', ArithAdd(N(1), BindingRef('a'))),
-               Assign('c', ArithAdd(N(1), BindingRef('b')))])
+               Assign('b', ArithAdd([N(1), BindingRef('a')])),
+               Assign('c', ArithAdd([N(1), BindingRef('b')]))])
     result = evaluate(c, l)
     assert result == N(3)
     assert evaluate(c, BindingRef('a')) == N(1)

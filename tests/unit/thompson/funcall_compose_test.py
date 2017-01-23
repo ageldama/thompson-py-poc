@@ -1,4 +1,5 @@
 # -*- coding: utf-8; -*-
+import thompson.evaluators.registry  # noqa: F401
 from thompson.context import Context, Binding
 from thompson.nodes.literals import NumberVal
 from thompson.nodes.literals import FunctionParamVal, FunctionVal
@@ -20,13 +21,13 @@ def define_compose1(c):
 def define_inc1(c):
     N = NumberVal
     params = [FunctionParamVal('x')]
-    body = ArithAdd(N(1), BindingRef('x'))
+    body = ArithAdd([N(1), BindingRef('x')])
     return evaluate(c, Assign('inc1', FunctionVal(params, body)))
 
 
 def define_square(c):
     params = [FunctionParamVal('x')]
-    body = ArithMult(BindingRef('x'), BindingRef('x'))
+    body = ArithMult([BindingRef('x'), BindingRef('x')])
     return evaluate(c, Assign('square', FunctionVal(params, body)))
 
 

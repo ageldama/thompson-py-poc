@@ -52,7 +52,7 @@ class ArithMult(ExprNode):
 
 class ArithMultMult(ExprNode):
     def __init__(self, params: ['Evaluatable']) -> None:
-        self.params
+        self.params = params
 
     def __str__(self) -> str:
         return "ArithMultMult[{}]".format(to_joined_strs(self.params))

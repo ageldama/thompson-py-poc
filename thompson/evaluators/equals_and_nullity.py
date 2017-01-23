@@ -2,24 +2,28 @@
 from thompson.evaluators.evaluator import Evaluator
 from thompson.evaluators.utils import eval_and_type_check, evaluate
 from thompson.nodes.literals import BoolVal, StringVal, NumberVal, NullVal
+from operator import eq, ne, and_, or_
+from functools import reduce
+
+
+def _accum(context, params, op, reduce_op, init_val):
+    allows = (BoolVal, NullVal, StringVal, NumberVal)
+    tnfs = []
+    for i in range(len(params) - 1):
+        a_ = eval_and_type_check(context, params[i], allows)
+        b_ = eval_and_type_check(context, params[i + 1], allows)
+        tnfs.append(op(a_.get(), b_.get()))
+    return BoolVal(reduce(reduce_op, tnfs, init_val))
 
 
 class EqualEvaluator(Evaluator):
     def eval(self, context, node):
-        allows = (BoolVal, NullVal, StringVal, NumberVal)
-        a_ = eval_and_type_check(context, node.a, allows)
-        b_ = eval_and_type_check(context, node.b, allows)
-        if type(a_) != type(b_):
-            return BoolVal(False)
-        if isinstance(a_, NullVal) and isinstance(b_, NullVal):
-            return BoolVal(True)
-        else:
-            return BoolVal(a_.get() == b_.get())
+        return _accum(context, node.params, eq, and_, True)
 
 
-class NotEqualEvaluator(EqualEvaluator):
+class NotEqualEvaluator(Evaluator):
     def eval(self, context, node):
-        return BoolVal(not super().eval(context, node).get())
+        return _accum(context, node.params, ne, or_, False)
 
 
 class IsNullEvaluator(Evaluator):

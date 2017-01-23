@@ -1,4 +1,5 @@
 # -*- coding: utf-8; -*-
+import thompson.evaluators.registry  # noqa: F401
 from thompson.context import Context, Binding
 from thompson.evaluators import evaluate
 from thompson.nodes.literals import NumberVal, NilConst, StringVal
@@ -13,15 +14,15 @@ def test_cond_else():
     b = Binding()
     c = Context(b)
     #
-    expr = Assign("x", CondElse([CondItem(ComparLt(N(1), N(-1)), S("foo")),
-                                 CondItem(ComparLt(N(1), N(42)), S("bar"))],
+    expr = Assign("x", CondElse([CondItem(ComparLt([N(1), N(-1)]), S("foo")),
+                                 CondItem(ComparLt([N(1), N(42)]), S("bar"))],
                                 S("zoo")))
     result = evaluate(c, expr)
     assert result == S("bar")
     assert b.get("x") == S("bar")
     #
-    expr = Assign("y", CondElse([CondItem(ComparLt(N(1), N(-1)), S("foo")),
-                                 CondItem(ComparLt(N(1), N(-42)), S("bar"))],
+    expr = Assign("y", CondElse([CondItem(ComparLt([N(1), N(-1)]), S("foo")),
+                                 CondItem(ComparLt([N(1), N(-42)]), S("bar"))],
                                 S("zoo")))
     result = evaluate(c, expr)
     assert result == S('zoo')
@@ -33,14 +34,15 @@ def test_cond_only():
     b = Binding()
     c = Context(b)
     #
-    expr = Assign("x", CondElse([CondItem(ComparLt(N(1), N(-1)), S("foo")),
-                                 CondItem(ComparLt(N(1), N(42)), S("bar"))]))
+    expr = Assign("x", CondElse([CondItem(ComparLt([N(1), N(-1)]), S("foo")),
+                                 CondItem(ComparLt([N(1), N(42)]), S("bar"))]))
     result = evaluate(c, expr)
     assert result == S("bar")
     assert b.get("x") == S("bar")
     #
-    expr = Assign("y", CondElse([CondItem(ComparLt(N(1), N(-1)), S("foo")),
-                                 CondItem(ComparLt(N(1), N(-42)), S("bar"))]))
+    expr = Assign("y", CondElse([CondItem(ComparLt([N(1), N(-1)]), S("foo")),
+                                 CondItem(ComparLt([N(1), N(-42)]),
+                                          S("bar"))]))
     result = evaluate(c, expr)
     assert result == NilConst
     assert NilConst == b.get('y')

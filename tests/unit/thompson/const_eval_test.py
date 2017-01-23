@@ -1,4 +1,5 @@
 # -*- coding: utf-8; -*-
+import thompson.evaluators.registry  # noqa: F401
 from thompson.nodes.literals import NumberVal
 from thompson.nodes.ops import Const, Assign
 from pytest import raises

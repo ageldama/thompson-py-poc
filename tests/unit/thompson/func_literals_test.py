@@ -1,4 +1,5 @@
 # -*- coding: utf-8; -*-
+import thompson.evaluators.registry  # noqa: F401
 from thompson.context import Context, Binding
 from thompson.nodes.literals import StringVal
 from thompson.nodes.literals import FunctionParamVal, FunctionVal
@@ -34,7 +35,7 @@ def test_func_literal_eval():
     b.set('foo', 'bar')
     c = Context(b)
     params_expr = [FunctionParamVal(S('x')), FunctionParamVal('y')]
-    body_expr = ArithAdd(BindingRef('x'), BindingRef('y'))
+    body_expr = ArithAdd([BindingRef('x'), BindingRef('y')])
     fun = FunctionVal(params_expr, body_expr)
     result = evaluate(c, fun)
     assert result.binding.get('foo') == 'bar'

@@ -1,53 +1,40 @@
 # -*- coding: utf-8; -*-
-from thompson.evaluators.utils import eval_and_type_check
 from thompson.evaluators.evaluator import Evaluator
 from thompson.nodes.literals import NumberVal
+from operator import add, sub, mul, pow, truediv, floordiv, imod
+from thompson.evaluators.params import accum_params
 
 
 class ArithAddEvaluator(Evaluator):
     def eval(self, context, node):
-        a_ = eval_and_type_check(context, node.a, NumberVal)
-        b_ = eval_and_type_check(context, node.b, NumberVal)
-        return NumberVal(a_.get() + b_.get())
+        return accum_params(context, add, node.params, NumberVal)
 
 
 class ArithSubEvaluator(Evaluator):
     def eval(self, context, node):
-        a_ = eval_and_type_check(context, node.a, NumberVal)
-        b_ = eval_and_type_check(context, node.b, NumberVal)
-        return NumberVal(a_.get() - b_.get())
+        return accum_params(context, sub, node.params, NumberVal)
 
 
 class ArithMultEvaluator(Evaluator):
     def eval(self, context, node):
-        a_ = eval_and_type_check(context, node.a, NumberVal)
-        b_ = eval_and_type_check(context, node.b, NumberVal)
-        return NumberVal(a_.get() * b_.get())
+        return accum_params(context, mul, node.params, NumberVal)
 
 
 class ArithMultMultEvaluator(Evaluator):
     def eval(self, context, node):
-        a_ = eval_and_type_check(context, node.a, NumberVal)
-        nth_ = eval_and_type_check(context, node.nth, NumberVal)
-        return NumberVal(a_.get() ** nth_.get())
+        return accum_params(context, pow, node.params, NumberVal)
 
 
 class ArithDivEvaluator(Evaluator):
     def eval(self, context, node):
-        num_ = eval_and_type_check(context, node.numerator, NumberVal)
-        denom_ = eval_and_type_check(context, node.denominator, NumberVal)
-        return NumberVal(num_.get() / denom_.get())
+        return accum_params(context, truediv, node.params, NumberVal)
 
 
 class ArithRemEvaluator(Evaluator):
     def eval(self, context, node):
-        num_ = eval_and_type_check(context, node.numerator, NumberVal)
-        denom_ = eval_and_type_check(context, node.denominator, NumberVal)
-        return NumberVal(num_.get() % denom_.get())
+        return accum_params(context, imod, node.params, NumberVal)
 
 
 class ArithDivDivEvaluator(Evaluator):
     def eval(self, context, node):
-        num_ = eval_and_type_check(context, node.numerator, NumberVal)
-        denom_ = eval_and_type_check(context, node.denominator, NumberVal)
-        return NumberVal(num_.get() // denom_.get())
+        return accum_params(context, floordiv, node.params, NumberVal)
