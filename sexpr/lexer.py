@@ -8,10 +8,14 @@ tokens = (
     'SYMBOL',
     'LPAREN',
     'RPAREN',
+    'LSQBRACKET',
+    'RSQBRACKET',
 )
 
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
+t_LSQBRACKET = r'\['
+t_RSQBRACKET = r'\]'
 t_SYMBOL = r'([A-Z]|[a-z]|[0-9]|\!|\$|\%|\&|\*|\+|\-|\.|\/|\:|\<|\=|\>|\?|\@|\^|\_|\~)+'  # noqa: E501
 t_ignore_COMMENT = r'\;.*'
 
