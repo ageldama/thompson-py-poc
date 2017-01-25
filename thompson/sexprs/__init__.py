@@ -47,14 +47,18 @@ _to_st_apply_params = {
     'log-not': (LogNot, ['a']),
     'null?': (IsNull, ['a']),
     'not-null?': (IsNotNull, ['a']),
-    'set': (Assign, ['dst', 'src']),
-    'set^': (AssignUpvar, ['dst', 'src']),
-    'set/': (AssignGlobal, ['dst', 'src']),
-    'const': (Const, ['dst', 'src']),
     'fncall': (Funcall, ['fun', 'params']),
     'if': (IfThenElse, ['cond', 'then_clause', 'else_clause']),
     'when': (When, ['cond', 'then_clause']),
     'unless': (Unless, ['cond', 'then_clause']),
+}
+
+
+_to_st_set_specials = {
+    'set': Assign,
+    'set^': AssignUpvar,
+    'set/': AssignGlobal,
+    'const': Const,
 }
 
 
@@ -125,6 +129,12 @@ def to_st(sexpr):
                     return CaseElse(v, cases, else_)
                 else:
                     return CaseElse(v, cases)
+            elif k in _to_st_set_specials.keys():
+                assert isinstance(sexpr[1], Atom)
+                name = sexpr[1].val
+                val = to_st(sexpr[2])
+                ctor = _to_st_set_specials[k]
+                return ctor(StringVal(name), val)
             else:
                 # user-defined fun-call.
                 params = [to_st(i) for i in sexpr[1:]]
