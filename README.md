@@ -22,6 +22,10 @@
 
 # Run standalone interpreter
 
+* Run `./sexpr-rel.sh` 
+  1. To run a S-expression script file: `./sexpr-rel.sh tests/data/thompson/closure_compose.sexpr`
+  2. Or just run `./sexpr-rel.sh` to start a REPL.
+
 * Run `./json-rel.sh [FILENAME]`
   * Examples are in `./tests/data/` directory.
 
