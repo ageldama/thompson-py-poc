@@ -15,10 +15,11 @@ def test_simplest_atom():
     assert P('(atom)') == [Atom("atom")]
     assert P('(atom "foo" 42)') == [Atom("atom"), "foo", 42]
     assert P('()') == []
+    assert P('[]') == []
     assert P('(())') == [[]]
-    assert P('(() ())') == [[], []]
-    assert P('(() (() abc))') == [[], [[], Atom('abc')]]
-    assert P('(atom "foo" (abc def ()) 42)') == [Atom("atom"), "foo",
+    assert P('(() [])') == [[], []]
+    assert P('([] [() abc])') == [[], [[], Atom('abc')]]
+    assert P('(atom "foo" [abc def ()] 42)') == [Atom("atom"), "foo",
                                                  [Atom("abc"),
                                                   Atom("def"),
                                                   []],

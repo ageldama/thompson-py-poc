@@ -57,6 +57,16 @@ def p_list_1(p):
     p[0] = [i for i in p[2]]
 
 
+def p_list_2(p):
+    '''list : LSQBRACKET RSQBRACKET'''
+    p[0] = []
+
+
+def p_list_3(p):
+    '''list : LSQBRACKET exprs RSQBRACKET'''
+    p[0] = [i for i in p[2]]
+
+
 def p_error(t):
     print("Whoa. We're hosed")
 

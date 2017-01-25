@@ -58,7 +58,7 @@ def test_number():
 
 def test_parens_comment():
     toks = produce_tokens("""
-      (+ 123 "foo bar" true nil ;; comment?)
+      (+ 123 "foo bar" true nil [] ;; comment?)
          )
     """)
     assert match_tok(toks[0], "LPAREN", WHATEVER)
@@ -67,4 +67,6 @@ def test_parens_comment():
     assert match_tok(toks[3], "STRING", "foo bar")
     assert match_tok(toks[4], "SYMBOL", 'true')
     assert match_tok(toks[5], "SYMBOL", 'nil')
-    assert match_tok(toks[6], "RPAREN", WHATEVER)
+    assert match_tok(toks[6], "LSQBRACKET", WHATEVER)
+    assert match_tok(toks[7], "RSQBRACKET", WHATEVER)
+    assert match_tok(toks[8], "RPAREN", WHATEVER)

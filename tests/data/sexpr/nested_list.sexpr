@@ -1,2 +1,2 @@
 ;;; -*- coding: utf-8; mode: lisp; -*-
-(foo (bar ("spam" "eggs") 42) true)
+(foo (bar ["spam" "eggs"] 42) true)
