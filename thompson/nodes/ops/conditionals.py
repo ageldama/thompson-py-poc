@@ -121,6 +121,9 @@ class CaseElse(ExprNode):
         self.case_items = case_items
         self.else_clause = else_clause
 
+    def __repr__(self) -> str:
+        return str(self)
+    
     def __str__(self) -> str:
         return "CaseElse[v={}, cases={}, else={}]".format(
             str(self.v), to_joined_strs(self.case_items),
@@ -148,6 +151,9 @@ class CondItem(NonExprNode):
                  then_clause: 'Evaluatable') -> None:
         self.cond = cond
         self.then_clause = then_clause
+
+    def __repr__(self) -> str:
+        return str(self)
 
     def __str__(self) -> str:
         return "CondItem[cond={}, then={}]".format(str(self.cond),
