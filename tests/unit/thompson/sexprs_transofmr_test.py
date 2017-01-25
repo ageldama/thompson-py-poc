@@ -98,13 +98,13 @@ def test_forms_with_list_param(forms_with_list_param):
                   IsNull(BindingRef('foo'))),
                  ([Atom('not-null?'), Atom('foo')],
                   IsNotNull(BindingRef('foo'))),
-                 ([Atom('set'), 'foo', Atom('bar')],
+                 ([Atom('set'), Atom('foo'), Atom('bar')],
                   Assign(StringVal('foo'), BindingRef('bar'))),
-                 ([Atom('set^'), 'foo', Atom('bar')],
+                 ([Atom('set^'), Atom('foo'), Atom('bar')],
                   AssignUpvar(StringVal('foo'), BindingRef('bar'))),
-                 ([Atom('set/'), 'foo', Atom('bar')],
+                 ([Atom('set/'), Atom('foo'), Atom('bar')],
                   AssignGlobal(StringVal('foo'), BindingRef('bar'))),
-                 ([Atom('const'), 'foo', Atom('bar')],
+                 ([Atom('const'), Atom('foo'), Atom('bar')],
                   Const(StringVal('foo'), BindingRef('bar'))),
                  ([Atom('fncall'), Atom('inc'), [Atom('='), Atom('bar')]],
                   Funcall(BindingRef('inc'), [BindingRef('bar')])),
@@ -112,7 +112,7 @@ def test_forms_with_list_param(forms_with_list_param):
                   IfThenElse(Equal([BindingRef('x'), NumberVal(42)]),
                              Pass())),
                  ([Atom('if'), [Atom('eq?'), Atom('x'), 42],
-                   [Atom('pass')], [Atom('set'), 'foo', 'bar']],
+                   [Atom('pass')], [Atom('set'), Atom('foo'), 'bar']],
                   IfThenElse(Equal([BindingRef('x'), NumberVal(42)]),
                              Pass(),
                              Assign(StringVal('foo'), StringVal('bar')))),
@@ -140,8 +140,8 @@ def test_special_forms():
     assert to_st([Atom('let'), [], [Atom('pass')]]) == \
         Let([], Pass())
     # let + {const, assign}
-    let_sexpr = [Atom('let'), [[Atom('const'), 'pi', 3.14],
-                               [Atom('set'), 'x', 42]], [Atom('pass')]]
+    let_sexpr = [Atom('let'), [[Atom('const'), Atom('pi'), 3.14],
+                               [Atom('set'), Atom('x'), 42]], [Atom('pass')]]
     let_st = Let([Const(StringVal('pi'), NumberVal(3.14)),
                   Assign(StringVal('x'), NumberVal(42))], Pass())
     assert to_st(let_sexpr) == let_st
