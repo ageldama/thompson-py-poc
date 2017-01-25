@@ -1,5 +1,6 @@
 ;; -*- mode: utf-8; coding: lisp; -*-
 (let ((set "inc1" (fn (x) (+ 1 x)))
       (set "sq" (fn (x) (* x x)))
-      (set "compose" (fn (g f) (fn (x) (g (f x))))))
+      (set "compose" (fn (g f) (fn (x) (g (f x)))))
+      (set "g.f" (compose sq inc1)))
   (g.f 2))

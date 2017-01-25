@@ -206,6 +206,8 @@ def test_compose_fn_sexpr(test_data_path):
                                                    FunctionParamVal('f')],
                                                   FunctionVal([FunctionParamVal('x')],  # noqa: E501
                                                               Funcall(BindingRef('g'),  # noqa: E501
-                                                                      [Funcall(BindingRef('f'), [BindingRef('x')])]))))],  # noqa: E501
+                                                                      [Funcall(BindingRef('f'), [BindingRef('x')])])))),  # noqa: E501
+         Assign(StringVal('g.f'), Funcall(BindingRef('compose'),
+                                          [BindingRef('sq'), BindingRef('inc1')]))],  # noqa: E501
         Funcall(BindingRef('g.f'), [NumberVal(2)]))
     assert st == expect
